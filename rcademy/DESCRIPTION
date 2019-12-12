@@ -9,5 +9,7 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: What license it uses
+Depends: readr, dplyr
+Remotes: matthewjdenny/REmail
 Encoding: UTF-8
 LazyData: true
