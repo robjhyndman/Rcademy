@@ -14,7 +14,18 @@ Authors@R: c(
            email = "belinda.fabian",
            comment = c(ORCID = "0000-0002-5707-4356")))
 License: GPL-3
-Imports: readr, dplyr
+Imports:
+  dplyr,
+  easyPubMed,
+  magrittr,
+  purrr,
+  rcrossref,
+  readr,
+  RefManageR,
+  rorcid,
+  scholar,
+  stringr,
+  tibble
 Remotes: matthewjdenny/REmail
 Encoding: UTF-8
 LazyData: true
