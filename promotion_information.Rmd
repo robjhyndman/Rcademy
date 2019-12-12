@@ -14,3 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Engagement
 
 ## Leadership
+- University committee (e.g. department, faculty, university-level) - list how many events/meetings you have in a year
+- Board membership - list position, length of service
+- Conference organisation - list your role (e.g. scientific committee, symposium chair), scale of conference (e.g number of attendees, funding, international/local)
+- Leading projects and initiatives (e.g. sustainability, diversity inclusion initiatives)
+- Event organisation (e.g. writing retreat)
+- Training events (e.g. university management course) - list the course, completion date
+- Leadership roles in external professional or industry associations
+- Mentoring - list how many mentees you have, length of relationship, where they are working now
