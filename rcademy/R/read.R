@@ -24,8 +24,14 @@ read_pubmed <- function(query) {
     crossref_table()
 }
 
-read_scholar <- function(id) {
-
+read_scholar <- function(user) {
+  df <- gcite::gcite_user_info(user = user, secure = FALSE)$paper_df
+  colnames(df)[2] <- "date"
+  df %>%
+    mutate(
+      year = lubridate::year(anytime::anydate(date))
+    ) %>%
+    as_tibble()
 }
 
 # Tests
@@ -33,4 +39,5 @@ test1 <- read_bib("data-raw/rjhpubs.bib")
 #test2 <- read_orcid("0000-0002-2140-5352")
 test2 <- read_orcid("0000-0002-9341-7985")
 test3 <- read_pubmed("Rob Hyndman[AU] OR RJ Hyndman[AU]")
+test4 <- read_scholar("uERvKpYAAAAJ")
 
