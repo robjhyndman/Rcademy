@@ -37,6 +37,7 @@ mypubs <- read_pubmed("Rob Hyndman")
 mypubs <- read_scholar("vamErfkAAAAJ")
 mypubs <- read_orcid("0000-0002-9341-7985")
 }
+
 }
 \author{
 Rob J Hyndman
