@@ -3,6 +3,11 @@
 # Some code borrowed from Adrian Barnett. https://github.com/agbarnett/helping.funders
 # Rewritten December 2019 by Rob Hyndman
 
+#' @importFrom rcrossref cr_works
+#' @importFrom purrr pmap_dfr
+#' @importFrom stringr str_detect str_split
+#' @importFrom tibble tibble
+#' @importFrom dplyr mutate filter arrange
 # Get nicely formatted data for papers with a DOIs using crossref
 crossref_table <- function(dois) {
   cdata.nonbibtex <- cr_works(dois)$data

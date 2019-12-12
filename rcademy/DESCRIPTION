@@ -9,7 +9,18 @@ Authors@R: c(
            email = "Rob.Hyndman@monash.edu",
            comment = c(ORCID = "0000-0002-2140-5352")))
 License: GPL-3
-Imports: readr, dplyr
+Imports:
+  dplyr,
+  easyPubMed,
+  magrittr,
+  purrr,
+  rcrossref,
+  readr,
+  RefManageR,
+  rorcid,
+  scholar,
+  stringr,
+  tibble
 Remotes: matthewjdenny/REmail
 Encoding: UTF-8
 LazyData: true

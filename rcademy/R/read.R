@@ -1,3 +1,12 @@
+#' @importFrom RefManageR ReadBib
+#' @importFrom easyPubMed get_pubmed_ids fetch_pubmed_data table_articles_byAuth
+#' @importFrom stringr str_remove_all str_replace_all str_trim
+#' @importFrom scholar get_publications
+#' @importFrom rorcid works orcid_id identifiers
+#' @importFrom tibble as_tibble
+#' @importFrom magrittr `%>%`
+#'
+NULL
 #' Read bibliographies
 #'
 #' Create tables of publications from bib files, or from PubMed, Orcid or Google Scholar
