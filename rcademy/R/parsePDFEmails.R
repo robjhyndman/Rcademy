@@ -1,6 +1,6 @@
 
 
-parsePDFEmails <- function(folder, writePath) {
+parsePDFEmails <- function(folder) {
   # Get all the files on the folder
   fileList <- list.files(path = folder, recursive = FALSE)
 
@@ -60,6 +60,6 @@ parsePDFEmails <- function(folder, writePath) {
   df <- df %>% dplyr::filter_all(dplyr::any_vars(complete.cases(.))) 
   
   # Write the file
-  saveRDS(df, paste0(writePath, "/emailsDump.rds"))
+  saveRDS(df, paste0(folder, "/emailsDump.rds"))
   return(df)
 }
