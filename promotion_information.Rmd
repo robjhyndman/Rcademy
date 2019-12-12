@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Contributors: Belinda Fabian & Ly Tong
 
-This section includes suggestions for engagement activities that could be included in academic promotion applications. The examples are indicative only and do not provide a list of expectations. Engagement is interpreted in a broad sense to include discipline, industry, government and community engagement. 
+This section includes suggestions for engagement activities that could be included in academic promotion applications. These examples are indicative only and do not provide a list of expectations. Engagement is interpreted in a broad sense to include discipline, industry, government and community engagement. 
 
 Engagement with industry
 - Partnerships with organisations: for profit, not-for-profit, volunteering
