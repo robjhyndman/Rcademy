@@ -8,6 +8,11 @@ Authors@R: c(
            role = c("aut", "cre"),
            email = "Rob.Hyndman@monash.edu",
            comment = c(ORCID = "0000-0002-2140-5352")),
+    person(given = "Melina",
+           family = "Vidoni",
+           role = c("aut", "cre"),
+           email = "melina.vidoni@rmit.edu.au",
+           comment = c(ORCID = "0000-0002-4099-1430")),
     person(given = "Belinda",
            family = "Fabian",
            role = c("aut", "cre"),
@@ -26,7 +31,6 @@ Imports:
   scholar,
   stringr,
   tibble
-Remotes: matthewjdenny/REmail
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
