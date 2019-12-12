@@ -1,10 +1,27 @@
-# Functions to read bibliographies
+#' Read bibliographies
+#'
+#' Create tables of publications from bib files, or from PubMed, Orcid or Google Scholar
 
+#' @param filename The filename of a bib file (i.e., in BibTeX format)
+#'
+#' @return A tibble containing one row per publication. Columns include title, authors, year, journal, etc.
+#'
+#' @export
+#'
+#' @author Rob J Hyndman
+#' @examples
+#'
+#' \dontrun{
+#'
+#' mypubs <- read_bib("mypubs.bib")
+#' mypubs <- read_pubmed("Rob Hyndman")
+#' mypubs <- read_scholar("vamErfkAAAAJ")
+#' mypubs <- read_orcid("0000-0002-9341-7985")
+#' }
 
-
-read_bib <- function(filename, check = FALSE) {
+read_bib <- function(filename) {
   filename %>%
-    RefManageR::ReadBib(check = check) %>%
+    RefManageR::ReadBib(check = FALSE) %>%
     as_tibble() %>%
     mutate(
       title = stringr::str_remove_all(title, "[{}]"),
@@ -12,6 +29,11 @@ read_bib <- function(filename, check = FALSE) {
       journal = stringr::str_replace_all(journal, "\\\\&", "and")
     )
 }
+
+#' @export
+#' @rdname read_bib
+#' @param query A character string containing a search query to pass to PubMed
+#'
 
 read_pubmed <- function(query) {
   query %>%
@@ -38,16 +60,36 @@ read_pubmed <- function(query) {
 #     as_tibble()
 # }
 
-read_scholar <- function(user) {
-  scholar::get_publications("GqZm90IAAAAJ") %>%
+
+#' @export
+#' @rdname read_bib
+#' @param id A character string specifying the Google Scholar ID or Orcid ID
+
+read_scholar <- function(id) {
+  scholar::get_publications(id) %>%
     dplyr::mutate(
       author = author %>% as.character() %>% stringr::str_trim(),
     )
 }
 
-# Tests
-test1 <- read_bib("data-raw/rjhpubs.bib")
-# test2 <- read_orcid("0000-0002-2140-5352")
-test2 <- read_orcid("0000-0002-9341-7985")
-test3 <- read_pubmed("Rob Hyndman[AU] OR RJ Hyndman[AU]")
-test4 <- read_scholar("uERvKpYAAAAJ")
+#' @export
+#' @rdname read_bib
+
+read_orcid <- function(id) {
+
+  # Read works from orcid and store as a tibble
+  d <- works(orcid_id(orcid = id))
+  if (nrow(d) == 0) {
+    return(d)
+  }
+
+  # Get DOIs
+  dois <- identifiers(d, type = "doi") # get DOIs, not available for all papers
+  dois <- unique(tolower(dois))
+  #  dois <- dois[duplicated(tolower(dois)) == FALSE] # remove duplicates
+  dois <- remove_f1000_dois(dois)
+
+  crossref_table(dois)
+}
+
+

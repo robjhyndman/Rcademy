@@ -4,23 +4,6 @@
 # Original code borrowed from Adrian Barnett. https://github.com/agbarnett/helping.funders
 # Rewritten December 2019 by Rob Hyndman
 
-read_orcid <- function(orcid.id) {
-
-  # Read works from orcid and store as a tibble
-  d <- works(orcid_id(orcid = orcid.id))
-  if (nrow(d) == 0) {
-    return(d)
-  }
-
-  # Get DOIs
-  dois <- identifiers(d, type = "doi") # get DOIs, not available for all papers
-  dois <- unique(tolower(dois))
-#  dois <- dois[duplicated(tolower(dois)) == FALSE] # remove duplicates
-  dois <- remove_f1000_dois(dois)
-
-  crossref_table(dois)
-}
-
 # Get nicely formatted data for papers with a DOIs using crossref
 crossref_table <- function(dois) {
   cdata.nonbibtex <- cr_works(dois)$data
