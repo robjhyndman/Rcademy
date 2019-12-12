@@ -84,10 +84,11 @@ storeStudents <- function(firstName, familyName, degreeType,
   }
   
   
-  # Remove the empty rows
-  csv <- csv %>% filter_all(any_vars(complete.cases(.)))  
-  write.csv(csv, file, row.names = FALSE)
   
+  # Remove the empty rows
+  csv <- csv %>% filter_all(any_vars(complete.cases(.))) 
+  # Write the file
+  write.csv(csv, file, row.names = FALSE)
   
   return(csv)
 }
