@@ -1,7 +1,6 @@
 # orcid.R
-# Take ORCID ID and make a list of papers
-# use rcrossref to get better formatted data
-# Original code borrowed from Adrian Barnett. https://github.com/agbarnett/helping.funders
+# Helper functions to improve tables of papers
+# Some code borrowed from Adrian Barnett. https://github.com/agbarnett/helping.funders
 # Rewritten December 2019 by Rob Hyndman
 
 # Get nicely formatted data for papers with a DOIs using crossref
