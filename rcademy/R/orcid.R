@@ -1,86 +1,19 @@
 # orcid.R
 # Take ORCID ID and make a list of papers
 # use rcrossref to get better formatted data
-# Borrowed from Adrian Barnett. https://github.com/agbarnett/helping.funders
+# Original code borrowed from Adrian Barnett. https://github.com/agbarnett/helping.funders
 # Updated December 2019 by Rob Hyndman
 
-# set token as an environmental variable (March 2018)
-# x <- "07073399-4dcc-47b3-a0a8-925327224519"
-# Sys.setenv(ORCID_TOKEN=x)
-
-## Test IDs
-# orcid.id = '0000-0003-1602-4544'
-# orcid.id = '0000-0001-8369-1238' # Suzanne
-# orcid.id = '0000-0003-0152-4394' # Richard
-# orcid.id = '0000-0002-7129-0039' # Sue
-# orcid.id = '0000-0003-2434-4206' # David Moher
-# orcid.id ='0000-0002-2358-2440' # ginny
-# orcid.id ='0000-0001-6339-0374' # me
-# orcid.id = '0000-0002-5559-3267' # nick
-# orcid.id='0000-0001-7733-287X'
-# orcid.id = '0000-0002-5808-4249' #Jenny
-# orcid.id='0000-0001-7564-073X' # Paul
-# orcid.id='0000-0003-3637-2423' # Anisa
-# orcid.id='0000-0002-6020-9733' # Lionel
-# orcid.id='0000-0002-0630-3825'
-
-# main function
 read_orcid <- function(orcid.id) {
-  ret <- list() # start with blank output
 
-  # a) select person
-  bio <- orcid_id(orcid = orcid.id, profile = "profile") # get basics
-  name <- paste(
-    bio[[1]]$`name`$`given-names`$value,
-    bio[[1]]$`name`$`family-name`$value
-  )
-  name <- gsub("  ", " ", name) # remove double space
-  name <- gsub(" $", "", name) # remove trailing space
-
-  # b) select works
-  d <- works(orcid_id(orcid = orcid.id)) # get works as a tibble
+  # Read works from orcid and store as a tibble
+  d <- works(orcid_id(orcid = orcid.id))
 
   # if no papers then end function here
   if (nrow(d) == 0) {
-    ret$name <- name
-    ret$papers <- NULL
-    ret$authors <- NULL
-    return(ret)
+    return(d)
   }
 
-  # hide all this in a dummy function for now, as it's not used
-  use.ids <- function() {
-    ids <- NULL
-    for (k in 1:nrow(d)) {
-      this <- d[k, ]$`external-ids.external-id`[[1]]
-      if (is.null(this) == F & length(this) > 0) {
-        # First get doi
-        this.id <- subset(this, `external-id-type` == "doi")
-        if (nrow(this.id) == 1) {
-          this.frame <- data.frame(type = "doi", id = this.id$`external-id-value`)
-        }
-        if (nrow(this.id) == 0) {
-          this.id <- subset(this, `external-id-type` == "pmid")
-          if (nrow(this.id) == 1) {
-            this.frame <- data.frame(type = "pmid", id = this.id$`external-id-value`)
-          }
-        }
-        if (nrow(this.id) == 0) {
-          # cat('No doi,',k,'\n')
-          this.frame <- NULL
-        }
-        # concatenate
-        ids <- rbind(ids, this.frame)
-      }
-    }
-  } # end of dummy use.ids function
-
-  # unlist(plyr::llply(d$`external-ids.external-id`, function(x){`external-id-value`}))
-
-  # may need to revert to a loop
-  # for (k in 1:nrow(d)){
-  #  unlist(plyr::llply(aff, function(x){x$'affilname'})
-  # }
   dois <- identifiers(d, type = "doi") # get DOIs, not available for all papers
   dois <- dois[duplicated(tolower(dois)) == FALSE] # remove duplicates
   # eids = identifiers(d, type='eid') # get Scopus IDs, not available for all papers
@@ -181,13 +114,13 @@ read_orcid <- function(orcid.id) {
       issue <- cdata.nonbibtex$issue[k]
       pages <- cdata.nonbibtex$page[k]
       # doi
-      DOI <- cdata.nonbibtex$DOI[k]
+      DOI <- cdata.nonbibtex$doi[k]
       # OA
       OA <- cdata.nonbibtex$OA[k]
       # type
       type <- cdata.nonbibtex$type[k]
       # put it all together
-      frame <- data.frame(Journal = journal, Title = title, Year = year, Volume = volume, Issue = issue, Pages = pages, Type = type, DOI = DOI, OA = OA)
+      frame <- tibble(Journal = journal, Title = title, Year = year, Volume = volume, Issue = issue, Pages = pages, Type = type, DOI = DOI, OA = OA)
       papers <- rbind(papers, frame)
     }
   }
@@ -295,30 +228,9 @@ read_orcid <- function(orcid.id) {
   if (class(papers$Pages) == "factor") {
     papers$Pages <- as.character(papers$Pages)
   }
-  if (class(papers$DOI) == "factor") {
-    papers$DOI <- as.character(papers$DOI)
+  if (class(papers$doi) == "factor") {
+    papers$doi <- as.character(papers$doi)
   }
 
-  ## need to remove/change special characters like: … and -- from title
-
-  # replace NAs is authors with ''
-  authors[is.na(authors) == T] <- ""
-
-  # give a consistent number of columns to author matrix
-  blank <- matrix("", nrow = nrow(authors), ncol = 50) # 50 authors max
-  if (ncol(authors) > 50) {
-    authors <- authors[, 1:50]
-  } # truncate at 50 if over 50 authors on a paper
-  blank[, 1:ncol(authors)] <- authors
-  authors <- blank
-
-  # return
-  ret$name <- name
-  ret$papers <- papers
-  ret$oa.warning <- oa.warning
-  ret$authors <- authors # separate matrix so that authors can be selected
-  ret$author.order <- author.order
-
-  # return
-  return(ret)
+  return(papers)
 }
