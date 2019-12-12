@@ -1,3 +1,31 @@
+#' Students parser function
+#' 
+#' @description This function will allow you to add your students (HDRs, Honours), as well as their basic information. The result will be stored in a CSV file. If it doesn't exist, this creates the file. When you create a new student you need all arguments, but you can edit it with only first name, family name, and the ones you need to change.
+#'
+#' @param firstName The first name of the student.
+#' @param familyName The student's surname or family name.
+#' @param degreeType The type of degree: PhD, Master, Honours, and so on.
+#' @param degreeName The name of the degree.
+#' @param institution The institution where the student is working.
+#' @param startDate The start date of the degree.
+#' @param endDate End date. If it is not completed, a "Expected" will be added before it.
+#' @param completed False if the student hasn't completed the degree.
+#' @param thesisTitle The name of the thesis.
+#' @param mainSupervisor The main supervisor. If there are several, they should be split by comma.
+#' @param adjuctSupervisors Other supervisors, split by comma.
+#' @param csvFilePath The path to where the file is stored.
+#' @param csvFileName The name of the file, with csv extension.
+#'
+#' @return The in-memory object of the CSV file, with all the students and the updates/adds performed.
+#' @export
+#'
+#' @examples
+#' # To add a new student
+#' storeStudents("Jane", "Shepard", "Honours", "Computer Science", "Normandy SR1", "March/2020", "November/2020", FALSE, "Fight the Reapers", "Dr Somebody", "Dr Another Person", "Path/To/Folder", "fileName.csv")
+#' 
+#' # Otherwise, update them
+#' storeStudents("Jane", "Shepard", completed = TRUE, csvFilePath = "Path/To/Folder", csvFileName = "fileName.csv")
+#' 
 storeStudents <- function(firstName, familyName, degreeType, 
                           degreeName, institution, startDate, 
                           endDate, completed = FALSE, thesisTitle, 

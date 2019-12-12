@@ -24,7 +24,13 @@ The teaching section will allow you to collect the following data:
 - HDRs and Honours students and completions
 
 ### Email gathering
-First, you'll need to download the PDF file of every email you think is relevant, and keep it in a folder. Then, you can do the following to obtain a CSV file with the parsed data:
+First, you'll need to download the PDF file of every email you think is relevant, and keep it in a folder.
+
+Then, use the following to parse all emails and obtain a RDS file in the same directory. The function will also return you the file in-memory.
+
+```{r eval=FALSE, include=FALSE}
+emails <- parsePDFEmails("Some/Folder/Path/Here")
+```
 
 
 

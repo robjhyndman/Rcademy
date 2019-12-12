@@ -1,5 +1,21 @@
 
 
+#' Parsing PDF Emails
+#' 
+#' @description This function parses your emails stored as PDFs files in a folder
+#' and produces an RDS file in the same directory. It contains a dataframe with
+#' from, to, daet, subject and content fields.
+#' Note: some emails if "saved as PDFs" may not be parsed correctly.
+#'
+#' @param folder The path to the folder where all emails are.
+#'
+#' @return The parsed dataframe in-memory
+#' @export
+#'
+#' @examples
+#' emails <- parsePDFEmails("Some/Folder/Path/Here")
+#' 
+#' 
 parsePDFEmails <- function(folder) {
   # Get all the files on the folder
   fileList <- list.files(path = folder, recursive = FALSE)
