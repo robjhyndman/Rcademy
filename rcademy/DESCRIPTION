@@ -13,3 +13,5 @@ Depends: readr, dplyr
 Remotes: matthewjdenny/REmail
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
