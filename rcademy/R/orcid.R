@@ -18,22 +18,27 @@ read_orcid <- function(orcid.id) {
 #  dois <- dois[duplicated(tolower(dois)) == FALSE] # remove duplicates
   dois <- remove_f1000_dois(dois)
 
-  # Get nicely formatted data for papers with a DOIs using crossref
+  crossref_table(dois)
+}
+
+# Get nicely formatted data for papers with a DOIs using crossref
+crossref_table <- function(dois) {
   cdata.nonbibtex <- cr_works(dois)$data
+  colnames(cdata.nonbibtex) <- tolower(colnames(cdata.nonbibtex))
 
   # Format papers
   papers <- cdata.nonbibtex %>%
     select(issued, created, container.title,
-           publisher, title, volume, issue, page, doi, OA, type) %>%
+           publisher, title, volume, issue, page, doi, type) %>%
     purrr::pmap_dfr(format_paper) %>%
     mutate(
-      Title = as.character(Title),
-      Journal = as.character(Journal),
-      Year = as.numeric(as.character(Year)),
-      Volume = as.character(Volume),
-      Issue = as.character(Issue),
-      Pages = as.character(Pages),
-      DOI = as.character(DOI)
+      title = as.character(title),
+      journal = as.character(journal),
+      year = as.numeric(as.character(year)),
+      volume = as.character(volume),
+      issue = as.character(issue),
+      pages = as.character(pages),
+      doi = as.character(doi)
     )
 
   return(papers)
@@ -63,7 +68,7 @@ remove_f1000_dois <- function(dois) {
 }
 
 format_paper <- function(issued, created, container.title,
-                         publisher, title, volume, issue, page, doi, OA, type) {
+                         publisher, title, volume, issue, page, doi, type) {
       # year
       idates <- issued
       if(is.na(idates))
@@ -73,12 +78,12 @@ format_paper <- function(issued, created, container.title,
       idates[dlengths == 7] <- paste(idates[dlengths == 7], "-01", sep = "")
       year <- format(as.Date(idates), "%Y")
       # journal
-      journal <- title
+      journal <- container.title
       # Identify bioRxiv (couldn't find another way, needs updating)
       if (is.na(journal) & publisher == "Cold Spring Harbor Laboratory")
         journal <- "bioRxiv"
 
-      tibble(Journal = journal, Title = title, Year = year, Volume = volume, Issue = issue, Pages = pages, Type = type, DOI = DOI, OA = OA)
+      tibble(journal = journal, title = title, year = year, volume = volume, issue = issue, pages = pages, type = type, doi = doi)
 }
 
 
