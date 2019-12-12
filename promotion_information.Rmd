@@ -7,8 +7,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Current level of appointment:
+The level applying for:
 
+Performance expectations (as defined by your university):
 
+Evidence requirements:
 
 ## Research
 
