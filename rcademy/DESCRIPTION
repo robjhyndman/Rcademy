@@ -12,9 +12,25 @@ Authors@R: c(
            family = "Vidoni",
            role = c("aut", "cre"),
            email = "melina.vidoni@rmit.edu.au",
-           comment = c(ORCID = "0000-0002-4099-1430")))
+           comment = c(ORCID = "0000-0002-4099-1430")),
+    person(given = "Belinda",
+           family = "Fabian",
+           role = c("aut", "cre"),
+           email = "belinda.fabian",
+           comment = c(ORCID = "0000-0002-5707-4356")))
 License: GPL-3
-Imports: readr, dplyr, stringr
+Imports:
+  dplyr,
+  easyPubMed,
+  magrittr,
+  purrr,
+  rcrossref,
+  readr,
+  RefManageR,
+  rorcid,
+  scholar,
+  stringr,
+  tibble
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
