@@ -5,9 +5,11 @@ This package was developed during _ozunconf19_, to provide functions that will h
 
 ## Research
 
-Contributors: Rob Hyndman, Maria Prokofiave and Chris Brown
+Contributors: Rob Hyndman, Maria Prokofiave, Chris Brown and Belinda Fabian
 
-For research, you will need a list of publications, the number of citations, and the ranking of journals. First, you can read your information from various sources, either a bib file, or from an online list such as PubMed, Google Scholar or Orcid. Normally you would only need to use one of these.
+For research, you will need a list of publications, the number of citations, and the ranking of journals. 
+
+First, you can read your information from various sources, either a bib file, or from an online list such as PubMed, Google Scholar or Orcid. Normally you would only need to use one of these.
 
 ```{r}
 mypubs <- read_bib("mypubs.bib")
@@ -35,6 +37,12 @@ mypubs <- mypubs %>%
 
 Then you can create a table of the number of papers under each ranking system. For example ..
 
+
+Once you have your list of publications, it can be compared against the information available on Google Scholar to obtain the citations for each output. As the fuzzy matching on paper title and year is not always accurate, all of the matched and unmatched papers are included in the output for further manual curation. 
+
+```{r}
+matchedPubs <- matchCitations(mypubs, "EUdX6oIAAAAJ")
+```
 
 
 ## Teaching
@@ -137,6 +145,7 @@ This section includes suggestions for engagement activities that could be includ
 - Peer review _(It should go into the research section)_. This can include: journal article review, ARC college of experts, grant review panels.
 
 ## Leadership
+
 Contributors: Belinda Fabian and Huong Ly Tong
 
 This section includes examples of leadership activities in academic promotion applications.
