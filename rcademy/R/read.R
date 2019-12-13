@@ -32,11 +32,13 @@ NULL
 
 read_bib <- function(filename) {
   df <- RefManageR::ReadBib(filename, check = FALSE)
-  df <- dplyr::mutate(df,
+  df <- as_tibble(df)
+  dplyr::mutate(df,
       title = stringr::str_remove_all(df$title, "[{}]"),
-      title = stringr::str_replace_all(df$title, "\\&", "and"),
-      journal = stringr::str_replace_all(df$journal, "\\\\&", "and")
-    )
+      title = stringr::str_replace_all(df$title, "\\\\&", "and"),
+      journal = stringr::str_replace_all(df$journal, "\\\\&", "and"),
+      journal = stringr::str_replace_all(df$journal, "\\\\$", "$")
+  )
 }
 
 #' @rdname read_bib
@@ -94,4 +96,20 @@ read_orcid <- function(id) {
   dois <- remove_f1000_dois(dois)
 
   dois_to_papers(dois)
+}
+
+
+
+
+#' @export
+#' @rdname read_altmetrics
+#' @param doi_list A list of DOI strings for which to return a tibble of Altmetrics
+
+# Get tibble of all altemtric
+read_altmetrics <- function(doi_list) {
+
+  alm <- function(x)  rAltmetric::altmetrics(doi = doi_list) %>% altmetric_data()
+  results <- broom::pmap(ids, alm)
+  tidyr::unnest(tibble(results),cols=c(results))
+
 }

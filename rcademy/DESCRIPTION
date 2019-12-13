@@ -5,19 +5,24 @@ Version: 0.0.0.9000
 Authors@R: c(
     person(given = "Rob",
            family = "Hyndman",
-           role = c("aut", "cre"),
+           role = c("aut","cre"),
            email = "Rob.Hyndman@monash.edu",
            comment = c(ORCID = "0000-0002-2140-5352")),
     person(given = "Melina",
            family = "Vidoni",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "melina.vidoni@rmit.edu.au",
            comment = c(ORCID = "0000-0002-4099-1430")),
     person(given = "Belinda",
            family = "Fabian",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "belinda.fabian",
-           comment = c(ORCID = "0000-0002-5707-4356")))
+           comment = c(ORCID = "0000-0002-5707-4356")),
+    person(given = "Huong Ly",
+          family = "Tong",
+          role = c("aut"),
+          email = "huong-ly.tong@students.mq.edu.au",
+          comment = c(ORCID = "0000-0002-8462-0105")))
 License: GPL-3
 Imports:
   dplyr,
@@ -30,7 +35,8 @@ Imports:
   rorcid,
   scholar,
   stringr,
-  tibble
+  tibble,
+  rAltmetric
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
