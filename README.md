@@ -44,6 +44,7 @@ Then you can create a table of the number of papers under each ranking system. F
 Once you have your list of publications, it can be compared against the information available on Google Scholar to obtain the citations for each output. As the fuzzy matching on paper title and year is not always accurate, all of the matched and unmatched papers are included in the output for further manual curation. 
 
 ```{r}
+mypubs <- read_pubmed("HUONG LY TONG")
 matchedPubs <- matchCitations(mypubs, "EUdX6oIAAAAJ")
 ```
 
