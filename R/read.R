@@ -22,9 +22,9 @@ NULL
 #' \dontrun{
 #'
 #' mypubs <- read_bib("mypubs.bib")
-#' mypubs <- read_pubmed("Rob Hyndman")
-#' mypubs <- read_scholar("vamErfkAAAAJ")
-#' mypubs <- read_orcid("0000-0002-9341-7985")
+#' mypubs <- read_pubmed("Huang Ly Tong")
+#' mypubs <- read_scholar("EUdX6oIAAAAJ")
+#' mypubs <- read_orcid("0000-0002-8462-0105")
 #' }
 #'
 #' @export
@@ -54,7 +54,10 @@ read_pubmed <- function(query) {
       max_chars = 0,
       autofill = FALSE
     )
-  dois_to_papers(unique(df$doi))
+  dois <- unique(tolower(df$doi))
+  dois <- dois[dois != ""]
+
+  dois_to_papers(dois)
 }
 
 # read_scholar <- function(user) {
@@ -93,12 +96,10 @@ read_orcid <- function(id) {
   dois <- unique(tolower(dois))
   #  dois <- dois[duplicated(tolower(dois)) == FALSE] # remove duplicates
   dois <- remove_f1000_dois(dois)
+  dois <- dois[dois != ""]
 
   dois_to_papers(dois)
 }
-
-
-
 
 #' @export
 #' @rdname read_altmetrics
