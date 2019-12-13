@@ -35,9 +35,8 @@ read_bib <- function(filename) {
   df <- as_tibble(df)
   dplyr::mutate(df,
       title = stringr::str_remove_all(df$title, "[{}]"),
-      title = stringr::str_replace_all(df$title, "\\\\&", "and"),
-      journal = stringr::str_replace_all(df$journal, "\\\\&", "and"),
-      journal = stringr::str_replace_all(df$journal, "\\\\$", "$")
+      title = stringr::str_replace_all(df$title, "\\\\", ""),
+      journal = stringr::str_replace_all(df$journal, "\\\\", "")
   )
 }
 
