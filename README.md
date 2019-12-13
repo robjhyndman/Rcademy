@@ -2,6 +2,13 @@
 
 This package was developed during _ozunconf19_, to provide functions that will help gather the information required to apply for _academic promotion_. Though this is quite general, it is mostly focused in Australian requisites.
 
+## Installation
+You can install the development version from GitHub with:
+
+```{r}
+# install.packages("devtools")
+devtools::install_github("ropenscilabs/Rcademy")
+```
 
 ## Research
 
