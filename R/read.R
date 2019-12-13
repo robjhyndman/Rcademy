@@ -4,6 +4,7 @@
 #' @importFrom scholar get_publications
 #' @importFrom rorcid works orcid_id identifiers
 #' @importFrom tibble as_tibble
+#' @importFrom tidyr unnest
 #' @importFrom magrittr `%>%`
 #'
 NULL
