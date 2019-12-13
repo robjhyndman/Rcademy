@@ -97,3 +97,17 @@ read_orcid <- function(id) {
 
   dois_to_papers(dois)
 }
+
+
+
+
+#' @export
+#' @rdname read_altmetrics
+
+# Get tibble of all altemtric
+read_altmetrics <- function(doi_list) {
+
+  alm <- function(x)  rAltmetric::altmetrics(doi = doi_list) %>% altmetric_data()
+  broom::pmap(ids, alm)
+
+}
