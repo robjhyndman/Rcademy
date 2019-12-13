@@ -80,7 +80,7 @@ In both cases, the function will return the file in-memory, if you want to furth
 
 ## Engagement
 
-Contributors: Belinda Fabian and Ly Tong
+Contributors: Belinda Fabian and Huong Ly Tong
 
 This section includes suggestions for engagement activities that could be included in academic promotion applications. These examples are indicative only and do not provide a list of expectations. Engagement is interpreted in a broad sense to include discipline, industry, government and community engagement.
 
@@ -135,6 +135,10 @@ This section includes suggestions for engagement activities that could be includ
 - Peer review _(It should go into the research section)_. This can include: journal article review, ARC college of experts, grant review panels.
 
 ## Leadership
+Contributors: Belinda Fabian and Huong Ly Tong
+
+This section includes examples of leadership activities in academic promotion applications.
+
 - University committee (e.g. department, faculty, university-level). List how many events/meetings you have in a year.
 - Board membership, and list position, length of service.
 - Conference organisation. List your role (e.g. scientific committee, symposium chair), scale of conference (e.g number of attendees, funding, international/local).
