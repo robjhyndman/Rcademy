@@ -30,7 +30,8 @@ Imports:
   rorcid,
   scholar,
   stringr,
-  tibble
+  tibble,
+  rAltmetric
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
