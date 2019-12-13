@@ -33,9 +33,9 @@ Create tables of publications from bib files, or from PubMed, Orcid or Google Sc
 \dontrun{
 
 mypubs <- read_bib("mypubs.bib")
-mypubs <- read_pubmed("Rob Hyndman")
-mypubs <- read_scholar("vamErfkAAAAJ")
-mypubs <- read_orcid("0000-0002-9341-7985")
+mypubs <- read_pubmed("Huang Ly Tong")
+mypubs <- read_scholar("EUdX6oIAAAAJ")
+mypubs <- read_orcid("0000-0002-8462-0105")
 }
 
 }
