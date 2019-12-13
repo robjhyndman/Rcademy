@@ -5,12 +5,12 @@ Version: 0.0.0.9000
 Authors@R: c(
     person(given = "Rob",
            family = "Hyndman",
-           role = c("aut", "cre"),
+           role = c("aut","cre"),
            email = "Rob.Hyndman@monash.edu",
            comment = c(ORCID = "0000-0002-2140-5352")),
     person(given = "Belinda",
            family = "Fabian",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "belinda.fabian",
            comment = c(ORCID = "0000-0002-5707-4356")))
 License: GPL-3

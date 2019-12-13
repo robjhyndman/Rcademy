@@ -32,11 +32,13 @@ NULL
 
 read_bib <- function(filename) {
   df <- RefManageR::ReadBib(filename, check = FALSE)
-  df <- dplyr::mutate(df,
+  df <- as_tibble(df)
+  dplyr::mutate(df,
       title = stringr::str_remove_all(df$title, "[{}]"),
-      title = stringr::str_replace_all(df$title, "\\&", "and"),
+      title = stringr::str_replace_all(df$title, "\\\\&", "and"),
       journal = stringr::str_replace_all(df$journal, "\\\\&", "and")
-    )
+      journal = stringr::str_replace_all(df$journal, "\\\\$", "$")
+  )
 }
 
 #' @rdname read_bib
