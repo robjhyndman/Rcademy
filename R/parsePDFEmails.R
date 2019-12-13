@@ -17,9 +17,10 @@
 #' @importFrom dplyr filter_all any_vars
 #'
 #' @examples
+#' \dontrun{
 #' emails <- parsePDFEmails("Some/Folder/Path/Here")
-#' 
-#' 
+#' }
+#'
 parsePDFEmails <- function(folder) {
   # Get all the files on the folder
   fileList <- list.files(path = folder, recursive = FALSE)
