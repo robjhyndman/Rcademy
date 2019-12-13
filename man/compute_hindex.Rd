@@ -16,6 +16,8 @@ numerical value
 Take a numerical vector of citation counts and return the h-index
 }
 \examples{
-compute_hindex(read_scholar("XSyW00YAAAAJ")$cites))
+\dontrun{
+compute_hindex(read_scholar("XSyW00YAAAAJ")$cites)
+}
 
 }

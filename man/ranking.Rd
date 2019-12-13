@@ -9,6 +9,8 @@ ranking(journal, source = c("scimagojr", "abdc", "core"))
 }
 \arguments{
 \item{journal}{A character vector containing journal names.}
+
+\item{source}{Which journal rankings list to use?}
 }
 \value{
 A character vector of the same length as \code{journal} containing rankings.
