@@ -5,6 +5,7 @@
 #' find
 #'
 #' @param journal A character vector containing journal names.
+#' @param source Which journal rankings list to use?
 #'
 #' @return A character vector of the same length as `journal` containing rankings.
 #'

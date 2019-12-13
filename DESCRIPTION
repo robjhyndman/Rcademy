@@ -34,6 +34,7 @@ Authors@R: c(
           email = "Maria.Prokofieva@vu.edu.au",
           comment = c(ORCID = "0000-0003-1974-3827")))
 License: GPL-3
+Depends: R (>= 2.10)
 Imports:
   dplyr,
   easyPubMed,
