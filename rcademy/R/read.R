@@ -108,8 +108,8 @@ read_orcid <- function(id) {
 # Get tibble of all altemtric
 read_altmetrics <- function(doi_list) {
 
-  alm <- function(x)  rAltmetric::altmetrics(doi = doi_list) %>% altmetric_data()
-  results <- broom::pmap(ids, alm)
+  alm <- function(x)  rAltmetric::altmetrics(doi = ids) %>% altmetric_data()
+  results <- purrr::pmap(doi_list, alm)
   tidyr::unnest(tibble(results),cols=c(results))
 
 }
