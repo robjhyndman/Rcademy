@@ -4,8 +4,16 @@
 # read core
 core <- readr::read_csv("CORE.csv", col_names = FALSE)
 core <- core [,c(2, 5)]
+
 # add heading to core
 colnames(core) <- c("journal", "rank")
+
+# remove whitespace
+core$journal <- str_trim(core$journal)
+core$journal <- str_replace_all(core$journal,"\\n","")
+
+# fix row 663 issue
+core$journal[663] = "IFIP International Conference on Network and Parallel Computing"
 
 # read abdc
 abdc <- readxl::read_xlsx("abdc_jql_2019_0612-1.xlsx", col_names = FALSE)
