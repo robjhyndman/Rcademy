@@ -17,7 +17,12 @@ Authors@R: c(
            family = "Fabian",
            role = c("aut"),
            email = "belinda.fabian",
-           comment = c(ORCID = "0000-0002-5707-4356")))
+           comment = c(ORCID = "0000-0002-5707-4356")),
+    person(given = "Huong Ly",
+          family = "Tong",
+          role = c("aut"),
+          email = "huong-ly.tong@students.mq.edu.au",
+          comment = c(ORCID = "0000-0002-8462-0105")))
 License: GPL-3
 Imports:
   dplyr,
