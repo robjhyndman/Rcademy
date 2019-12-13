@@ -22,6 +22,7 @@
 #' matchedPubs <- matchCitations(myPubs, "vamErfkAAAAJ")
 #'}
 #'
+
 matchCitations <- function(mypubs, id){
   scholar <- read_scholar(id)
   joined <- fuzzyjoin::stringdist_full_join(scholar, myPubs, by = c(title = "title", year = "year"), max_dist = 1, distance_col = "distance")
