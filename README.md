@@ -11,13 +11,14 @@ For research, you will need a list of publications, the number of citations, and
 
 ```{r}
 mypubs <- read_bib("mypubs.bib")
-mypubs <- read_pubmed("Rob Hyndman")
-mypubs <- read_scholar("vamErfkAAAAJ")
-mypubs <- read_orcid("0000-0002-9341-7985")
+mypubs <- read_pubmed("Chris Brown")
+mypubs <- read_scholar("XSyW00YAAAAJ")
+mypubs <- read_orcid("0000-0003-2506-4871")
 
 # For this one, you need the list of your DOIs
 # It will give you a tibble with publication data
-aTibble <- read_altmetrics(doiList)
+doi_list <- list(mypubs$doi)
+aTibble <- read_altmetrics(doi_list)
 ```
 
 You can combine your list of publications against the journal rankings. You can choose between ABDC, CORE and SCIMAGOJR. You can use it as follows, and then combine it with a loop.
