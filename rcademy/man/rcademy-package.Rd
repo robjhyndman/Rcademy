@@ -15,6 +15,7 @@ Authors:
 \itemize{
   \item Melina Vidoni \email{melina.vidoni@rmit.edu.au} (\href{https://orcid.org/0000-0002-4099-1430}{ORCID})
   \item Belinda Fabian \email{belinda.fabian} (\href{https://orcid.org/0000-0002-5707-4356}{ORCID})
+  \item Huong Ly Tong \email{huong-ly.tong@students.mq.edu.au} (\href{https://orcid.org/0000-0002-8462-0105}{ORCID})
 }
 
 }
