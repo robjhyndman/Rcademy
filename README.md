@@ -11,12 +11,13 @@ For research, you will need a list of publications, the number of citations, and
 
 ```{r}
 mypubs <- read_bib("mypubs.bib")
-mypubs <- read_pubmed("Chris Brown")
-mypubs <- read_scholar("XSyW00YAAAAJ")
-mypubs <- read_orcid("0000-0003-2506-4871")
+mypubs <- read_pubmed("HUONG LY TONG")
+mypubs <- read_scholar("EUdX6oIAAAAJ")
+mypubs <- read_orcid("0000-0002-8462-0105")
 
 # For this one, you need the list of your DOIs
 # It will give you a tibble with publication data
+library(dplyr)
 doi_list <- list(mypubs$doi)
 aTibble <- read_altmetrics(doi_list)
 ```
