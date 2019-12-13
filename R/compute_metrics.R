@@ -7,7 +7,9 @@
 #' @param citations List of citations for all publications
 #' @return numerical value
 #' @examples
-#' compute_hindex(read_scholar("XSyW00YAAAAJ")$cites))
+#' \dontrun{
+#' compute_hindex(read_scholar("XSyW00YAAAAJ")$cites)
+#' }
 #'
 
 # Get tibble of all altemtric

@@ -102,6 +102,10 @@ read_orcid <- function(id) {
   dois_to_papers(dois)
 }
 
+#' Read Altmetrics
+#'
+#' Get a tibble of all altmetrics given a list of DOIs
+#'
 #' @export
 #' @rdname read_altmetrics
 #' @param doi_list A list of DOI strings for which to return a tibble of Altmetrics

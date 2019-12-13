@@ -12,5 +12,4 @@ NULL
 #' @importFrom utils page tail write.csv
 #' @importFrom dplyr mutate select
 #' @importFrom magrittr `%>%'
-#' @importFrom complete.cases
-#' @importFrom utils write.csv
+

@@ -1,5 +1,5 @@
 #' Students parser function
-#' 
+#'
 #' @description This function will allow you to add your students (HDRs, Honours), as well as their basic information. The result will be stored in a CSV file. If it doesn't exist, this creates the file. When you create a new student you need all arguments, but you can edit it with only first name, family name, and the ones you need to change.
 #'
 #' @param firstName The first name of the student.
@@ -18,26 +18,28 @@
 #'
 #' @return The in-memory object of the CSV file, with all the students and the updates/adds performed.
 #' @export
-#' 
+#'
 #' @importFrom readr read_csv
 #' @importFrom dplyr filter_all any_vars
+#' @importFrom stats complete.cases
+#' @importFrom utils write.csv
 #'
 #' @examples
 #' # To add a new student
 #' storeStudents("Jane", "Shepard", "Honours", "Computer Science", "Normandy SR1", "March/2020", "November/2020", FALSE, "Fight the Reapers", "Dr Somebody", "Dr Another Person", "Path/To/Folder", "fileName.csv")
-#' 
+#'
 #' # Otherwise, update them
 #' storeStudents("Jane", "Shepard", completed = TRUE, csvFilePath = "Path/To/Folder", csvFileName = "fileName.csv")
-#' 
-storeStudents <- function(firstName, familyName, degreeType, 
-                          degreeName, institution, startDate, 
-                          endDate, completed = FALSE, thesisTitle, 
-                          mainSupervisor, adjuctSupervisors, 
+#'
+storeStudents <- function(firstName, familyName, degreeType,
+                          degreeName, institution, startDate,
+                          endDate, completed = FALSE, thesisTitle,
+                          mainSupervisor, adjuctSupervisors,
                           csvFilePath, csvFileName) {
-  
+
   # Full file
   file <- paste0(csvFilePath, "/", csvFileName)
-  
+
   # If the path doesn't exist, stop
   if(!dir.exists(csvFilePath)) {
     stop("CSV Path does not exists")
@@ -53,10 +55,10 @@ storeStudents <- function(firstName, familyName, degreeType,
       write.csv(df, file, row.names = FALSE)
     }
   }
-  
+
   # Now, read the CSV file
   csv <- read_csv(file = file, col_names = TRUE)
-  
+
   # Check if we have a student with this names
   filtered <- subset(csv, firstName == Name && familyName == Lastname)
   # If the student isn't there, add it
@@ -67,59 +69,59 @@ storeStudents <- function(firstName, familyName, degreeType,
     student <- c(firstName, familyName, degreeType, degreeName, institution,
                  startDate, done, thesisTitle,
                  mainSupervisor, adjuctSupervisors)
-    
+
     # Add it to the csv
     csv[nrow(csv) + 1, ] <- student
   }
-  # Otherwise 
+  # Otherwise
   else {
     # Get the row name
     rowNum <- which(csv$Name == firstName & csv$Lastname == familyName)
     print(rowNum)
-    
+
     # Now, edit what it is not empty
     if(!missing(degreeType)) {
       csv[rowNum,]$Type <- degreeType
     }
-    
+
     if(!missing(degreeName)) {
       csv[rowNum,]$Degree <- degreeName
-    } 
-      
+    }
+
     if(!missing(institution)) {
       csv[rowNum,]$Institution <- institution
     }
-    
+
     if(!missing(endDate)) {
       done1 <- if(!completed) "Expected " else ""
       print(paste0("Done? ", done1))
-      
+
       csv[rowNum,]$End <- paste0(done1, endDate)
     }
-    
+
     if(!missing(startDate)) {
       csv[rowNum,]$Start <- startDate
     }
-    
+
     if(!missing(thesisTitle)) {
       csv[rowNum,]$hesisthesisTitle
     }
-    
+
     if(!missing(mainSupervisor)) {
       csv[rowNum,]$Supervisor <- mainSupervisor
     }
-    
+
     if(!missing(adjuctSupervisors)) {
       csv[rowNum,]$CoAdvisors <- adjuctSupervisors
     }
   }
-  
-  
-  
+
+
+
   # Remove the empty rows
-  csv <- csv %>% filter_all(any_vars(complete.cases(.))) 
+  csv <- csv %>% filter_all(any_vars(complete.cases(.)))
   # Write the file
   write.csv(csv, file, row.names = FALSE)
-  
+
   return(csv)
 }

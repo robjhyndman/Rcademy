@@ -19,7 +19,8 @@ from, to, daet, subject and content fields.
 Note: some emails if "saved as PDFs" may not be parsed correctly.
 }
 \examples{
+\dontrun{
 emails <- parsePDFEmails("Some/Folder/Path/Here")
-
+}
 
 }

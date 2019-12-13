@@ -22,8 +22,19 @@ Authors@R: c(
           family = "Tong",
           role = c("aut"),
           email = "huong-ly.tong@students.mq.edu.au",
-          comment = c(ORCID = "0000-0002-8462-0105")))
+          comment = c(ORCID = "0000-0002-8462-0105")),
+    person(given = "Chris",
+          family = "Brown",
+          role = 'aut',
+          email = 'Chris.Brown@sydney.edu.au' ,
+          comment = c(ORCID = "0000-0003-2506-4871")),
+    person(given = "Maria",
+          family = "Prokofieva",
+          role = 'aut',
+          email = "Maria.Prokofieva@vu.edu.au",
+          comment = c(ORCID = "0000-0003-1974-3827")))
 License: GPL-3
+Depends: R (>= 2.10)
 Imports:
   dplyr,
   easyPubMed,
@@ -38,6 +49,7 @@ Imports:
   scholar,
   stringr,
   tibble,
+  tidyr,
   rAltmetric
 Encoding: UTF-8
 LazyData: true
