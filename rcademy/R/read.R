@@ -104,6 +104,9 @@ read_orcid <- function(id) {
 #' @export
 #' @rdname read_altmetrics
 #' @param doi_list A list of DOI strings for which to return a tibble of Altmetrics
+#' @examples
+#' read_altmetrics(list(c("10.1038/nature09210","10.1126/science.1187820")))
+#'
 
 # Get tibble of all altemtric
 read_altmetrics <- function(doi_list) {
