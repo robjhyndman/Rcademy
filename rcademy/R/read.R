@@ -103,11 +103,13 @@ read_orcid <- function(id) {
 
 #' @export
 #' @rdname read_altmetrics
+#' @param doi_list A list of DOI strings for which to return a tibble of Altmetrics
 
 # Get tibble of all altemtric
 read_altmetrics <- function(doi_list) {
 
   alm <- function(x)  rAltmetric::altmetrics(doi = doi_list) %>% altmetric_data()
-  broom::pmap(ids, alm)
+  results <- broom::pmap(ids, alm)
+  tidyr::unnest(tibble(results),cols=c(results))
 
 }
