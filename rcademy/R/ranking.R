@@ -37,7 +37,10 @@ ranking <- function(journal, source=c("scimagojr","abdc","core")) {
 
   mydf <- tibble::tibble(journal=journal, ranking=NA_character_)
   miss <- is.na(mydf$journal)
-  fix <- fuzzyjoin::stringdist_left_join(mydf[!miss,], jrankings, by='journal')
+  fix <- fuzzyjoin::stringdist_left_join(mydf[!miss,], jrankings, by='journal',
+                                    ignore_case=TRUE, distance_col='distance')
+  fix$distance[is.na(fix$distance)] <- 0
+  fix <- fix[fix$distance==0,]
   mydf$ranking[!miss] <- fix$rank
   return(mydf$ranking)
 }
