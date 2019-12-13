@@ -20,6 +20,9 @@ mypubs <- read_orcid("0000-0002-8462-0105")
 library(dplyr)
 doi_list <- list(mypubs$doi)
 aTibble <- read_altmetrics(doi_list)
+
+# With citations you can compute your H-Index
+compute_hindex(read_scholar("EUdX6oIAAAAJ")$cites)
 ```
 
 You can combine your list of publications against the journal rankings. You can choose between ABDC, CORE and SCIMAGOJR. You can use it as follows, and then combine it with a loop.
