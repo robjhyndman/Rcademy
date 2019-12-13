@@ -18,6 +18,9 @@
 #'
 #' @return The in-memory object of the CSV file, with all the students and the updates/adds performed.
 #' @export
+#' 
+#' @importFrom readr read_csv
+#' @importFrom dplyr filter_all any_vars
 #'
 #' @examples
 #' # To add a new student

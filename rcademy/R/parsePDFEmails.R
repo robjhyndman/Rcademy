@@ -11,6 +11,10 @@
 #'
 #' @return The parsed dataframe in-memory
 #' @export
+#' 
+#' @importFrom pdftools pdf_text
+#' @importFrom stringr str_split
+#' @importFrom dplyr filter_all any_vars
 #'
 #' @examples
 #' emails <- parsePDFEmails("Some/Folder/Path/Here")
