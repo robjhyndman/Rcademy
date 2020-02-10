@@ -26,10 +26,14 @@
 #'
 #' @examples
 #' # To add a new student
-#' storeStudents("Jane", "Shepard", "Honours", "Computer Science", "Normandy SR1", "March/2020", "November/2020", FALSE, "Fight the Reapers", "Dr Somebody", "Dr Another Person", "Path/To/Folder", "fileName.csv")
+#' storeStudents("Jane", "Shepard", "Honours", "Computer Science",
+#'   "Normandy SR1", "March/2020", "November/2020", FALSE,
+#'   "Fight the Reapers", "Dr Somebody", "Dr Another Person",
+#'   "Path/To/Folder", "fileName.csv")
 #'
 #' # Otherwise, update them
-#' storeStudents("Jane", "Shepard", completed = TRUE, csvFilePath = "Path/To/Folder", csvFileName = "fileName.csv")
+#' storeStudents("Jane", "Shepard", completed = TRUE,
+#'   csvFilePath = "Path/To/Folder", csvFileName = "fileName.csv")
 #'
 storeStudents <- function(firstName, familyName, degreeType,
                           degreeName, institution, startDate,
