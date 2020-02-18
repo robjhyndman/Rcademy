@@ -2,7 +2,7 @@
 # Options for ABDC, CORE and SCIMAGOJR
 
 #' Find rankings of journals from Scimago, Core or ABDC. Fuzzy matching is used to
-#' find
+#' find the requested journal.
 #'
 #' @param journal A character vector containing journal names.
 #' @param source Which journal rankings list to use?
@@ -43,6 +43,9 @@ ranking <- function(journal, source=c("scimagojr","abdc","core")) {
   fix$distance[is.na(fix$distance)] <- 0
   fix <- fix[fix$distance==0,]
   mydf$ranking[!miss] <- fix$rank
-  return(mydf$ranking)
+  if(is.na(mydf$ranking))
+    warning("Journal not found")
+  else
+    return(mydf$ranking)
 }
 
