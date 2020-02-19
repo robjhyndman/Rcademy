@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -13,26 +13,35 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Rcademy 
+# rcademy
+
+<!-- badges: start -->
+<!-- badges: end -->
 
 This package was developed during _ozunconf19_ and _numbat hackathon 2020_, to provide tools that will help gather the information required to apply for _academic promotion_. Though this is quite general, it is mostly focused in Australian requisites.
 
 ## Installation
-You can install the development version from GitHub with:
 
-```r
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
 # install.packages("devtools")
 devtools::install_github("ropenscilabs/Rcademy")
 ```
+
+## Examples
+
+This document was produced by Rob Hyndman, Maria Prokofiave, Chris Brown, Belinda Fabian, Melina Vidoni, and Huong Ly Tong
+
 
 ```{r}
 library(tidyverse)
 library(rcademy)
 ```
 
-## Research
 
-Contributors: Rob Hyndman, Maria Prokofiave, Chris Brown and Belinda Fabian
+### Research
+
 
 For research, you will need a list of publications, the number of citations, and the ranking of journals.
 
@@ -40,13 +49,20 @@ First, you can read your information from various sources, either a bib file, or
 
 ```r
 mypubs <- read_bib("mypubs.bib")
-mypubs <- read_pubmed("HUONG LY TONG")
-mypubs <- read_scholar("EUdX6oIAAAAJ")
-mypubs <- read_orcid("0000-0002-8462-0105")
+mypubs <- read_pubmed("Rob Hyndman")
+mypubs <- read_scholar("vamErfkAAAAJ")
+mypubs <- read_orcid("0000-0002-2140-5352")
 ```
 
-```{r mypubs, echo=FALSE}
-mypubs <- read_bib("data-raw/rjhpubs.bib")
+We will use the last of these as an example here.
+
+```{r mypubs, echo=FALSE, eval=FALSE}
+mypubs <- read_orcid("0000-0002-2140-5352")
+write_rds(mypubs, "data-raw/rjhorcid.rds", compress="bz2")
+```
+
+```{r readmypubs, echo=FALSE}
+mypubs <- read_rds("data-raw/rjhorcid.rds")
 ```
 
 You can add journal rankings for each publication, choosing between ABDC, CORE and SCImago.
@@ -71,38 +87,28 @@ mypubs %>%
   count(method, rank)
 ```
 
-To obtain Google citations for all papers, you can use the data obtained with `read_scholar()` which contains a `cites` column. Otherwise you can try some fuzzy matching of your list of publications against Google Scholar, although this is not always straight forward.
+To obtain Google citations for all papers, you can use the data obtained with `read_scholar()` which contains a `cites` column. Otherwise you can try some fuzzy matching of your list of publications against Google Scholar.As the fuzzy matching on paper title and year is not always accurate, all of the matched and unmatched papers are included in the output for further manual curation.
 
-```{r scholarcites}
+
+```{r scholarcites, eval=FALSE}
 mypubs %>%
-  filter(year < 1995) %>%
   match_citations("vamErfkAAAAJ")
 ```
 
-# With citations you can compute your H-Index
-compute_hindex(read_scholar("EUdX6oIAAAAJ")$cites)
+The `scholar` package provides tools for obtaining your profile information.
 
-
-# For this one, you need the list of your DOIs
-# It will give you a tibble with publication data
-library(dplyr)
-doi_list <- list(mypubs$doi)
-aTibble <- read_altmetrics(doi_list)
-
+```{r scholarprofile}
+scholar::get_profile("vamErfkAAAAJ")
 ```
 
+Altmetrics can also be useful. For this, you will need the list of your DOIs. 
 
-Once you have your list of publications, it can be compared against the information available on Google Scholar to obtain the citations for each output. As the fuzzy matching on paper title and year is not always accurate, all of the matched and unmatched papers are included in the output for further manual curation.
-
-```{r}
-mypubs <- read_pubmed("HUONG LY TONG")
-matchedPubs <- matchCitations(mypubs, "EUdX6oIAAAAJ")
+```{r altmetrics, eval=FALSE}
+list(mypubs$doi)
+aTibble <- mypubs %>% read_altmetrics(doi)
 ```
 
-
-## Teaching
-
-Contributors: Melina Vidoni, ???
+### Teaching
 
 The teaching section will
 
@@ -111,7 +117,7 @@ allow you to collect the following data:
 - Student emails that are evidence of good teaching
 - HDRs and Honours students and completions
 
-### Email Gathering
+#### Email Gathering
 
 First, you'll need to download the PDF file of every email you think is relevant. Do not use the "Save as PDF", but rather print them to PDF. Keep all the emails in the same folder.
 
@@ -121,7 +127,7 @@ Then, use the following function to parse all emails. The function will also ret
 emails <- parsePDFEmails("Some/Folder/Path/Here")
 ```
 
-### Storing Student Info
+#### Storing Student Info
 
 This will create (or update) a CSV file, in whichever path you want, to add the students you are working with.
 
@@ -144,9 +150,7 @@ In both cases, the function will return the file in-memory, if you want to furth
 
 
 
-## Engagement
-
-Contributors: Belinda Fabian and Huong Ly Tong
+### Engagement
 
 This section includes suggestions for engagement activities that could be included in academic promotion applications. These examples are indicative only and do not provide a list of expectations. Engagement is interpreted in a broad sense to include discipline, industry, government and community engagement.
 
@@ -200,9 +204,7 @@ This section includes suggestions for engagement activities that could be includ
 - Membership of professional or foundation boards/councils
 - Peer review _(It should go into the research section)_. This can include: journal article review, ARC college of experts, grant review panels.
 
-## Leadership
-
-Contributors: Belinda Fabian and Huong Ly Tong
+### Leadership
 
 This section includes examples of leadership activities in academic promotion applications.
 
