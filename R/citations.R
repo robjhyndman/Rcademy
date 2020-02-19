@@ -19,12 +19,16 @@
 #' \dontrun{
 #'
 #' mypubs <- read_pubmed("Rob Hyndman")
-#' matchedPubs <- matchCitations(myPubs, "vamErfkAAAAJ")
+#' matchedPubs <- match_citations(myPubs, "vamErfkAAAAJ")
 #'}
 #'
 
-matchCitations <- function(mypubs, id){
-  scholar <- read_scholar(id)
-  joined <- fuzzyjoin::stringdist_full_join(scholar, mypubs, by = c(title = "title", year = "year"), max_dist = 1)
+match_citations <- function(mypubs, id){
+  # Remove missing years
+  scholar <- read_scholar(id) %>% filter(!is.na(year))
+  mypubs <- mypubs %>% filter(!is.na(year))
+  joined <- fuzzyjoin::stringdist_left_join(mypubs, scholar,
+              by = c(title = "title", year = "year"),
+              max_dist = 1)
   return(joined)
 }
