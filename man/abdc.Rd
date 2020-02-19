@@ -15,7 +15,9 @@ abdc
 Journal rankings according to the Australian Business Deans Council (ABDC)
 }
 \examples{
-abdc
+abdc \%>\%
+  filter(`Field of Research` == "0104") \%>\%
+  arrange(rank)
 
 }
 \keyword{datasets}

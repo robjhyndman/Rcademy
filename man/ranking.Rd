@@ -3,7 +3,7 @@
 \name{ranking}
 \alias{ranking}
 \title{Find rankings of journals from Scimago, Core or ABDC. Fuzzy matching is used to
-find}
+find the requested journal.}
 \usage{
 ranking(journal, source = c("scimagojr", "abdc", "core"))
 }
@@ -17,7 +17,7 @@ A character vector of the same length as \code{journal} containing rankings.
 }
 \description{
 Find rankings of journals from Scimago, Core or ABDC. Fuzzy matching is used to
-find
+find the requested journal.
 }
 \examples{
 
