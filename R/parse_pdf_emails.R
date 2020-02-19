@@ -1,15 +1,12 @@
-
-
-#' Parsing PDF Emails
+#' Parsing Emails
 #'
-#' @description This function parses your emails stored as PDFs files in a folder
-#' and produces an RDS file in the same directory. It contains a dataframe with
-#' from, to, daet, subject and content fields.
+#' @description This function parses your emails stored as PDF files in a folder.
+#' It returns a data frame with from, to, date, subject and content fields.
 #' Note: some emails if "saved as PDFs" may not be parsed correctly.
 #'
-#' @param folder The path to the folder where all emails are.
+#' @param folder The path to the folder where all emails are stored.
 #'
-#' @return The parsed dataframe in-memory
+#' @return A tibble.
 #' @export
 #'
 #' @importFrom pdftools pdf_text
@@ -18,12 +15,12 @@
 #'
 #' @examples
 #' \dontrun{
-#' emails <- parsePDFEmails("Some/Folder/Path/Here")
+#' emails <- parse_pdf_emails("Some/Folder/Path/Here")
 #' }
 #'
-parsePDFEmails <- function(folder) {
+parse_pdf_emails <- function(folder) {
   # Get all the files on the folder
-  fileList <- list.files(path = folder, recursive = FALSE)
+  fileList <- list.files(path = folder, pattern = "*.pdf", full.names = TRUE)
 
   df <- matrix(ncol = 5)
   df <- as.data.frame(df)
@@ -32,14 +29,9 @@ parsePDFEmails <- function(folder) {
 
   # For each file
   for(pdf in fileList) {
-    # Get the whole name
-    file <- paste0(folder, "/", pdf)
-
-    # Now read it
     text <- pdftools::pdf_text(file)
     split <- stringr::str_split(text, "\r\n")
     split <- split[[1]]
-
 
     from <- ""
     to <- ""
@@ -50,7 +42,7 @@ parsePDFEmails <- function(folder) {
     exceptIndex <- c()
 
     # Merge
-    for(j in 1:length(split)) {
+    for(j in seq_along(split)) {
       if(grepl("From:", split[j], fixed = TRUE)) {
         from <- split[j]
         exceptIndex <- c(exceptIndex, j)
@@ -75,7 +67,6 @@ parsePDFEmails <- function(folder) {
     df[nrow(df) + 1, ] <- c(from, to, date, subject, content)
 
   }
-
 
   # Remove the empty rows
   df <- df %>% dplyr::filter_all(dplyr::any_vars(complete.cases(.)))

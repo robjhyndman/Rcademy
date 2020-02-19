@@ -7,6 +7,7 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  cache = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
@@ -112,45 +113,19 @@ mypubs %>%
 
 ### Teaching
 
-The teaching section will
+The teaching section will usually involve collecting data on your teaching performance and teaching innovations.
 
-allow you to collect the following data:
+Teaching performance is usually measured via student evaluations and possibly peer reviews.
 
-- Student emails that are evidence of good teaching
-- HDRs and Honours students and completions
+Other evidence of good teaching may involve emails from students, or details of innovative curriculum development or teaching methods.
 
-#### Email Gathering
+A list of honours, masters and PhD students that you have supervised is also worth including.
 
-First, you'll need to download the PDF file of every email you think is relevant. Do not use the "Save as PDF", but rather print them to PDF. Keep all the emails in the same folder.
+The package provides a function to help with compiling emails for use in this section. First, you'll need to download a PDF file of every email you think is relevant. Keep all the emails in the same folder. Then, use the following function to parse all emails and return a tibble.
 
-Then, use the following function to parse all emails. The function will also return you the file in-memory.
-
-```{r eval=FALSE, include=FALSE}
-emails <- parsePDFEmails("Some/Folder/Path/Here")
+```{r eval=FALSE}
+emails <- parse_pdf_emails("Some/Folder/Path/Here")
 ```
-
-#### Storing Student Info
-
-This will create (or update) a CSV file, in whichever path you want, to add the students you are working with.
-
-When you create a student, you need to add all of the information, as follows:
-
-```{r eval=FALSE, include=FALSE}
-# Use this function to add or edit a student data to a CSV file stored where you choose
-storeStudents("Jane", "Shepard", "Honours", "Computer Science", "Normandy SR1", "March/2020", "November/2020", FALSE, "Fight the Reapers", "Dr Somebody", "Dr Another Person", "Path/To/Folder", "fileName.csv")
-```
-
-But to update, you can change only some records:
-
-```{r eval=FALSE, include=FALSE}
-# Use this function to add or edit a student data to a CSV file stored where you choose
-storeStudents("Jane", "Shepard", completed = TRUE, csvFilePath =  "Path/To/Folder", csvFileName = "fileName.csv")
-
-```
-
-In both cases, the function will return the file in-memory, if you want to further explore it.
-
-
 
 ### Engagement
 

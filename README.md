@@ -172,34 +172,26 @@ mypubs %>%
 
 ### Teaching
 
-The teaching section will
+The teaching section will usually involve collecting data on your
+teaching performance and teaching innovations.
 
-allow you to collect the following data:
+Teaching performance is usually measured via student evaluations and
+possibly peer reviews.
 
-  - Student emails that are evidence of good teaching
-  - HDRs and Honours students and completions
+Other evidence of good teaching may involve emails from students, or
+details of innovative curriculum development or teaching methods.
 
-#### Email Gathering
+A list of honours, masters and PhD students that you have supervised is
+also worth including.
 
-First, you’ll need to download the PDF file of every email you think is
-relevant. Do not use the “Save as PDF”, but rather print them to PDF.
-Keep all the emails in the same folder.
+The package provides a function to help with compiling emails for use in
+this section. First, you’ll need to download a PDF file of every email
+you think is relevant. Keep all the emails in the same folder. Then, use
+the following function to parse all emails and return a tibble.
 
-Then, use the following function to parse all emails. The function will
-also return you the file in-memory.
-
-#### Storing Student Info
-
-This will create (or update) a CSV file, in whichever path you want, to
-add the students you are working with.
-
-When you create a student, you need to add all of the information, as
-follows:
-
-But to update, you can change only some records:
-
-In both cases, the function will return the file in-memory, if you want
-to further explore it.
+``` r
+emails <- parse_pdf_emails("Some/Folder/Path/Here")
+```
 
 ### Engagement
 
