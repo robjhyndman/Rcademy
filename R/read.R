@@ -129,6 +129,6 @@ get_altmetrics <- function(data, doi) {
   }
   results <- purrr::map_dfr(as.list(dois), alm) %>%
     as_tibble() %>%
-    mutate_at(vars(starts_with("cited")), as.numeric)
+    dplyr::mutate_at(dplyr::vars(tidyr::starts_with("cited")), as.numeric)
   return(results)
 }
