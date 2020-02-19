@@ -43,9 +43,12 @@ ranking <- function(journal, source=c("scimagojr","abdc","core")) {
   fix$distance[is.na(fix$distance)] <- 0
   fix <- fix[fix$distance==0,]
   mydf$ranking[!miss] <- fix$rank
-  if(is.na(mydf$ranking))
+  if(sum(is.na(mydf$ranking)) == NROW(mydf)) {
     warning("Journal not found")
-  else
-    return(mydf$ranking)
+  }
+  if(source != "scimagojr") {
+    mydf$ranking = factor(mydf$ranking, levels = c("A*","A","B","C"))
+  }
+  return(mydf$ranking)
 }
 
