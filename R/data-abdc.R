@@ -22,6 +22,7 @@
 #' @source \url{https://abdc.edu.au/research/abdc-journal-list/}
 #' @keywords datasets
 #' @examples
+#' library(dplyr)
 #' abdc %>%
 #'   filter(field_of_research == "0104") %>%
 #'   arrange(rank)
