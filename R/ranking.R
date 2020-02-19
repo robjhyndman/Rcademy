@@ -7,7 +7,8 @@
 #' @param journal A character vector containing journal names.
 #' @param source Which journal rankings list to use?
 #'
-#' @return A character vector of the same length as `journal` containing rankings.
+#' @return A character vector of the same length as `journal` containing
+#'   rankings.
 #'
 #' @author Rob J Hyndman
 #' @examples
@@ -21,33 +22,45 @@
 #'     scimago_ranking = ranking(journal, source="scimago")
 #'   )
 #' }
-#'
 #' @export
-#'
-
-ranking <- function(journal, source=c("scimagojr","abdc","core")) {
+ranking <- function(journal, source = c("scimagojr","abdc","core")) {
   source <- match.arg(source)
-  if(source=='abdc')
+  if (source == 'abdc') {
     jrankings <- abdc
-  else if(source=='core')
+  }
+  else if (source == 'core') {
     jrankings <- core
-  else if(source=='scimagojr')
+  }
+  else if (source == 'scimagojr') {
     jrankings <- scimagojr
+  }
   else
     stop("Unknown rankings")
 
-  mydf <- tibble::tibble(journal=journal, ranking=NA_character_)
+  mydf <- tibble::tibble(journal = journal,
+                         ranking = NA_character_)
+
   miss <- is.na(mydf$journal)
-  fix <- fuzzyjoin::stringdist_left_join(mydf[!miss,], jrankings, by='journal',
-                                    ignore_case=TRUE, distance_col='distance')
+
+  fix <- fuzzyjoin::stringdist_left_join(mydf[!miss,],
+                                         jrankings,
+                                         by = 'journal',
+                                         ignore_case = TRUE,
+                                         distance_col = 'distance')
+
   fix$distance[is.na(fix$distance)] <- 0
-  fix <- fix[fix$distance==0,]
+
+  fix <- fix[fix$distance == 0, ]
+
   mydf$ranking[!miss] <- fix$rank
+
   if(sum(is.na(mydf$ranking)) == NROW(mydf)) {
     warning("Journal not found")
   }
+
   if(source != "scimagojr") {
-    mydf$ranking = factor(mydf$ranking, levels = c("A*","A","B","C"))
+    mydf$ranking = factor(mydf$ranking,
+                          levels = c("A*","A","B","C"))
   }
   return(mydf$ranking)
 }
