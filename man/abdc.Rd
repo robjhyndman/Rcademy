@@ -31,6 +31,7 @@ than print version}
 }
 }
 \examples{
+library(dplyr)
 abdc \%>\%
   filter(field_of_research == "0104") \%>\%
   arrange(rank)

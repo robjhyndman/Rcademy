@@ -112,9 +112,10 @@ read_orcid <- function(id) {
 #' @param doi  The column containing DOI values
 #' @return A tibble of altmetrics
 #' @examples
+#' \dontrun{
 #' read_orcid("0000-0002-2140-5352") %>%
-#'   altmetrics(doi)
-#'
+#'   get_altmetrics(doi)
+#'}
 
 # Get tibble of all altemtric
 get_altmetrics <- function(data, doi) {

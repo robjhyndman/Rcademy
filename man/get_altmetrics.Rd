@@ -18,7 +18,8 @@ A tibble of altmetrics
 Get a tibble of all altmetrics given a list of DOIs
 }
 \examples{
+\dontrun{
 read_orcid("0000-0002-2140-5352") \%>\%
-  altmetrics(doi)
-
+  get_altmetrics(doi)
+}
 }
