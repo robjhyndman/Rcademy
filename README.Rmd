@@ -103,9 +103,11 @@ scholar::get_profile("vamErfkAAAAJ")
 
 Altmetrics can also be useful. For this, you will need the list of your DOIs. 
 
-```{r altmetrics, eval=FALSE}
-list(mypubs$doi)
-aTibble <- mypubs %>% read_altmetrics(doi)
+```{r altmetrics}
+mypubs %>% 
+  get_altmetrics(doi) %>%
+  select(title, cited_by_tweeters_count) %>%
+  arrange(desc(cited_by_tweeters_count))
 ```
 
 ### Teaching

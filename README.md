@@ -150,8 +150,24 @@ Altmetrics can also be useful. For this, you will need the list of your
 DOIs.
 
 ``` r
-list(mypubs$doi)
-aTibble <- mypubs %>% read_altmetrics(doi)
+mypubs %>% 
+  get_altmetrics(doi) %>%
+  select(title, cited_by_tweeters_count) %>%
+  arrange(desc(cited_by_tweeters_count))
+#> # A tibble: 39 x 2
+#>    title                                                    cited_by_tweeters_c…
+#>    <chr>                                                                   <dbl>
+#>  1 Handgun Acquisitions in California After Two Mass Shoot…                   41
+#>  2 Exploring the sources of uncertainty: Why does bagging …                   16
+#>  3 Associations between outdoor fungal spores and childhoo…                   15
+#>  4 A Feature‐Based Procedure for Detecting Technical Outli…                   12
+#>  5 Point and interval forecasts of mortality rates and lif…                   12
+#>  6 Forecasting with temporal hierarchies                                       7
+#>  7 Forecasting Time Series With Complex Seasonal Patterns …                    7
+#>  8 A note on upper bounds for forecast-value-added relativ…                    6
+#>  9 Do human rhinovirus infections and food allergy modify …                    6
+#> 10 Grouped Functional Time Series Forecasting: An Applicat…                    5
+#> # … with 29 more rows
 ```
 
 ### Teaching

@@ -102,22 +102,33 @@ read_orcid <- function(id) {
   dois_to_papers(dois)
 }
 
-#' Read Altmetrics
+#' Find Altmetrics
 #'
 #' Get a tibble of all altmetrics given a list of DOIs
 #'
 #' @export
-#' @rdname read_altmetrics
-#' @param doi_list A list of DOI strings for which to return a tibble of Altmetrics
+#' @rdname get_altmetrics
+#' @param data  A data frame or tibble containing a bibliography.
+#' @param doi  The column containing DOI values
+#' @return A tibble of altmetrics
 #' @examples
-#' read_altmetrics(list(c("10.1038/nature09210","10.1126/science.1187820")))
+#' read_orcid("0000-0002-2140-5352") %>%
+#'   altmetrics(doi)
 #'
 
 # Get tibble of all altemtric
-read_altmetrics <- function(doi_list) {
-
-  alm <- function(x)  rAltmetric::altmetrics(doi = x) %>% rAltmetric::altmetric_data()
-  results <- purrr::pmap(doi_list, alm)
-  tidyr::unnest(tibble(results),cols=c(results))
-
+get_altmetrics <- function(data, doi) {
+  dois <- dplyr::pull(data, {{ doi }})
+  alm <- function(x) {
+    z <- try(rAltmetric::altmetrics(doi = x), silent=TRUE)
+    if("try-error" %in% class(z))
+      return(NULL)
+    else {
+      return(rAltmetric::altmetric_data(z))
+    }
+  }
+  results <- purrr::map_dfr(as.list(dois), alm) %>%
+    as_tibble() %>%
+    mutate_at(vars(starts_with("cited")), as.numeric)
+  return(results)
 }
