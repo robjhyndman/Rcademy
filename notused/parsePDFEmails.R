@@ -80,7 +80,5 @@ parsePDFEmails <- function(folder) {
   # Remove the empty rows
   df <- df %>% dplyr::filter_all(dplyr::any_vars(complete.cases(.)))
 
-  # Write the file
-  saveRDS(df, paste0(folder, "/emailsDump.rds"))
   return(df)
 }
