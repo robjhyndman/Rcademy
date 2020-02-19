@@ -22,3 +22,6 @@ NULL
 #'   arrange(rank)
 #'
 "abdc"
+
+#' @export
+magrittr::`%>%`
