@@ -13,7 +13,8 @@ ranking(journal, source = c("scimagojr", "abdc", "core"))
 \item{source}{Which journal rankings list to use?}
 }
 \value{
-A character vector of the same length as \code{journal} containing rankings.
+A character vector of the same length as \code{journal} containing
+rankings.
 }
 \description{
 Find rankings of journals from Scimago, Core or ABDC. Fuzzy matching is used to
@@ -30,7 +31,6 @@ mypubs <- mypubs \%>\%
     scimago_ranking = ranking(journal, source="scimago")
   )
 }
-
 }
 \author{
 Rob J Hyndman
