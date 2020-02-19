@@ -3,4 +3,4 @@
 ^data-raw$
 ^notused$
 ^README\.Rmd$
-^*cache$
+.*_cache$
