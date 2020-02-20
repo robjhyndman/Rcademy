@@ -16,5 +16,8 @@ globalVariables(
     c("abdc",
       "core",
       "scimagojr",
+      "conference",
+      "distance",
+      "sjr_best_quartile",
       "year")
 )
