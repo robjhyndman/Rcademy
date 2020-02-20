@@ -76,7 +76,11 @@ mypubs_scholar
 In general, ORCID will provide higher quality data, along with DOIs, but has no citation information and covers fewer publications than Google Scholar. A few papers may have two DOIs --- for example, when they appear on both JStor and a journal website. We will remove these.
 
 ```{r duplicates}
-dups <- mypubs_orcid %>% select(title, year, journal) %>% duplicated()
+library(tidystringdist)
+dups <- mypubs_orcid %>% 
+  select(title, year) %>% 
+  mutate_all(tolower) %>%
+  duplicated()
 mypubs_orcid <- mypubs_orcid %>% filter(!dups)
 ```
 
@@ -107,9 +111,9 @@ You can add journal rankings for each publication, choosing between ABDC, CORE a
 ```{r rankings, warning=FALSE, eval=FALSE}
 mypubs <- mypubs %>%
   mutate(
-    abdc_ranking = ranking(journal, source="abdc"),
-    core_ranking = ranking(journal, source="core"),
-    scimago_ranking = ranking(journal, source="scimago")
+    abdc_ranking = rank_abdc(journal),
+    core_ranking = rank_core(journal),
+    scimago_ranking = rank_core(journal)
   )
 ```
 

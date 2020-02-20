@@ -44,12 +44,12 @@ Orcid. Normally you would only need to use one of these.
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.3.0 ──
+#> ── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 #> ✓ ggplot2 3.3.0.9000     ✓ purrr   0.3.3     
 #> ✓ tibble  2.1.3          ✓ dplyr   0.8.4     
 #> ✓ tidyr   1.0.2          ✓ stringr 1.4.0     
 #> ✓ readr   1.3.1          ✓ forcats 0.4.0
-#> ── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library(rcademy)
@@ -108,7 +108,11 @@ Scholar. A few papers may have two DOIs — for example, when they appear
 on both JStor and a journal website. We will remove these.
 
 ``` r
-dups <- mypubs_orcid %>% select(title, year, journal) %>% duplicated()
+library(tidystringdist)
+dups <- mypubs_orcid %>% 
+  select(title, year) %>% 
+  mutate_all(tolower) %>%
+  duplicated()
 mypubs_orcid <- mypubs_orcid %>% filter(!dups)
 ```
 
@@ -155,9 +159,9 @@ ABDC, CORE and SCImago.
 ``` r
 mypubs <- mypubs %>%
   mutate(
-    abdc_ranking = ranking(journal, source="abdc"),
-    core_ranking = ranking(journal, source="core"),
-    scimago_ranking = ranking(journal, source="scimago")
+    abdc_ranking = rank_abdc(journal),
+    core_ranking = rank_core(journal),
+    scimago_ranking = rank_core(journal)
   )
 ```
 
@@ -206,16 +210,16 @@ mypubs %>%
 #> # A tibble: 39 x 2
 #>    title                                                    cited_by_tweeters_c…
 #>    <chr>                                                                   <dbl>
-#>  1 Handgun Acquisitions in California After Two Mass Shoot…                   41
+#>  1 Handgun Acquisitions in California After Two Mass Shoot…                   40
 #>  2 Exploring the sources of uncertainty: Why does bagging …                   16
 #>  3 Associations between outdoor fungal spores and childhoo…                   15
-#>  4 A Feature‐Based Procedure for Detecting Technical Outli…                   12
-#>  5 Point and interval forecasts of mortality rates and lif…                   12
-#>  6 Forecasting with temporal hierarchies                                       7
-#>  7 Forecasting Time Series With Complex Seasonal Patterns …                    7
-#>  8 A note on upper bounds for forecast-value-added relativ…                    6
+#>  4 Point and interval forecasts of mortality rates and lif…                   12
+#>  5 A Feature‐Based Procedure for Detecting Technical Outli…                   12
+#>  6 Forecasting Time Series With Complex Seasonal Patterns …                    7
+#>  7 Forecasting with temporal hierarchies                                       7
+#>  8 Forecasting with temporal hierarchies                                       7
 #>  9 Do human rhinovirus infections and food allergy modify …                    6
-#> 10 Grouped Functional Time Series Forecasting: An Applicat…                    5
+#> 10 A note on upper bounds for forecast-value-added relativ…                    6
 #> # … with 29 more rows
 ```
 
