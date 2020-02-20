@@ -78,7 +78,7 @@ read_pubmed <- function(query) {
 read_scholar <- function(id) {
   df <- scholar::get_publications(id)
   df$author <- stringr::str_trim(as.character(df$author))
-  df
+  tibble::as_tibble(df)
 }
 
 #' @rdname read_bib
