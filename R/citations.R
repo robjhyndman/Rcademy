@@ -1,34 +1,29 @@
-#' Match list of citations with Google Scholar citation data
+#' Obtain citations based on DOIs using CrossRef data
 #'
-#' @description Add Google Scholar citation information for items in file of publications.
-#' Uses fuzzy matching on title. Keeps non-matches for manual curation.
+#' @description Return CrossRef citation information for items in
+#' data frame of publications using DOIs.
 #'
-#' @param mypubs A data frame of publications.
-#' @param id Google Scholar ID as a text string.
+#' @param data A data frame of publications.
+#' @param dois Unquoted column containing DOIs
 #'
-#' @return A data frame of matched and non-matched publications from both inputs.
+#' @return A vector of citation counts from CrossRef OpenURL
 #'
-#' @author Belinda K Fabian
+#' @author Rob J Hyndman
 #'
 #' @export
-#'
-#' @importFrom fuzzyjoin stringdist_full_join
 #'
 #' @examples
 #'
 #' \dontrun{
-#'
-#' mypubs <- read_pubmed("Rob Hyndman")
-#' matchedPubs <- match_citations(myPubs, "vamErfkAAAAJ")
+#' mypubs <- read_orcid("0000-0002-2140-5352") %>%
+#'   mutate(cr_cites = citations(doi))
 #'}
 #'
 
-match_citations <- function(mypubs, id){
-  # Remove missing years
-  scholar <- read_scholar(id) %>% filter(!is.na(year))
-  mypubs <- mypubs %>% filter(!is.na(year))
-  joined <- fuzzyjoin::stringdist_left_join(mypubs, scholar,
-              by = c(title = "title", year = "year"),
-              max_dist = 1)
-  return(joined)
+citations <- function(doi) {
+  miss <- is.na(doi)
+  cites <- rep(NA, length(doi))
+  cites[!miss] <- rcrossref::cr_citation_count(doi[!miss])$count
+  return(cites)
 }
+
