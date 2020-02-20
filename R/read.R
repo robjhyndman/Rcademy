@@ -121,6 +121,7 @@ read_orcid <- function(id) {
 # Get tibble of all altemtric
 get_altmetrics <- function(data, doi) {
   dois <- dplyr::pull(data, {{ doi }})
+  dois <- na.omit(dois)
   alm <- function(x) {
     z <- try(rAltmetric::altmetrics(doi = x), silent=TRUE)
     if("try-error" %in% class(z))
