@@ -93,14 +93,27 @@ read_orcid <- function(id) {
     return(d)
   }
 
-  # Get DOIs
+  # Get DOIs where they exist
   dois <- rorcid::identifiers(d, type = "doi") # get DOIs, not available for all papers
   dois <- unique(tolower(dois))
   #  dois <- dois[duplicated(tolower(dois)) == FALSE] # remove duplicates
   dois <- remove_f1000_dois(dois)
   dois <- dois[dois != ""]
 
-  dois_to_papers(dois)
+  output_with_dois <- dois_to_papers(dois)
+
+  # Now find details for papers without dois
+  output_no_dois <- d %>%
+    transmute(
+      journal = `journal-title.value`,
+      title = `title.title.value`,
+      year = as.numeric(`publication-date.year.value`),
+      type = type,
+    ) %>%
+    anti_join(output_with_dois)
+
+  bind_rows(output_with_dois, output_no_dois) %>%
+    arrange(year)
 }
 
 #' Find Altmetrics
