@@ -113,7 +113,10 @@ read_orcid <- function(id) {
     anti_join(output_with_dois)
 
   bind_rows(output_with_dois, output_no_dois) %>%
-    arrange(year)
+    arrange(year) %>%
+    mutate(
+      title = clean_hyphens(title)
+    )
 }
 
 #' Find Altmetrics

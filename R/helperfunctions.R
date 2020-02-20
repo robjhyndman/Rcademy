@@ -143,3 +143,10 @@ format_paper <- function(issued, created, container.title,
 
 #   return(author.order)
 # }
+
+
+# replace hyphens with true hyphens
+clean_hyphens <- function(x) {
+  str_replace_all(x, "-", "-")
+}
+
