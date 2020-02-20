@@ -5,7 +5,7 @@
 \title{Find rankings of journals from Scimago, Core or ABDC. Fuzzy matching is used to
 find the requested journal.}
 \usage{
-ranking(journal, source = c("scimagojr", "abdc", "core"))
+ranking(journal, source)
 }
 \arguments{
 \item{journal}{A character vector containing journal names.}
@@ -28,10 +28,10 @@ mypubs <- mypubs \%>\%
   mutate(
     abdc_ranking = ranking(journal, source="abdc"),
     core_ranking = ranking(journal, source="core"),
-    scimago_ranking = ranking(journal, source="scimago")
+    scimago_ranking = ranking(journal, source="scimagojr")
   )
 }
 }
 \author{
-Rob J Hyndman
+Rob J Hyndman, Nicholas Tierney
 }
