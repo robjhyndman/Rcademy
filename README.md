@@ -56,19 +56,21 @@ library(rcademy)
 ```
 
 ``` r
-mypubs <- read_bib("mypubs.bib")
-mypubs <- read_pubmed("Rob Hyndman")
-mypubs <- read_scholar("vamErfkAAAAJ")
-mypubs <- read_orcid("0000-0002-2140-5352")
+mypubs_bib <- read_bib("mypubs.bib")
+mypubs_pubmed <- read_pubmed("Rob Hyndman")
+mypubs_scholar <- read_scholar("vamErfkAAAAJ")
+mypubs_orcid <- read_orcid("0000-0002-2140-5352")
 ```
 
 Each of these functions will return a tibble, with one row per
 publication and the columns providing information such as title,
-authors, year of publication, etc. We will use the last of these as an
-example here.
+authors, year of publication, etc. The different sources provide some
+different information, and it is often useful to combine them. We will
+use the last two of these (from Google Scholar and ORCID) in the
+following examples.
 
 ``` r
-mypubs
+mypubs_orcid
 #> # A tibble: 110 x 8
 #>    journal        title               year volume issue pages   type   doi      
 #>    <chr>          <chr>              <dbl> <chr>  <chr> <chr>   <chr>  <chr>    
@@ -83,6 +85,68 @@ mypubs
 #>  9 Journal of th… A note on upper b…  2017 68     9     1082-1… journ… 10.1057/…
 #> 10 Journal of Al… Associations betw…  2017 139    4     1140-1… journ… 10.1016/…
 #> # … with 100 more rows
+mypubs_scholar
+#> # A tibble: 301 x 8
+#>    title         author        journal    number  cites  year cid          pubid
+#>    <chr>         <chr>         <chr>      <chr>   <dbl> <dbl> <chr>        <chr>
+#>  1 Forecasting … S Makridakis… "John Wil… ""       5680  1998 73093598359… u5HH…
+#>  2 Another look… RJ Hyndman, … "Internat… "22 (4…  2916  2006 13549848342… 9yKS…
+#>  3 Automatic ti… RJ Hyndman, … "Journal … ""       1931  2007 16678312313… YsMS…
+#>  4 Forecasting:… RJ Hyndman, … "OTexts"   ""       1784  2018 71756992424… CrVL…
+#>  5 Forecasting … RJ Hyndman, … "Springer… ""        984  2008 88418756642… UeHW…
+#>  6 Detecting tr… J Verbesselt… "Remote s… "114 (…   925  2010 47121712280… 5nxA…
+#>  7 25 years of … JG De Gooije… "Internat… "22 (3…   895  2006 33143054759… Tyk-…
+#>  8 Sample quant… RJ Hyndman, … "The Amer… "50 (4…   842  1996 25243146458… u-x6…
+#>  9 A state spac… RJ Hyndman, … "Internat… "18 (3…   746  2002 44453997602… 2osO…
+#> 10 forecast: Fo… RJ Hyndman, … ""         ""        653  2018 16844150736… UbXT…
+#> # … with 291 more rows
+```
+
+In general, ORCID will provide higher quality data, along with DOIs, but
+has no citation information and covers fewer publications than Google
+Scholar. A few papers may have two DOIs — for example, when they appear
+on both JStor and a journal website. We will remove these.
+
+``` r
+dups <- mypubs_orcid %>% select(title, year, journal) %>% duplicated()
+mypubs_orcid <- mypubs_orcid %>% filter(!dups)
+```
+
+We will try to combine the two tibbles using fuzzy joining on the title
+and year fields.
+
+``` r
+mypubs <- mypubs_scholar %>% 
+  # First remove any publications without years 
+  filter(!is.na(year)) %>%
+  # Now find matching entries
+  fuzzyjoin::stringdist_left_join(mypubs_orcid,
+    by = c(title = "title", year = "year"),
+    max_dist = 2, ignore_case = TRUE) %>%
+  # Keep any columns where ORCID missing
+  mutate(
+    title.y = if_else(is.na(title.y), title.x, title.y),
+    journal.y = if_else(is.na(journal.y), journal.x, journal.y),
+    year.y = if_else(is.na(year.y), year.x, year.y),
+  ) %>%
+  # Keep the ORCID columns
+  select(!ends_with(".x")) %>%
+  rename_all(~str_remove_all(.x,".y"))
+mypubs
+#> # A tibble: 293 x 13
+#>    author number cites cid   pubid journal title  year volume issue pages pe   
+#>    <chr>  <chr>  <dbl> <chr> <chr> <chr>   <chr> <dbl> <chr>  <chr> <chr> <chr>
+#>  1 S Mak… ""      5680 7309… u5HH… "John … Fore…  1998 <NA>   <NA>  <NA>  <NA> 
+#>  2 RJ Hy… "22 (…  2916 1354… 9yKS… "Inter… Anot…  2006 22     4     679-… jour…
+#>  3 RJ Hy… ""      1931 1667… YsMS… "Journ… Auto…  2007 <NA>   <NA>  <NA>  <NA> 
+#>  4 RJ Hy… ""      1784 7175… CrVL… "OText… Fore…  2018 <NA>   <NA>  <NA>  <NA> 
+#>  5 RJ Hy… ""       984 8841… UeHW… "Sprin… Fore…  2008 <NA>   <NA>  <NA>  <NA> 
+#>  6 J Ver… "114 …   925 4712… 5nxA… "Remot… Dete…  2010 114    1     106-… jour…
+#>  7 JG De… "22 (…   895 3314… Tyk-… "Inter… 25 y…  2006 22     3     443-… jour…
+#>  8 RJ Hy… "50 (…   842 2524… u-x6… "The A… Samp…  1996 50     4     361   jour…
+#>  9 RJ Hy… "18 (…   746 4445… 2osO… "Inter… A st…  2002 18     3     439-… jour…
+#> 10 RJ Hy… ""       653 1684… UbXT… ""      fore…  2018 <NA>   <NA>  <NA>  <NA> 
+#> # … with 283 more rows, and 1 more variable: doi <chr>
 ```
 
 You can add journal rankings for each publication, choosing between
@@ -103,41 +167,56 @@ Then you can create a table of the number of papers by rank.
 mypubs %>%
   filter(!is.na(abdc_ranking)) %>%
   count(abdc_ranking) 
-#> # A tibble: 4 x 2
-#>   abdc_ranking     n
-#>   <fct>        <int>
-#> 1 A*              13
-#> 2 A               38
-#> 3 B                3
-#> 4 C                1
 ```
 
-To obtain Google citations for all papers, you can use the data obtained
-with `read_scholar()` which contains a `cites` column. Otherwise you can
-try some fuzzy matching of your list of publications against Google
-Scholar. As the fuzzy matching on title and year is not always accurate,
-all of the matched and unmatched papers are included in the output for
-further manual curation.
+The tibble contains Google scholar citations for all papers, you can use
+the data obtained with `read_scholar()` which contains a `cites` column.
+We can also obtain CrossRef citations via the `citations()` function
+which uses the DOI codes.
 
 ``` r
 mypubs %>%
-  match_citations("vamErfkAAAAJ") %>%
-  select(title.x, year.x, cites) %>%
+  mutate(cr_cites = citations(doi)) %>%
+  select(title, year, cites, cr_cites) %>%
   arrange(desc(cites))
-#> # A tibble: 111 x 3
-#>    title.x                                                          year.x cites
-#>    <chr>                                                             <dbl> <dbl>
-#>  1 Another look at measures of forecast accuracy                      2006  2916
-#>  2 Detecting trend and seasonal changes in satellite image time se…   2010   925
-#>  3 25 years of time series forecasting                                2006   895
-#>  4 A state space framework for automatic forecasting using exponen…   2002   746
-#>  5 Robust forecasting of mortality and fertility rates: A function…   2007   555
-#>  6 Phenological change detection while accounting for abrupt and g…   2010   452
-#>  7 Optimal combination forecasts for hierarchical time series         2011   256
-#>  8 Stochastic population forecasts using functional data models fo…   2008   254
-#>  9 Bandwidth selection for kernel conditional density estimation      2001   237
-#> 10 The price elasticity of electricity demand in South Australia      2011   205
-#> # … with 101 more rows
+#> # A tibble: 293 x 4
+#>    title                                                     year cites cr_cites
+#>    <chr>                                                    <dbl> <dbl>    <dbl>
+#>  1 Forecasting methods and applications                      1998  5680       NA
+#>  2 Another look at measures of forecast accuracy             2006  2916     1357
+#>  3 Automatic time series forecasting: the forecast package…  2007  1931       NA
+#>  4 Forecasting: principles and practice                      2018  1784       NA
+#>  5 Forecasting with exponential smoothing: the state space…  2008   984       NA
+#>  6 Detecting trend and seasonal changes in satellite image…  2010   925      594
+#>  7 25 years of time series forecasting                       2006   895      576
+#>  8 Sample Quantiles in Statistical Packages                  1996   842       95
+#>  9 A state space framework for automatic forecasting using…  2002   746      331
+#> 10 forecast: Forecasting functions for time series and lin…  2018   653       NA
+#> # … with 283 more rows
+```
+
+Altmetrics can also be useful. For this, you will need the list of your
+DOIs.
+
+``` r
+mypubs %>% 
+  get_altmetrics(doi) %>%
+  select(title, cited_by_tweeters_count) %>%
+  arrange(desc(cited_by_tweeters_count))
+#> # A tibble: 39 x 2
+#>    title                                                    cited_by_tweeters_c…
+#>    <chr>                                                                   <dbl>
+#>  1 Handgun Acquisitions in California After Two Mass Shoot…                   41
+#>  2 Exploring the sources of uncertainty: Why does bagging …                   16
+#>  3 Associations between outdoor fungal spores and childhoo…                   15
+#>  4 A Feature‐Based Procedure for Detecting Technical Outli…                   12
+#>  5 Point and interval forecasts of mortality rates and lif…                   12
+#>  6 Forecasting with temporal hierarchies                                       7
+#>  7 Forecasting Time Series With Complex Seasonal Patterns …                    7
+#>  8 A note on upper bounds for forecast-value-added relativ…                    6
+#>  9 Do human rhinovirus infections and food allergy modify …                    6
+#> 10 Grouped Functional Time Series Forecasting: An Applicat…                    5
+#> # … with 29 more rows
 ```
 
 The `scholar` package provides tools for obtaining your profile
@@ -182,30 +261,6 @@ scholar::get_profile("vamErfkAAAAJ")
 #> [19] "Roman Ahmed"                  "Glenn Newnham"
 ```
 
-Altmetrics can also be useful. For this, you will need the list of your
-DOIs.
-
-``` r
-mypubs %>% 
-  get_altmetrics(doi) %>%
-  select(title, cited_by_tweeters_count) %>%
-  arrange(desc(cited_by_tweeters_count))
-#> # A tibble: 39 x 2
-#>    title                                                    cited_by_tweeters_c…
-#>    <chr>                                                                   <dbl>
-#>  1 Handgun Acquisitions in California After Two Mass Shoot…                   41
-#>  2 Exploring the sources of uncertainty: Why does bagging …                   16
-#>  3 Associations between outdoor fungal spores and childhoo…                   15
-#>  4 A Feature‐Based Procedure for Detecting Technical Outli…                   12
-#>  5 Point and interval forecasts of mortality rates and lif…                   12
-#>  6 Forecasting with temporal hierarchies                                       7
-#>  7 Forecasting Time Series With Complex Seasonal Patterns …                    7
-#>  8 A note on upper bounds for forecast-value-added relativ…                    6
-#>  9 Do human rhinovirus infections and food allergy modify …                    6
-#> 10 Grouped Functional Time Series Forecasting: An Applicat…                    5
-#> # … with 29 more rows
-```
-
 ## Teaching
 
 The teaching section will usually involve collecting data on your
@@ -228,8 +283,8 @@ teaching performance and teaching innovations.
   - Masters students supervised
   - PhD students supervised
 
-Note that a list of PhD students would often go in the Research section
-rather than the teaching section.
+Note that a list of PhD students may go in the Research section rather
+than the Teaching section.
 
 ## Engagement
 

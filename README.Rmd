@@ -48,30 +48,63 @@ library(rcademy)
 ```
 
 ```r
-mypubs <- read_bib("mypubs.bib")
-mypubs <- read_pubmed("Rob Hyndman")
-mypubs <- read_scholar("vamErfkAAAAJ")
-mypubs <- read_orcid("0000-0002-2140-5352")
+mypubs_bib <- read_bib("mypubs.bib")
+mypubs_pubmed <- read_pubmed("Rob Hyndman")
+mypubs_scholar <- read_scholar("vamErfkAAAAJ")
+mypubs_orcid <- read_orcid("0000-0002-2140-5352")
 ```
 
-Each of these functions will return a tibble, with one row per publication and the columns providing information such as title, authors, year of publication, etc. We will use the last of these as an example here.
+Each of these functions will return a tibble, with one row per publication and the columns providing information such as title, authors, year of publication, etc. The different sources provide some different information, and it is often useful to combine them. We will use the last two of these (from Google Scholar and ORCID) in the following examples.
 
 ```{r mypubs, echo=FALSE, eval=FALSE}
-mypubs <- read_orcid("0000-0002-2140-5352")
-write_rds(mypubs, "data-raw/rjhorcid.rds", compress="bz2")
+mypubs_orcid <- read_orcid("0000-0002-2140-5352")
+readr::write_rds(mypubs_orcid, "data-raw/rjhorcid.rds", compress="bz2")
+mypubs_scholar <- read_scholar("vamErfkAAAAJ")
+readr::write_rds(mypubs_scholar, "data-raw/rjhscholar.rds", compress="bz2")
 ```
 
 ```{r readmypubs, echo=FALSE}
-mypubs <- read_rds("data-raw/rjhorcid.rds")
+mypubs_orcid <- readr::read_rds("data-raw/rjhorcid.rds")
+mypubs_scholar <- readr::read_rds("data-raw/rjhscholar.rds")
 ```
 
 ```{r showpubs}
+mypubs_orcid
+mypubs_scholar
+```
+
+In general, ORCID will provide higher quality data, along with DOIs, but has no citation information and covers fewer publications than Google Scholar. A few papers may have two DOIs --- for example, when they appear on both JStor and a journal website. We will remove these.
+
+```{r duplicates}
+dups <- mypubs_orcid %>% select(title, year, journal) %>% duplicated()
+mypubs_orcid <- mypubs_orcid %>% filter(!dups)
+```
+
+We will try to combine the two tibbles using fuzzy joining on the title and year fields.
+
+```{r join}
+mypubs <- mypubs_scholar %>% 
+  # First remove any publications without years 
+  filter(!is.na(year)) %>%
+  # Now find matching entries
+  fuzzyjoin::stringdist_left_join(mypubs_orcid,
+    by = c(title = "title", year = "year"),
+    max_dist = 2, ignore_case = TRUE) %>%
+  # Keep any columns where ORCID missing
+  mutate(
+    title.y = if_else(is.na(title.y), title.x, title.y),
+    journal.y = if_else(is.na(journal.y), journal.x, journal.y),
+    year.y = if_else(is.na(year.y), year.x, year.y),
+  ) %>%
+  # Keep the ORCID columns
+  select(!ends_with(".x")) %>%
+  rename_all(~str_remove_all(.x,".y"))
 mypubs
 ```
 
 You can add journal rankings for each publication, choosing between ABDC, CORE and SCImago.
 
-```{r rankings, warning=FALSE}
+```{r rankings, warning=FALSE, eval=FALSE}
 mypubs <- mypubs %>%
   mutate(
     abdc_ranking = ranking(journal, source="abdc"),
@@ -82,25 +115,19 @@ mypubs <- mypubs %>%
 
 Then you can create a table of the number of papers by rank.
 
-```{r rankingsummary}
+```{r rankingsummary, eval=FALSE}
 mypubs %>%
   filter(!is.na(abdc_ranking)) %>%
   count(abdc_ranking) 
 ```
 
-To obtain Google citations for all papers, you can use the data obtained with `read_scholar()` which contains a `cites` column. Otherwise you can try some fuzzy matching of your list of publications against Google Scholar. As the fuzzy matching on title and year is not always accurate, all of the matched and unmatched papers are included in the output for further manual curation.
+The tibble contains Google scholar citations for all papers, you can use the data obtained with `read_scholar()` which contains a `cites` column. We can also obtain CrossRef citations via the `citations()` function which uses the DOI codes.
 
 ```{r scholarcites}
 mypubs %>%
-  match_citations("vamErfkAAAAJ") %>%
-  select(title.x, year.x, cites) %>%
+  mutate(cr_cites = citations(doi)) %>%
+  select(title, year, cites, cr_cites) %>%
   arrange(desc(cites))
-```
-
-The `scholar` package provides tools for obtaining your profile information.
-
-```{r scholarprofile}
-scholar::get_profile("vamErfkAAAAJ")
 ```
 
 Altmetrics can also be useful. For this, you will need the list of your DOIs. 
@@ -110,6 +137,12 @@ mypubs %>%
   get_altmetrics(doi) %>%
   select(title, cited_by_tweeters_count) %>%
   arrange(desc(cited_by_tweeters_count))
+```
+
+The `scholar` package provides tools for obtaining your profile information.
+
+```{r scholarprofile}
+scholar::get_profile("vamErfkAAAAJ")
 ```
 
 ## Teaching
@@ -133,7 +166,7 @@ The teaching section will usually involve collecting data on your teaching perfo
   - Masters students supervised
   - PhD students supervised
   
-Note that a list of PhD students would often go in the Research section rather than the teaching section.
+Note that a list of PhD students may go in the Research section rather than the Teaching section.
 
 ## Engagement
 
