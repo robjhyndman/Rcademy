@@ -4,3 +4,4 @@
 ^notused$
 ^README\.Rmd$
 .*_cache$
+^cran-comments\.md$
