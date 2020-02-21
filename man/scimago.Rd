@@ -27,9 +27,8 @@
 \item{categories}{Categories the jounal belongs to.}
 }}
 \source{
-SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2019-09-19, from http://www.scimagojr.com
+SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2019-09-19, from
 \url{https://www.scimagojr.com/journalrank.php}
-SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved Date you Retrieve, from http://www.scimagojr.com
 }
 \usage{
 data(scimago)
