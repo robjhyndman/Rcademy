@@ -3,7 +3,7 @@
 #' This is a dataset that contains the publications of Nick Tierney available
 #' on ORCID at 20 February 2020.
 #'
-#' Format: a data frame with 2685 observations on the following 7 variables:
+#' A data frame with the following variables
 #' \itemize{
 #'   \item{`journal`: }{Title of the journal}
 #'   \item{`title`: }{Title of the paper}
