@@ -3,18 +3,21 @@
 \name{rank_journal}
 \alias{rank_journal}
 \alias{rank_abdc}
-\alias{rank_scimagojr}
+\alias{rank_scimago}
 \alias{rank_core}
-\title{Find rankings of journals from the ABDC, core, or scimagojr lists.}
+\title{Find rankings of journals from the ABDC, CORE, or SCImago lists.}
 \usage{
-rank_abdc(journal)
+rank_abdc(journal, warning = TRUE)
 
-rank_scimagojr(journal)
+rank_scimago(journal, warning = TRUE)
 
-rank_core(journal)
+rank_core(journal, warning = TRUE)
 }
 \arguments{
 \item{journal}{A character vector containing journal names.}
+
+\item{warning}{A logical value indicating whether to return warnings when \code{journal} contains
+missing values.}
 }
 \value{
 A character vector of the same length as \code{journal} containing
@@ -22,17 +25,26 @@ rankings.
 }
 \description{
 Fuzzy matching is used to find the requested journal from the ABDC, CORE,
-or scimagojr lists. For more information on each of these, see:
+or SCImago lists. For more information on each of these, see:
 \itemize{
-\item{\code{?abdc}: }{for more information on the abdc list}
-\item{\code{?core}: }{for more information on the core list}
-\item{\code{?scimagojr}: }{for more information on the scimagojr list}
+\item{\cite{\link{abdc}}: }{for more information on the abdc list}
+\item{\cite{\link{core}}: }{for more information on the core list}
+\item{\cite{\link{scimago}}: }{for more information on the scimago list}
 }
 }
 \examples{
+# Look up individual journals
 rank_abdc("Annals of statistics")
 rank_core("Annals of statistics")
-rank_scimagojr("Annals of statistics")
+rank_scimago("Annals of statistics")
+
+# Add rankings to a data frame of publications
+library(dplyr)
+njtpubs \%>\%
+  mutate(
+    scimago_ranking = rank_scimago(journal, warning=FALSE)
+  )
+
 }
 \author{
 Rob J Hyndman, Nicholas Tierney

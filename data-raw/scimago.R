@@ -1,7 +1,7 @@
 # Save recent SCIMAGO journal rankings
 library(dplyr)
 library(sjrdata)
-scimagojr <- sjrdata::sjr_journals %>%
+scimago <- sjrdata::sjr_journals %>%
   # When updated on 2020/02/19, the latest year for the data was 2018
   filter(year == max(year))
 
@@ -9,5 +9,5 @@ scimagojr <- sjrdata::sjr_journals %>%
 # title is journal
 # rank is the sjr_best_quartile
 
-usethis::use_data(scimagojr, overwrite = TRUE)
+usethis::use_data(scimago, overwrite = TRUE)
 

@@ -34,8 +34,8 @@
 #'   SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2019-09-19, from http://www.scimagojr.com
 #'   \url{https://www.scimagojr.com/journalrank.php}
 #' SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved Date you Retrieve, from http://www.scimagojr.com
-#' @name scimagojr
+#' @name scimago
 #' @docType data
-#' @usage data(scimagojr)
+#' @usage data(scimago)
 #' @keywords datasets
-"scimagojr"
+"scimago"

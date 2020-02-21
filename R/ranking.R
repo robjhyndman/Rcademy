@@ -1,31 +1,58 @@
-# Combine list of publications against journal rankings
-# Options for ABDC, CORE and SCIMAGOJR
-
-#' Find rankings of journals from Scimago, Core or ABDC. Fuzzy matching is used to
-#' find the requested journal.
+#' Find rankings of journals from the ABDC, CORE, or SCImago lists.
+#'
+#' Fuzzy matching is used to find the requested journal from the ABDC, CORE,
+#'   or SCImago lists. For more information on each of these, see:
+#'   \itemize{
+#'   \item{\cite{\link{abdc}}: }{for more information on the abdc list}
+#'   \item{\cite{\link{core}}: }{for more information on the core list}
+#'   \item{\cite{\link{scimago}}: }{for more information on the scimago list}
+#'   }
 #'
 #' @param journal A character vector containing journal names.
-#' @param source Which journal rankings list to use?
+#' @param warning A logical value indicating whether to return warnings when `journal` contains
+#' missing values.
 #'
 #' @return A character vector of the same length as `journal` containing
 #'   rankings.
 #'
 #' @author Rob J Hyndman, Nicholas Tierney
+#' @name rank_journal
 #' @examples
+#' # Look up individual journals
+#' rank_abdc("Annals of statistics")
+#' rank_core("Annals of statistics")
+#' rank_scimago("Annals of statistics")
 #'
-#' \dontrun{
-#' mypubs <- read_pubmed("Rob Hyndman")
-#' mypubs <- mypubs %>%
+#' # Add rankings to a data frame of publications
+#' library(dplyr)
+#' njtpubs %>%
 #'   mutate(
-#'     abdc_ranking = ranking(journal, source="abdc"),
-#'     core_ranking = ranking(journal, source="core"),
-#'     scimago_ranking = ranking(journal, source="scimagojr")
+#'     scimago_ranking = rank_scimago(journal, warning=FALSE)
 #'   )
-#' }
+#'
 #' @export
-ranking <- function(journal, source) {
+rank_abdc <- function(journal, warning = TRUE){
+  ranking(journal, source = "abdc", warning)
+}
 
-  warn_if_journal_missing(journal)
+#' @rdname rank_journal
+#' @export
+rank_scimago <- function(journal, warning = TRUE){
+  ranking(journal, source = "scimago", warning)
+}
+
+#' @rdname rank_journal
+#' @export
+rank_core <- function(journal, warning = TRUE){
+  ranking(journal, source = "core", warning)
+}
+
+
+ranking <- function(journal, source, warning=TRUE) {
+
+  if(warning) {
+    warn_if_journal_missing(journal)
+  }
 
   jr_rank <- tibble::tibble(journal = journal,
                             ranking = NA_character_)
@@ -40,13 +67,13 @@ ranking <- function(journal, source) {
     jrankings <- core %>%
       dplyr::rename(journal = conference)
   }
-  else if (source == 'scimagojr') {
-    jrankings <- scimagojr %>%
+  else if (source == 'scimago') {
+    jrankings <- scimago %>%
       dplyr::rename(journal = title)
   }
   else {
     stop(glue::glue("You have provided {source}, however we do not \\
-                    have that ranking system, only abdc, core, and scimagojr."))
+                    have that ranking system, only abdc, core, and scimago."))
   }
 
   jr_rank_join <- fuzzyjoin::stringdist_left_join(
@@ -55,10 +82,10 @@ ranking <- function(journal, source) {
     by = "journal",
     ignore_case = TRUE,
     distance_col = "distance"
-    ) %>%
+  ) %>%
     # cast distance to integer
     dplyr::mutate(distance = as.integer(distance),
-    # set distance measures to 0 if missing
+                  # set distance measures to 0 if missing
                   distance = dplyr::if_else(condition = is.na(distance),
                                             true = 0L,
                                             false = distance)) %>%
@@ -71,7 +98,7 @@ ranking <- function(journal, source) {
                                   jr_rank_join,
                                   by = c("journal" = "journal.x"))
 
-  if (source == "scimagojr") {
+  if (source == "scimago") {
     final_rank <- dplyr::mutate(final_rank,
                                 ranking = factor(sjr_best_quartile,
                                                  levels = c("Q1",
@@ -80,7 +107,7 @@ ranking <- function(journal, source) {
                                                             "Q4")))
   }
 
-  if (source != "scimagojr") {
+  if (source != "scimago") {
     final_rank <- dplyr::mutate(final_rank,
                                 ranking = factor(rank,
                                                  levels = c("A*",
@@ -93,43 +120,6 @@ ranking <- function(journal, source) {
   if (all(is.na(final_rank$ranking))) {
     warning("No journals found")
   }
-    return(final_rank$ranking)
+  return(final_rank$ranking)
 }
 
-#' Find rankings of journals from the ABDC, core, or scimagojr lists.
-#'
-#' Fuzzy matching is used to find the requested journal from the ABDC, CORE,
-#'   or scimagojr lists. For more information on each of these, see:
-#'   \itemize{
-#'   \item{`?abdc`: }{for more information on the abdc list}
-#'   \item{`?core`: }{for more information on the core list}
-#'   \item{`?scimagojr`: }{for more information on the scimagojr list}
-#'   }
-#'
-#' @param journal A character vector containing journal names.
-#'
-#' @return A character vector of the same length as `journal` containing
-#'   rankings.
-#'
-#' @author Rob J Hyndman, Nicholas Tierney
-#' @name rank_journal
-#' @export
-#' @examples
-#' rank_abdc("Annals of statistics")
-#' rank_core("Annals of statistics")
-#' rank_scimagojr("Annals of statistics")
-rank_abdc <- function(journal){
-  ranking(journal, source = "abdc")
-}
-
-#' @rdname rank_journal
-#' @export
-rank_scimagojr <- function(journal){
-  ranking(journal, source = "scimagojr")
-}
-
-#' @rdname rank_journal
-#' @export
-rank_core <- function(journal){
-  ranking(journal, source = "core")
-}

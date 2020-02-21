@@ -15,9 +15,13 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 globalVariables(
     c("abdc",
       "core",
-      "scimagojr",
+      "scimago",
       "conference",
       "distance",
       "sjr_best_quartile",
-      "year")
+      "year",
+      "journal-title.value",
+      "publication-date.year.value",
+      "type",
+      "title.title.value")
 )
