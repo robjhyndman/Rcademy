@@ -3,8 +3,7 @@
 #' @description Return CrossRef citation information for items in
 #' data frame of publications using DOIs.
 #'
-#' @param data A data frame of publications.
-#' @param dois Unquoted column containing DOIs
+#' @param doi Unquoted column containing DOIs
 #'
 #' @return A vector of citation counts from CrossRef OpenURL
 #'

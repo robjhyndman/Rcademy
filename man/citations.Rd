@@ -7,9 +7,7 @@
 citations(doi)
 }
 \arguments{
-\item{data}{A data frame of publications.}
-
-\item{dois}{Unquoted column containing DOIs}
+\item{doi}{Unquoted column containing DOIs}
 }
 \value{
 A vector of citation counts from CrossRef OpenURL
