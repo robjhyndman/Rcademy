@@ -79,7 +79,7 @@ read_scholar <- function(id) {
   df <- scholar::get_publications(id)
   df$author <- stringr::str_trim(as.character(df$author))
   tibble::as_tibble(df) %>%
-    mutate_if(is.factor, as.character)
+    dplyr::mutate_if(is.factor, as.character)
 }
 
 #' @rdname read_bib
@@ -104,17 +104,17 @@ read_orcid <- function(id) {
 
   # Now find details for papers without dois
   output_no_dois <- d %>%
-    transmute(
+    dplyr::transmute(
       journal = `journal-title.value`,
       title = `title.title.value`,
       year = as.numeric(`publication-date.year.value`),
       type = type,
     ) %>%
-    anti_join(output_with_dois)
+    dplyr::anti_join(output_with_dois)
 
-  bind_rows(output_with_dois, output_no_dois) %>%
-    arrange(year) %>%
-    mutate(
+  dplyr::bind_rows(output_with_dois, output_no_dois) %>%
+    dplyr::arrange(year) %>%
+    dplyr::mutate(
       title = clean_hyphens(title)
     )
 }
