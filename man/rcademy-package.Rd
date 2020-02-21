@@ -29,5 +29,10 @@ Authors:
   \item Melina Vidoni \email{melina.vidoni@rmit.edu.au} (\href{https://orcid.org/0000-0002-4099-1430}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Ilya Kashnitsky (Contributed scimago) [contributor]
+}
+
 }
 \keyword{internal}

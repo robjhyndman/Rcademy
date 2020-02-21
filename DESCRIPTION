@@ -37,7 +37,11 @@ Authors@R: c(
            family = "Vidoni",
            role = 'aut',
            email = "melina.vidoni@rmit.edu.au",
-           comment = c(ORCID = "0000-0002-4099-1430")))
+           comment = c(ORCID = "0000-0002-4099-1430")),
+    person(given = "Ilya",
+           family = "Kashnitsky",
+           role = 'ctb',
+           comment = "Contributed scimago"))
 License: GPL-3
 Depends: R (>= 2.10)
 Imports:
