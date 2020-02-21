@@ -11,17 +11,19 @@ NULL
 #' @export
 magrittr::`%>%`
 
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
+if (getRversion() >= "2.15.1") utils::globalVariables(c("."))
 globalVariables(
-    c("abdc",
-      "core",
-      "scimago",
-      "conference",
-      "distance",
-      "sjr_best_quartile",
-      "year",
-      "journal-title.value",
-      "publication-date.year.value",
-      "type",
-      "title.title.value")
+  c(
+    "abdc",
+    "core",
+    "scimago",
+    "conference",
+    "distance",
+    "sjr_best_quartile",
+    "year",
+    "journal-title.value",
+    "publication-date.year.value",
+    "type",
+    "title.title.value"
+  )
 )

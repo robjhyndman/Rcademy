@@ -14,16 +14,18 @@ dois_to_papers <- function(dois) {
   colnames(cdata.nonbibtex) <- tolower(colnames(cdata.nonbibtex))
 
   # Format papers
-  papers <- cdata.nonbibtex[,c("issued", "created", "container.title",
-           "publisher", "title", "volume", "issue", "page", "doi", "type")]
+  papers <- cdata.nonbibtex[, c(
+    "issued", "created", "container.title",
+    "publisher", "title", "volume", "issue", "page", "doi", "type"
+  )]
   papers <- purrr::pmap_dfr(papers, format_paper)
   papers$title <- as.character(papers$title)
-  papers$journal = as.character(papers$journal)
-  papers$year = as.numeric(as.character(papers$year))
-  papers$volume = as.character(papers$volume)
-  papers$issue = as.character(papers$issue)
-  papers$pages = as.character(papers$pages)
-  papers$doi = as.character(papers$doi)
+  papers$journal <- as.character(papers$journal)
+  papers$year <- as.numeric(as.character(papers$year))
+  papers$volume <- as.character(papers$volume)
+  papers$issue <- as.character(papers$issue)
+  papers$pages <- as.character(papers$pages)
+  papers$doi <- as.character(papers$doi)
 
   return(papers)
 }
@@ -54,22 +56,26 @@ remove_f1000_dois <- function(dois) {
 
 format_paper <- function(issued, created, container.title,
                          publisher, title, volume, issue, page, doi, type) {
-      # year
-      idates <- issued
-      if(is.na(idates))
-        idates <- created
-      dlengths <- nchar(idates)
-      idates[dlengths == 4] <- paste(idates[dlengths == 4], "-01-01", sep = "") # add years and months as needed
-      idates[dlengths == 7] <- paste(idates[dlengths == 7], "-01", sep = "")
-      year <- format(as.Date(idates), "%Y")
-      # journal
-      journal <- container.title
-      # Identify bioRxiv (couldn't find another way, needs updating)
-      if (is.na(journal) & publisher == "Cold Spring Harbor Laboratory")
-        journal <- "bioRxiv"
+  # year
+  idates <- issued
+  if (is.na(idates)) {
+    idates <- created
+  }
+  dlengths <- nchar(idates)
+  idates[dlengths == 4] <- paste(idates[dlengths == 4], "-01-01", sep = "") # add years and months as needed
+  idates[dlengths == 7] <- paste(idates[dlengths == 7], "-01", sep = "")
+  year <- format(as.Date(idates), "%Y")
+  # journal
+  journal <- container.title
+  # Identify bioRxiv (couldn't find another way, needs updating)
+  if (is.na(journal) & publisher == "Cold Spring Harbor Laboratory") {
+    journal <- "bioRxiv"
+  }
 
-      tibble::tibble(journal = journal, title = title, year = year, volume = volume,
-        issue = issue, pages = page, type = type, doi = doi)
+  tibble::tibble(
+    journal = journal, title = title, year = year, volume = volume,
+    issue = issue, pages = page, type = type, doi = doi
+  )
 }
 
 
@@ -149,4 +155,3 @@ format_paper <- function(issued, created, container.title,
 clean_hyphens <- function(x) {
   str_replace_all(x, "-", "-")
 }
-

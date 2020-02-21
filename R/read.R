@@ -35,9 +35,9 @@ read_bib <- function(filename) {
   df <- RefManageR::ReadBib(filename, check = FALSE)
   df <- as_tibble(df)
   dplyr::mutate(df,
-      title = stringr::str_remove_all(df$title, "[{}]"),
-      title = stringr::str_replace_all(df$title, "\\\\", ""),
-      journal = stringr::str_replace_all(df$journal, "\\\\", "")
+    title = stringr::str_remove_all(df$title, "[{}]"),
+    title = stringr::str_replace_all(df$title, "\\\\", ""),
+    journal = stringr::str_replace_all(df$journal, "\\\\", "")
   )
 }
 
@@ -132,17 +132,17 @@ read_orcid <- function(id) {
 #' \dontrun{
 #' read_orcid("0000-0002-2140-5352") %>%
 #'   get_altmetrics(doi)
-#'}
-
-# Get tibble of all altemtric
+#' }
+#'
+#' # Get tibble of all altemtric
 get_altmetrics <- function(data, doi) {
   dois <- dplyr::pull(data, {{ doi }})
   dois <- na.omit(dois)
   alm <- function(x) {
-    z <- try(rAltmetric::altmetrics(doi = x), silent=TRUE)
-    if("try-error" %in% class(z))
+    z <- try(rAltmetric::altmetrics(doi = x), silent = TRUE)
+    if ("try-error" %in% class(z)) {
       return(NULL)
-    else {
+    } else {
       return(rAltmetric::altmetric_data(z))
     }
   }

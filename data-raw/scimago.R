@@ -10,4 +10,3 @@ scimago <- sjrdata::sjr_journals %>%
 # rank is the sjr_best_quartile
 
 usethis::use_data(scimago, overwrite = TRUE)
-
