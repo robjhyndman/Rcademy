@@ -18,7 +18,7 @@
 #'   paper submission and acceptance rates, and the visibility and research
 #'   track record of the key people hosting the conference and managing its
 #'   technical program. A more detailed statement categorizing the ranks A*, A,
-#'   B, and C can be found [here](bit.ly/core-rankings).
+#'   B, and C can be found [here](http://bit.ly/core-rankings).
 #'
 #' Format: A data frame with 1630 observations and two variables:
 #' \itemize{

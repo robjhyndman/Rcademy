@@ -31,7 +31,7 @@ rankings are determined by a mix of indicators, including citation rates,
 paper submission and acceptance rates, and the visibility and research
 track record of the key people hosting the conference and managing its
 technical program. A more detailed statement categorizing the ranks A*, A,
-B, and C can be found \href{bit.ly/core-rankings}{here}.
+B, and C can be found \href{http://bit.ly/core-rankings}{here}.
 
 Format: A data frame with 1630 observations and two variables:
 \itemize{
