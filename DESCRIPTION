@@ -56,6 +56,8 @@ Imports:
     tidyr,
     rAltmetric,
     glue
+URL: https://github.com/ropenscilabs/Rcademy
+BugReports: https://github.com/ropenscilabs/Rcademy/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
