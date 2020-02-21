@@ -23,5 +23,4 @@ njtpubs \%>\%
   get_altmetrics(doi)
 }
 
-# Get tibble of all altemtric
 }

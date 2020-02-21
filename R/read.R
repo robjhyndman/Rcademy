@@ -134,7 +134,6 @@ read_orcid <- function(id) {
 #'   get_altmetrics(doi)
 #' }
 #'
-#' # Get tibble of all altemtric
 get_altmetrics <- function(data, doi) {
   dois <- dplyr::pull(data, {{ doi }})
   dois <- na.omit(dois)
