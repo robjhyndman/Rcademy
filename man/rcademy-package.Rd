@@ -8,6 +8,14 @@
 \description{
 Ideas and tools to help with preparing documentation for promotions at universities.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ropenscilabs/Rcademy}
+  \item Report bugs at \url{https://github.com/ropenscilabs/Rcademy/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Rob Hyndman \email{Rob.Hyndman@monash.edu} (\href{https://orcid.org/0000-0002-2140-5352}{ORCID})
 

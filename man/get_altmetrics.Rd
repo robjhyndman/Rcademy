@@ -22,4 +22,6 @@ Get a tibble of all altmetrics given a list of DOIs
 read_orcid("0000-0002-2140-5352") \%>\%
   get_altmetrics(doi)
 }
+
+# Get tibble of all altemtric
 }

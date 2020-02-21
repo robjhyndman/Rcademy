@@ -47,7 +47,6 @@ Imports:
     magrittr,
     purrr,
     rcrossref,
-    readr,
     RefManageR,
     rorcid,
     scholar,

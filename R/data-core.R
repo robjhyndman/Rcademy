@@ -18,7 +18,7 @@
 #'   paper submission and acceptance rates, and the visibility and research
 #'   track record of the key people hosting the conference and managing its
 #'   technical program. A more detailed statement categorizing the ranks A*, A,
-#'   B, and C can be found [here](https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnx3d3djb3JlZWR1fGd4OjJjNjkxOWE1NWQ4ZGY5MjU).
+#'   B, and C can be found [here](bit.ly/core-rankings).
 #'
 #' Format: A data frame with 1630 observations and two variables:
 #' \itemize{
@@ -43,7 +43,7 @@
 #' @name core
 #' @docType data
 #' @usage data(core)
-#' @source \url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018&sort=atitle&page=1}
+#' @source \url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018}
 #' @keywords datasets
 #' @examples
 #' core

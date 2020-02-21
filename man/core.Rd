@@ -6,7 +6,7 @@
 \title{CORE (Computing Research and Education) list of conference rankings}
 \format{An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1630 rows and 2 columns.}
 \source{
-\url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018&sort=atitle&page=1}
+\url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018}
 }
 \usage{
 data(core)
@@ -31,7 +31,7 @@ rankings are determined by a mix of indicators, including citation rates,
 paper submission and acceptance rates, and the visibility and research
 track record of the key people hosting the conference and managing its
 technical program. A more detailed statement categorizing the ranks A*, A,
-B, and C can be found \href{https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnx3d3djb3JlZWR1fGd4OjJjNjkxOWE1NWQ4ZGY5MjU}{here}.
+B, and C can be found \href{bit.ly/core-rankings}{here}.
 
 Format: A data frame with 1630 observations and two variables:
 \itemize{

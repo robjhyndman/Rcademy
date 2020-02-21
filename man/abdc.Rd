@@ -20,14 +20,15 @@ the list updated in 2019. You can read more about this list
 \details{
 Format: a data frame with 2685 observations on the following 7 variables:
 \itemize{
-\item{\verb{journal:}}{Title of the Journal}
-\item{\verb{publisher:}}{Publishing houre}
-\item{\verb{issn:}}{International Standard Serial Number}
-\item{\verb{issn_online:}}{ISSN Online - as ISSN, but for the online, rather
+\item{\code{journal}: }{Title of the Journal}
+\item{\code{publisher}: }{Publishing house}
+\item{\code{issn}: }{International Standard Serial Number}
+\item{\code{issn_online}: }{ISSN Online - as ISSN, but for the online, rather
 than print version}
-\item{\verb{year_inception:}}{Year the journal started}
-\item{\verb{field_of_research:}}{Field of Research Code as provided by the Australian Bureau of Statistics}
-\item{\verb{rank:}}{In order of best to lowest rank: A*, A, B, or C}
+\item{\code{year_inception}: }{Year the journal started}
+\item{\code{field_of_research}: }{Field of Research Code as provided by the
+Australian Bureau of Statistics}
+\item{\code{rank}: }{In order of best to lowest rank: A*, A, B, or C}
 }
 }
 \examples{

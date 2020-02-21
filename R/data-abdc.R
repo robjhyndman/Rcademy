@@ -13,7 +13,8 @@
 #'   \item{`issn_online`: }{ISSN Online - as ISSN, but for the online, rather
 #'         than print version}
 #'   \item{`year_inception`: }{Year the journal started}
-#'   \item{`field_of_research`: }{Field of Research Code as provided by the Australian Bureau of Statistics}
+#'   \item{`field_of_research`: }{Field of Research Code as provided by the
+#'         Australian Bureau of Statistics}
 #'   \item{`rank`: }{In order of best to lowest rank: A*, A, B, or C}
 #'  }
 #' @name abdc

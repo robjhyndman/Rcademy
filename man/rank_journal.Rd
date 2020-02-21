@@ -42,9 +42,8 @@ rank_scimago("Annals of statistics")
 library(dplyr)
 njtpubs \%>\%
   mutate(
-    scimago_ranking = rank_scimago(journal, warning=FALSE)
+    scimago_ranking = rank_scimago(journal, warning = FALSE)
   )
-
 }
 \author{
 Rob J Hyndman, Nicholas Tierney
