@@ -20,8 +20,8 @@
 #' @examples
 #' # Look up individual journals
 #' rank_abdc("Annals of statistics")
-#' rank_core("Annals of statistics")
-#' rank_scimago("Annals of statistics")
+#' rank_core("International Conference on Machine Learning")
+#' rank_scimago("International Journal of Forecasting")
 #'
 #' # Add rankings to a data frame of publications
 #' library(dplyr)
