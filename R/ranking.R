@@ -114,9 +114,7 @@ ranking <- function(journal, source, warning = TRUE) {
         )
       )
     )
-  }
-
-  if (source != "scimago") {
+  } else {
     final_rank <- dplyr::mutate(final_rank,
       ranking = factor(rank,
         levels = c(
