@@ -110,7 +110,7 @@ read_orcid <- function(id) {
       year = as.numeric(`publication-date.year.value`),
       type = type,
     ) %>%
-    dplyr::anti_join(output_with_dois)
+    dplyr::anti_join(output_with_dois, by = c("journal", "title", "year", "type"))
 
   dplyr::bind_rows(output_with_dois, output_no_dois) %>%
     dplyr::arrange(year) %>%
@@ -130,7 +130,7 @@ read_orcid <- function(id) {
 #' @return A tibble of altmetrics
 #' @examples
 #' \dontrun{
-#' read_orcid("0000-0002-2140-5352") %>%
+#' njtpubs %>%
 #'   get_altmetrics(doi)
 #' }
 #'

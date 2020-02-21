@@ -155,3 +155,9 @@ format_paper <- function(issued, created, container.title,
 clean_hyphens <- function(x) {
   str_replace_all(x, "-", "-")
 }
+
+warn_if_journal_missing <- function(journal) {
+  if (any(is.na(journal))) {
+    warning("There are missing journal entries.")
+  }
+}

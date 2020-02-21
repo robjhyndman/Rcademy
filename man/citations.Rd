@@ -19,7 +19,7 @@ data frame of publications using DOIs.
 \examples{
 
 \dontrun{
-mypubs <- read_orcid("0000-0002-2140-5352") \%>\%
+njtpubs \%>\%
   mutate(cr_cites = citations(doi))
 }
 
