@@ -5,6 +5,10 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rcademy)](https://CRAN.R-project.org/package=rcademy)
+[![R build
+status](https://github.com/ropenscilabs/rcademy/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/rcademy/actions)
 <!-- badges: end -->
 
 This package was developed during *ozunconf19* and *numbat hackathon
