@@ -4,7 +4,9 @@
 \name{abdc}
 \alias{abdc}
 \title{ABDC Journal Quality List}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2685 rows and 7 columns.}
+\format{
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2685 rows and 7 columns.
+}
 \source{
 \url{https://abdc.edu.au/research/abdc-journal-list/}
 }

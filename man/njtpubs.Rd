@@ -4,7 +4,9 @@
 \name{njtpubs}
 \alias{njtpubs}
 \title{Publications of Nick Tierney}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 9 rows and 8 columns.}
+\format{
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 9 rows and 8 columns.
+}
 \source{
 \url{https://orcid.org/0000-0003-1460-8722}
 }

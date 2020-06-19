@@ -4,7 +4,9 @@
 \name{core}
 \alias{core}
 \title{CORE (Computing Research and Education) list of conference rankings}
-\format{An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1630 rows and 2 columns.}
+\format{
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1630 rows and 2 columns.
+}
 \source{
 \url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018}
 }

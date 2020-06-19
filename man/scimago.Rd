@@ -4,7 +4,8 @@
 \name{scimago}
 \alias{scimago}
 \title{SCImago Journal Rank for all jounals indexed by Scopus in 2018}
-\format{A tibble with 31871 rows and 20 variables:
+\format{
+A tibble with 31871 rows and 20 variables:
 \describe{
 \item{year}{Year of SCImago Journal Ranking calculation.}
 \item{rank}{Rank of the journal among all journals.}
@@ -25,7 +26,8 @@
 \item{country}{Country of the publisher.}
 \item{publisher}{Publisher of the journal.}
 \item{categories}{Categories the jounal belongs to.}
-}}
+}
+}
 \source{
 SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2019-09-19, from
 \url{https://www.scimagojr.com/journalrank.php}
