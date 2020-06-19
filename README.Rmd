@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package was developed during _ozunconf19_ and _numbat hackathon 2020_, to provide tools and ideas that will help gather the information required to apply for _academic promotion_. Though this is quite general, it is mostly focused in Australian requisites.
+This package was developed during _ozunconf19_ and _numbat hackathon 2020_, to provide tools and ideas that will help gather the information required to apply for _academic promotion_. 
 
 This document was produced by Chris Brown, Belinda Fabian, Rob Hyndman, Maria Prokofiave, Nick Tierney, Huong Ly Tong, and Melina Vidoni, 
 

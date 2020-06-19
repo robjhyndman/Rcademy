@@ -9,8 +9,7 @@
 
 This package was developed during *ozunconf19* and *numbat hackathon
 2020*, to provide tools and ideas that will help gather the information
-required to apply for *academic promotion*. Though this is quite
-general, it is mostly focused in Australian requisites.
+required to apply for *academic promotion*.
 
 This document was produced by Chris Brown, Belinda Fabian, Rob Hyndman,
 Maria Prokofiave, Nick Tierney, Huong Ly Tong, and Melina Vidoni,
@@ -44,12 +43,12 @@ Orcid. Normally you would only need to use one of these.
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
-#> ✓ ggplot2 3.3.0.9000     ✓ purrr   0.3.3     
-#> ✓ tibble  2.1.3          ✓ dplyr   0.8.4     
-#> ✓ tidyr   1.0.2          ✓ stringr 1.4.0     
-#> ✓ readr   1.3.1          ✓ forcats 0.4.0
-#> ── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.0 ──
+#> ✓ ggplot2 3.3.1     ✓ purrr   0.3.4
+#> ✓ tibble  3.0.1     ✓ dplyr   1.0.0
+#> ✓ tidyr   1.1.0     ✓ stringr 1.4.0
+#> ✓ readr   1.3.1     ✓ forcats 0.5.0
+#> ── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library(rcademy)
@@ -71,20 +70,20 @@ following examples.
 
 ``` r
 mypubs_orcid
-#> # A tibble: 110 x 8
-#>    journal        title               year volume issue pages   type   doi      
-#>    <chr>          <chr>              <dbl> <chr>  <chr> <chr>   <chr>  <chr>    
-#>  1 Data Mining a… On normalization …  2019 34     2     309-354 journ… 10.1007/…
-#>  2 Water Resourc… A Feature‐Based P…  2019 55     11    8547-8… journ… 10.1029/…
-#>  3 IEEE Power an… Visualizing Big E…  2018 16     3     18-25   journ… 10.1109/…
-#>  4 Computational… A note on the val…  2018 120    <NA>  70-83   journ… 10.1016/…
-#>  5 Stat           Bivariate smoothi…  2018 7      1     e199    journ… 10.1002/…
-#>  6 International… Crude oil price f…  2018 34     4     665-677 journ… 10.1016/…
-#>  7 European Jour… Exploring the sou…  2018 268    2     545-554 journ… 10.1016/…
-#>  8 Journal of th… Optimal Forecast …  2018 114    526   804-819 journ… 10.1080/…
-#>  9 Journal of th… A note on upper b…  2017 68     9     1082-1… journ… 10.1057/…
-#> 10 Journal of Al… Associations betw…  2017 139    4     1140-1… journ… 10.1016/…
-#> # … with 100 more rows
+#> # A tibble: 197 x 8
+#>    journal       title                year volume issue pages  type   doi       
+#>    <chr>         <chr>               <dbl> <chr>  <chr> <chr>  <chr>  <chr>     
+#>  1 Internationa… On continuous-time…  1992 <NA>   <NA>  <NA>   journ… <NA>      
+#>  2 Journal of T… YULE-WALKER ESTIMA…  1993 14     3     281-2… journ… 10.1111/j…
+#>  3 Journal of T… YULE‐WALKER ESTIMA…  1993 <NA>   <NA>  <NA>   journ… <NA>      
+#>  4 Journal of A… Approximations and…  1994 31     4     1103-… journ… 10.2307/3…
+#>  5 <NA>          Approximations and…  1994 <NA>   <NA>  <NA>   journ… <NA>      
+#>  6 Journal of F… Highest-density fo…  1995 14     5     431-4… journ… 10.1002/f…
+#>  7 Journal of F… Highest‐density fo…  1995 <NA>   <NA>  <NA>   journ… <NA>      
+#>  8 The American… Sample Quantiles i…  1996 50     4     361    journ… 10.2307/2…
+#>  9 The American… Sample Quantiles i…  1996 50     4     361-3… journ… 10.1080/0…
+#> 10 The American… Computing and Grap…  1996 50     2     120    journ… 10.2307/2…
+#> # … with 187 more rows
 mypubs_scholar
 #> # A tibble: 301 x 8
 #>    title         author        journal    number  cites  year cid          pubid
@@ -137,12 +136,12 @@ mypubs <- mypubs_scholar %>%
   select(!ends_with(".x")) %>%
   rename_all(~str_remove_all(.x,".y"))
 mypubs
-#> # A tibble: 293 x 13
+#> # A tibble: 309 x 13
 #>    author number cites cid   pubid journal title  year volume issue pages pe   
 #>    <chr>  <chr>  <dbl> <chr> <chr> <chr>   <chr> <dbl> <chr>  <chr> <chr> <chr>
 #>  1 S Mak… ""      5680 7309… u5HH… "John … Fore…  1998 <NA>   <NA>  <NA>  <NA> 
 #>  2 RJ Hy… "22 (…  2916 1354… 9yKS… "Inter… Anot…  2006 22     4     679-… jour…
-#>  3 RJ Hy… ""      1931 1667… YsMS… "Journ… Auto…  2007 <NA>   <NA>  <NA>  <NA> 
+#>  3 RJ Hy… ""      1931 1667… YsMS… "Journ… Auto…  2008 <NA>   <NA>  <NA>  jour…
 #>  4 RJ Hy… ""      1784 7175… CrVL… "OText… Fore…  2018 <NA>   <NA>  <NA>  <NA> 
 #>  5 RJ Hy… ""       984 8841… UeHW… "Sprin… Fore…  2008 <NA>   <NA>  <NA>  <NA> 
 #>  6 J Ver… "114 …   925 4712… 5nxA… "Remot… Dete…  2010 114    1     106-… jour…
@@ -150,7 +149,7 @@ mypubs
 #>  8 RJ Hy… "50 (…   842 2524… u-x6… "The A… Samp…  1996 50     4     361   jour…
 #>  9 RJ Hy… "18 (…   746 4445… 2osO… "Inter… A st…  2002 18     3     439-… jour…
 #> 10 RJ Hy… ""       653 1684… UbXT… ""      fore…  2018 <NA>   <NA>  <NA>  <NA> 
-#> # … with 283 more rows, and 1 more variable: doi <chr>
+#> # … with 299 more rows, and 1 more variable: doi <chr>
 ```
 
 You can add journal rankings for each publication, choosing between
@@ -183,20 +182,20 @@ mypubs %>%
   mutate(cr_cites = citations(doi)) %>%
   select(title, year, cites, cr_cites) %>%
   arrange(desc(cites))
-#> # A tibble: 293 x 4
+#> # A tibble: 309 x 4
 #>    title                                                     year cites cr_cites
 #>    <chr>                                                    <dbl> <dbl>    <dbl>
 #>  1 Forecasting methods and applications                      1998  5680       NA
-#>  2 Another look at measures of forecast accuracy             2006  2916     1357
-#>  3 Automatic time series forecasting: the forecast package…  2007  1931       NA
+#>  2 Another look at measures of forecast accuracy             2006  2916     1456
+#>  3 Automatic time series forecasting: The forecast package…  2008  1931       NA
 #>  4 Forecasting: principles and practice                      2018  1784       NA
 #>  5 Forecasting with exponential smoothing: the state space…  2008   984       NA
-#>  6 Detecting trend and seasonal changes in satellite image…  2010   925      594
-#>  7 25 years of time series forecasting                       2006   895      576
-#>  8 Sample Quantiles in Statistical Packages                  1996   842       95
-#>  9 A state space framework for automatic forecasting using…  2002   746      331
+#>  6 Detecting trend and seasonal changes in satellite image…  2010   925      645
+#>  7 25 years of time series forecasting                       2006   895      596
+#>  8 Sample Quantiles in Statistical Packages                  1996   842      100
+#>  9 A state space framework for automatic forecasting using…  2002   746      348
 #> 10 forecast: Forecasting functions for time series and lin…  2018   653       NA
-#> # … with 283 more rows
+#> # … with 299 more rows
 ```
 
 Altmetrics can also be useful. For this, you will need the list of your
@@ -207,20 +206,20 @@ mypubs %>%
   get_altmetrics(doi) %>%
   select(title, cited_by_tweeters_count) %>%
   arrange(desc(cited_by_tweeters_count))
-#> # A tibble: 39 x 2
+#> # A tibble: 40 x 2
 #>    title                                                    cited_by_tweeters_c…
 #>    <chr>                                                                   <dbl>
-#>  1 Handgun Acquisitions in California After Two Mass Shoot…                   40
+#>  1 Handgun Acquisitions in California After Two Mass Shoot…                   41
 #>  2 Exploring the sources of uncertainty: Why does bagging …                   16
 #>  3 Associations between outdoor fungal spores and childhoo…                   15
 #>  4 Point and interval forecasts of mortality rates and lif…                   12
 #>  5 A Feature‐Based Procedure for Detecting Technical Outli…                   12
-#>  6 Forecasting Time Series With Complex Seasonal Patterns …                    7
+#>  6 Forecasting Time Series With Complex Seasonal Patterns …                    8
 #>  7 Forecasting with temporal hierarchies                                       7
 #>  8 Forecasting with temporal hierarchies                                       7
 #>  9 Do human rhinovirus infections and food allergy modify …                    6
 #> 10 A note on upper bounds for forecast-value-added relativ…                    6
-#> # … with 29 more rows
+#> # … with 30 more rows
 ```
 
 The `scholar` package provides tools for obtaining your profile
@@ -238,13 +237,13 @@ scholar::get_profile("vamErfkAAAAJ")
 #> [1] "Professor of Statistics, Monash University"
 #> 
 #> $total_cites
-#> [1] 29296
+#> [1] 31271
 #> 
 #> $h_index
-#> [1] 62
+#> [1] 63
 #> 
 #> $i10_index
-#> [1] 141
+#> [1] 148
 #> 
 #> $fields
 #> [1] "verified email at monash.edu - homepage"
@@ -256,10 +255,10 @@ scholar::get_profile("vamErfkAAAAJ")
 #>  [1] "George Athanasopoulos"        "Ralph Snyder"                
 #>  [3] "Han Lin Shang"                "Kate Smith-Miles"            
 #>  [5] "Keith Ord"                    "Spyros Makridakis"           
-#>  [7] "Bircan Erbas"                 "Christoph Bergmeir"          
-#>  [9] "Fotios Petropoulos"           "Heather Booth"               
+#>  [7] "Bircan Erbas"                 "Fotios Petropoulos"          
+#>  [9] "Christoph Bergmeir"           "Heather Booth"               
 #> [11] "Jan Verbesselt"               "Souhaib Ben Taieb"           
-#> [13] "Mitchell O'Hara-Wild"         "Darius Culvenor"             
+#> [13] "Darius Culvenor"              "Mitchell O'Hara-Wild"        
 #> [15] "Muhammad Akram"               "Michael Abramson"            
 #> [17] "Leonie Tickle"                "Shyamali  Chandrika Dharmage"
 #> [19] "Roman Ahmed"                  "Glenn Newnham"
