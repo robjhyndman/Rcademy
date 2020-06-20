@@ -88,9 +88,10 @@ read_scholar <- function(id) {
 read_orcid <- function(id) {
 
   # Read works from orcid and store as a tibble
-  d <- rorcid::works(rorcid::orcid_id(orcid = id))
+  d <- rorcid::orcid_id(orcid = id) %>%
+    rorcid::works()
   if (nrow(d) == 0) {
-    return(d)
+    return(as_tibble(d))
   }
 
   # Get DOIs where they exist
@@ -100,10 +101,12 @@ read_orcid <- function(id) {
   dois <- remove_f1000_dois(dois)
   dois <- dois[dois != ""]
 
-  output_with_dois <- dois_to_papers(dois)
+  output_with_dois <- suppressWarnings(dois_to_papers(dois)) %>%
+    tibble::as_tibble()
 
   # Now find details for papers without dois
   output_no_dois <- d %>%
+    tibble::as_tibble() %>%
     dplyr::transmute(
       journal = `journal-title.value`,
       title = `title.title.value`,
