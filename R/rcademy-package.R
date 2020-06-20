@@ -5,11 +5,10 @@
 #' @importFrom stats complete.cases na.omit
 #' @importFrom utils page tail write.csv
 #' @importFrom dplyr mutate select
-#' @importFrom magrittr `%>%`
-NULL
-
+#' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
+NULL
 
 if (getRversion() >= "2.15.1") utils::globalVariables(c("."))
 globalVariables(
