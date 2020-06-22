@@ -76,12 +76,35 @@ ranking <- function(journal, source, warning = FALSE) {
                     have that ranking system, only abdc, core, and scimago."))
   }
 
+  # Change "&" and "and", and omit "the" and "of"
+  # Also omit anything in parentheses
+  jrankings <- jrankings %>%
+    mutate(
+      journal = stringr::str_replace_all(journal, "\\sthe\\s", " "),
+      journal = stringr::str_replace_all(journal, "^The\\s", " "),
+      journal = stringr::str_replace_all(journal, "\\sof\\s", " "),
+      journal = stringr::str_replace_all(journal, "&", "and"),
+      journal = stringr::str_remove_all(journal, "\\([A-Za-z\\s]*\\)"),
+      journal = stringr::str_trim(journal)
+    )
+  jr_rank <- jr_rank %>%
+    mutate(
+      journal = stringr::str_replace_all(journal, "\\sthe\\s", " "),
+      journal = stringr::str_replace_all(journal, "^The\\s", " "),
+      journal = stringr::str_replace_all(journal, "\\sof\\s", " "),
+      journal = stringr::str_replace_all(journal, "&", "and"),
+      journal = stringr::str_remove_all(journal, "\\([A-Za-z\\s]*\\)"),
+      journal = stringr::str_trim(journal)
+    )
+
   jr_rank_join <- fuzzyjoin::stringdist_left_join(
     x = jr_rank[!miss, ],
     y = jrankings,
     by = "journal",
     ignore_case = TRUE,
-    distance_col = "distance"
+    distance_col = "distance",
+    max_dist = 10,
+    method = "lcs"
   ) %>%
     # cast distance to integer
     dplyr::mutate(
@@ -93,15 +116,20 @@ ranking <- function(journal, source, warning = FALSE) {
         false = distance
       )
     ) %>%
-    # only keep those with exact matches
-    dplyr::filter(distance == 0)
+    # Find closest match
+    rename(journal = journal.x) %>%
+    select(journal, rank, distance) %>%
+    group_by(journal) %>%
+    filter(distance == min(distance)) %>%
+    ungroup() %>%
+    unique() %>%
+    group_by(journal) %>%
+    filter(rank == min(rank)) %>%
+    ungroup()
 
-  # now return the ranking...but this is fragile if the positions don't match.
-  # jr_rank$ranking[!miss] <- jr_rank_join$rank
-  final_rank <- dplyr::left_join(jr_rank,
-    jr_rank_join,
-    by = c("journal" = "journal.x")
-  )
+  # now return the ranking
+  final_rank <- jr_rank %>%
+    dplyr::left_join(jr_rank_join, by = "journal")
 
   if (source == "scimago") {
     final_rank <- dplyr::mutate(final_rank,
