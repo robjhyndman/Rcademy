@@ -3,9 +3,9 @@
 \docType{data}
 \name{scimago}
 \alias{scimago}
-\title{SCImago Journal Rank for all jounals indexed by Scopus in 2018}
+\title{SCImago Journal Rank for all journals indexed by Scopus in 2019}
 \format{
-A tibble with 31871 rows and 20 variables:
+A tibble with 30,883 rows and 24 variables:
 \describe{
 \item{year}{Year of SCImago Journal Ranking calculation.}
 \item{rank}{Rank of the journal among all journals.}
@@ -26,19 +26,22 @@ A tibble with 31871 rows and 20 variables:
 \item{country}{Country of the publisher.}
 \item{publisher}{Publisher of the journal.}
 \item{categories}{Categories the jounal belongs to.}
+\item{highest_category}{Category in which the journal ranks highest by percentile.}
+\item{highest_rank}{Rank of journal in \code{highest_category}.}
+\item{highest_percentile}{Highest percentile of journal in any category.}
 }
 }
 \source{
-SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2019-09-19, from
+SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2020-06-21, from
 \url{https://www.scimagojr.com/journalrank.php}
 }
 \usage{
 data(scimago)
 }
 \description{
-This data was taken from the R package
+This data was taken from an updated version of the R package
 \href{https://github.com/ikashnitsky/sjrdata}{\code{sjrdata}}, and filtered to only
-use the latest year, which at the time of writing (2020-02-19) was 2018.
+use the latest year, which at the time of writing (2020-06-21) was 2019.
 }
 \author{
 Ilya Kashnitsky \href{mailto:ilya.kashnitsky@gmail.com}{ilya.kashnitsky@gmail.com}

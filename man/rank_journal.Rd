@@ -7,11 +7,11 @@
 \alias{rank_core}
 \title{Find rankings of journals from the ABDC, CORE, or SCImago lists.}
 \usage{
-rank_abdc(journal, warning = TRUE)
+rank_abdc(journal, warning = FALSE)
 
-rank_scimago(journal, warning = TRUE)
+rank_scimago(journal, warning = FALSE)
 
-rank_core(journal, warning = TRUE)
+rank_core(journal, warning = FALSE)
 }
 \arguments{
 \item{journal}{A character vector containing journal names.}
