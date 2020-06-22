@@ -156,7 +156,7 @@ format_paper <- function(issued, created, container.title,
 
 # replace hyphens with true hyphens
 clean_hyphens <- function(x) {
-  str_replace_all(x, "[‐–]", "-")
+  str_replace_all(x, "[\u002D\u00AD\u2013\u2014]", "-")
 }
 
 warn_if_journal_missing <- function(journal) {
