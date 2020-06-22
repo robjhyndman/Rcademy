@@ -47,12 +47,12 @@ Orcid. Normally you would only need to use one of these.
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.0 ──
+#> ── Attaching packages ──────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 #> ✓ ggplot2 3.3.1     ✓ purrr   0.3.4
 #> ✓ tibble  3.0.1     ✓ dplyr   1.0.0
 #> ✓ tidyr   1.1.0     ✓ stringr 1.4.0
 #> ✓ readr   1.3.1     ✓ forcats 0.5.0
-#> ── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Conflicts ─────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library(rcademy)
@@ -74,35 +74,35 @@ following examples.
 
 ``` r
 mypubs_orcid
-#> # A tibble: 197 x 8
-#>    journal       title                year volume issue pages  type   doi       
-#>    <chr>         <chr>               <dbl> <chr>  <chr> <chr>  <chr>  <chr>     
-#>  1 Internationa… On continuous-time…  1992 <NA>   <NA>  <NA>   journ… <NA>      
-#>  2 Journal of T… YULE-WALKER ESTIMA…  1993 14     3     281-2… journ… 10.1111/j…
-#>  3 Journal of T… YULE‐WALKER ESTIMA…  1993 <NA>   <NA>  <NA>   journ… <NA>      
-#>  4 Journal of A… Approximations and…  1994 31     4     1103-… journ… 10.2307/3…
-#>  5 <NA>          Approximations and…  1994 <NA>   <NA>  <NA>   journ… <NA>      
-#>  6 Journal of F… Highest-density fo…  1995 14     5     431-4… journ… 10.1002/f…
-#>  7 Journal of F… Highest‐density fo…  1995 <NA>   <NA>  <NA>   journ… <NA>      
-#>  8 The American… Sample Quantiles i…  1996 50     4     361    journ… 10.2307/2…
-#>  9 The American… Sample Quantiles i…  1996 50     4     361-3… journ… 10.1080/0…
-#> 10 The American… Computing and Grap…  1996 50     2     120    journ… 10.2307/2…
-#> # … with 187 more rows
+#> # A tibble: 142 x 8
+#>    journal            title             year volume issue pages type   doi      
+#>    <chr>              <chr>            <dbl> <chr>  <chr> <chr> <chr>  <chr>    
+#>  1 International Jou… On continuous-t…  1992 <NA>   <NA>  <NA>  <NA>   <NA>     
+#>  2 Journal of Time S… YULE-WALKER EST…  1993 14     3     281-… journ… 10.1111/…
+#>  3 Journal of Applie… Approximations …  1994 31     4     1103… journ… 10.2307/…
+#>  4 Journal of Foreca… Highest-density…  1995 14     5     431-… journ… 10.1002/…
+#>  5 The American Stat… Sample Quantile…  1996 50     4     361   journ… 10.2307/…
+#>  6 The American Stat… Sample Quantile…  1996 50     4     361-… journ… 10.1080/…
+#>  7 The American Stat… Computing and G…  1996 50     2     120   journ… 10.2307/…
+#>  8 The American Stat… Computing and G…  1996 50     2     120-… journ… 10.1080/…
+#>  9 Journal of Comput… Estimating and …  1996 5      4     315-… journ… 10.1080/…
+#> 10 Journal of the Ro… Some properties…  1997 <NA>   <NA>  <NA>  <NA>   <NA>     
+#> # … with 132 more rows
 mypubs_scholar
-#> # A tibble: 301 x 8
+#> # A tibble: 289 x 8
 #>    title         author        journal    number  cites  year cid          pubid
 #>    <chr>         <chr>         <chr>      <chr>   <dbl> <dbl> <chr>        <chr>
-#>  1 Forecasting … S Makridakis… "John Wil… ""       5680  1998 73093598359… u5HH…
-#>  2 Another look… RJ Hyndman, … "Internat… "22 (4…  2916  2006 13549848342… 9yKS…
-#>  3 Automatic ti… RJ Hyndman, … "Journal … ""       1931  2007 16678312313… YsMS…
-#>  4 Forecasting:… RJ Hyndman, … "OTexts"   ""       1784  2018 71756992424… CrVL…
-#>  5 Forecasting … RJ Hyndman, … "Springer… ""        984  2008 88418756642… UeHW…
-#>  6 Detecting tr… J Verbesselt… "Remote s… "114 (…   925  2010 47121712280… 5nxA…
-#>  7 25 years of … JG De Gooije… "Internat… "22 (3…   895  2006 33143054759… Tyk-…
-#>  8 Sample quant… RJ Hyndman, … "The Amer… "50 (4…   842  1996 25243146458… u-x6…
-#>  9 A state spac… RJ Hyndman, … "Internat… "18 (3…   746  2002 44453997602… 2osO…
-#> 10 forecast: Fo… RJ Hyndman, … ""         ""        653  2018 16844150736… UbXT…
-#> # … with 291 more rows
+#>  1 Forecasting … S Makridakis… "John Wil… ""       5826  1998 73093598359… u5HH…
+#>  2 Another look… RJ Hyndman, … "Internat… "22 (4…  3160  2006 13549848342… 9yKS…
+#>  3 Automatic ti… RJ Hyndman, … "Journal … ""       2162  2007 16678312313… YsMS…
+#>  4 Forecasting:… RJ Hyndman, … "OTexts"   ""       2109  2018 71756992424… CrVL…
+#>  5 Forecasting … RJ Hyndman, … "Springer… ""       1063  2008 88418756642… UeHW…
+#>  6 Detecting tr… J Verbesselt… "Remote s… "114 (…  1003  2010 47121712280… 5nxA…
+#>  7 25 years of … JG De Gooije… "Internat… "22 (3…   935  2006 33143054759… Tyk-…
+#>  8 Sample quant… RJ Hyndman, … "The Amer… "50 (4…   880  1996 25243146458… u-x6…
+#>  9 A state spac… RJ Hyndman, … "Internat… "18 (3…   782  2002 44453997602… 2osO…
+#> 10 forecast: Fo… RJ Hyndman, … ""         ""        739  2018 16844150736… UbXT…
+#> # … with 279 more rows
 ```
 
 In general, ORCID will provide higher quality data, along with DOIs, but
@@ -140,20 +140,20 @@ mypubs <- mypubs_scholar %>%
   select(!ends_with(".x")) %>%
   rename_all(~str_remove_all(.x,".y"))
 mypubs
-#> # A tibble: 309 x 13
+#> # A tibble: 301 x 13
 #>    author number cites cid   pubid journal title  year volume issue pages pe   
 #>    <chr>  <chr>  <dbl> <chr> <chr> <chr>   <chr> <dbl> <chr>  <chr> <chr> <chr>
-#>  1 S Mak… ""      5680 7309… u5HH… "John … Fore…  1998 <NA>   <NA>  <NA>  <NA> 
-#>  2 RJ Hy… "22 (…  2916 1354… 9yKS… "Inter… Anot…  2006 22     4     679-… jour…
-#>  3 RJ Hy… ""      1931 1667… YsMS… "Journ… Auto…  2008 <NA>   <NA>  <NA>  jour…
-#>  4 RJ Hy… ""      1784 7175… CrVL… "OText… Fore…  2018 <NA>   <NA>  <NA>  <NA> 
-#>  5 RJ Hy… ""       984 8841… UeHW… "Sprin… Fore…  2008 <NA>   <NA>  <NA>  <NA> 
-#>  6 J Ver… "114 …   925 4712… 5nxA… "Remot… Dete…  2010 114    1     106-… jour…
-#>  7 JG De… "22 (…   895 3314… Tyk-… "Inter… 25 y…  2006 22     3     443-… jour…
-#>  8 RJ Hy… "50 (…   842 2524… u-x6… "The A… Samp…  1996 50     4     361   jour…
-#>  9 RJ Hy… "18 (…   746 4445… 2osO… "Inter… A st…  2002 18     3     439-… jour…
-#> 10 RJ Hy… ""       653 1684… UbXT… ""      fore…  2018 <NA>   <NA>  <NA>  <NA> 
-#> # … with 299 more rows, and 1 more variable: doi <chr>
+#>  1 S Mak… ""      5826 7309… u5HH… "John … Fore…  1998 <NA>   <NA>  <NA>  <NA> 
+#>  2 RJ Hy… "22 (…  3160 1354… 9yKS… "Inter… Anot…  2006 22     4     679-… jour…
+#>  3 RJ Hy… ""      2162 1667… YsMS… "Journ… Auto…  2008 <NA>   <NA>  <NA>  <NA> 
+#>  4 RJ Hy… ""      2109 7175… CrVL… "OText… Fore…  2018 <NA>   <NA>  <NA>  <NA> 
+#>  5 RJ Hy… ""      1063 8841… UeHW… "Sprin… Fore…  2008 <NA>   <NA>  <NA>  <NA> 
+#>  6 J Ver… "114 …  1003 4712… 5nxA… "Remot… Dete…  2010 114    1     106-… jour…
+#>  7 JG De… "22 (…   935 3314… Tyk-… "Inter… 25 y…  2006 22     3     443-… jour…
+#>  8 RJ Hy… "50 (…   880 2524… u-x6… "The A… Samp…  1996 50     4     361   jour…
+#>  9 RJ Hy… "18 (…   782 4445… 2osO… "Inter… A st…  2002 18     3     439-… jour…
+#> 10 RJ Hy… ""       739 1684… UbXT… ""      fore…  2018 <NA>   <NA>  <NA>  <NA> 
+#> # … with 291 more rows, and 1 more variable: doi <chr>
 ```
 
 You can add journal rankings for each publication, choosing between
@@ -186,20 +186,20 @@ mypubs %>%
   mutate(cr_cites = citations(doi)) %>%
   select(title, year, cites, cr_cites) %>%
   arrange(desc(cites))
-#> # A tibble: 309 x 4
+#> # A tibble: 301 x 4
 #>    title                                                     year cites cr_cites
 #>    <chr>                                                    <dbl> <dbl>    <dbl>
-#>  1 Forecasting methods and applications                      1998  5680       NA
-#>  2 Another look at measures of forecast accuracy             2006  2916     1456
-#>  3 Automatic time series forecasting: The forecast package…  2008  1931       NA
-#>  4 Forecasting: principles and practice                      2018  1784       NA
-#>  5 Forecasting with exponential smoothing: the state space…  2008   984       NA
-#>  6 Detecting trend and seasonal changes in satellite image…  2010   925      645
-#>  7 25 years of time series forecasting                       2006   895      596
-#>  8 Sample Quantiles in Statistical Packages                  1996   842      100
-#>  9 A state space framework for automatic forecasting using…  2002   746      348
-#> 10 forecast: Forecasting functions for time series and lin…  2018   653       NA
-#> # … with 299 more rows
+#>  1 Forecasting methods and applications                      1998  5826       NA
+#>  2 Another look at measures of forecast accuracy             2006  3160     1461
+#>  3 Automatic time series forecasting: The forecast package…  2008  2162       NA
+#>  4 Forecasting: principles and practice                      2018  2109       NA
+#>  5 Forecasting with exponential smoothing: the state space…  2008  1063       NA
+#>  6 Detecting trend and seasonal changes in satellite image…  2010  1003      648
+#>  7 25 years of time series forecasting                       2006   935      597
+#>  8 Sample Quantiles in Statistical Packages                  1996   880      100
+#>  9 A state space framework for automatic forecasting using…  2002   782      349
+#> 10 forecast: Forecasting functions for time series and lin…  2018   739       NA
+#> # … with 291 more rows
 ```
 
 Altmetrics can also be useful. For this, you will need the list of your
@@ -210,7 +210,7 @@ mypubs %>%
   get_altmetrics(doi) %>%
   select(title, cited_by_tweeters_count) %>%
   arrange(desc(cited_by_tweeters_count))
-#> # A tibble: 40 x 2
+#> # A tibble: 39 x 2
 #>    title                                                    cited_by_tweeters_c…
 #>    <chr>                                                                   <dbl>
 #>  1 Handgun Acquisitions in California After Two Mass Shoot…                   41
@@ -220,10 +220,10 @@ mypubs %>%
 #>  5 A Feature‐Based Procedure for Detecting Technical Outli…                   12
 #>  6 Forecasting Time Series With Complex Seasonal Patterns …                    8
 #>  7 Forecasting with temporal hierarchies                                       7
-#>  8 Forecasting with temporal hierarchies                                       7
-#>  9 Do human rhinovirus infections and food allergy modify …                    6
-#> 10 A note on upper bounds for forecast-value-added relativ…                    6
-#> # … with 30 more rows
+#>  8 Do human rhinovirus infections and food allergy modify …                    6
+#>  9 A note on upper bounds for forecast-value-added relativ…                    6
+#> 10 Grouped Functional Time Series Forecasting: An Applicat…                    5
+#> # … with 29 more rows
 ```
 
 The `scholar` package provides tools for obtaining your profile
@@ -241,13 +241,13 @@ scholar::get_profile("vamErfkAAAAJ")
 #> [1] "Professor of Statistics, Monash University"
 #> 
 #> $total_cites
-#> [1] 31271
+#> [1] 31532
 #> 
 #> $h_index
 #> [1] 63
 #> 
 #> $i10_index
-#> [1] 148
+#> [1] 150
 #> 
 #> $fields
 #> [1] "verified email at monash.edu - homepage"
