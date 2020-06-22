@@ -10,7 +10,7 @@
 
 # Get nicely formatted data for papers with a DOIs using crossref
 dois_to_papers <- function(dois) {
-  cdata.nonbibtex <- rcrossref::cr_works(dois)$data
+  cdata.nonbibtex <- suppressWarnings(rcrossref::cr_works(dois)$data)
   colnames(cdata.nonbibtex) <- tolower(colnames(cdata.nonbibtex))
 
   # Format papers
@@ -27,6 +27,9 @@ dois_to_papers <- function(dois) {
   papers$pages <- as.character(papers$pages)
   papers$doi <- as.character(papers$doi)
 
+  papers %>%
+    tibble::as_tibble() %>%
+    dplyr::mutate(title = clean_hyphens(title))
   return(papers)
 }
 
@@ -153,7 +156,7 @@ format_paper <- function(issued, created, container.title,
 
 # replace hyphens with true hyphens
 clean_hyphens <- function(x) {
-  str_replace_all(x, "-", "-")
+  str_replace_all(x, "[‐–]", "-")
 }
 
 warn_if_journal_missing <- function(journal) {
