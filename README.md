@@ -164,7 +164,7 @@ mypubs <- mypubs %>%
   mutate(
     abdc_ranking = rank_abdc(journal),
     core_ranking = rank_core(journal),
-    scimago_ranking = rank_core(journal)
+    scimago_ranking = rank_scimago(journal)
   )
 ```
 
