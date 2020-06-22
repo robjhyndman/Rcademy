@@ -30,24 +30,24 @@
 #'     scimago_ranking = rank_scimago(journal, warning = FALSE)
 #'   )
 #' @export
-rank_abdc <- function(journal, warning = TRUE) {
+rank_abdc <- function(journal, warning = FALSE) {
   ranking(journal, source = "abdc", warning)
 }
 
 #' @rdname rank_journal
 #' @export
-rank_scimago <- function(journal, warning = TRUE) {
+rank_scimago <- function(journal, warning = FALSE) {
   ranking(journal, source = "scimago", warning)
 }
 
 #' @rdname rank_journal
 #' @export
-rank_core <- function(journal, warning = TRUE) {
+rank_core <- function(journal, warning = FALSE) {
   ranking(journal, source = "core", warning)
 }
 
 
-ranking <- function(journal, source, warning = TRUE) {
+ranking <- function(journal, source, warning = FALSE) {
   if (warning) {
     warn_if_journal_missing(journal)
   }
