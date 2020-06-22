@@ -103,8 +103,7 @@ ranking <- function(journal, source, warning = FALSE) {
     by = "journal",
     ignore_case = TRUE,
     distance_col = "distance",
-    max_dist = 10,
-    method = "lcs"
+    max_dist = 5
   ) %>%
     # cast distance to integer
     dplyr::mutate(
@@ -117,15 +116,15 @@ ranking <- function(journal, source, warning = FALSE) {
       )
     ) %>%
     # Find closest match
-    rename(journal = journal.x) %>%
-    select(journal, rank, distance) %>%
-    group_by(journal) %>%
-    filter(distance == min(distance)) %>%
-    ungroup() %>%
+    dplyr::rename(journal = journal.x) %>%
+    #dplyr::select(journal, rank, distance) %>%
+    dplyr::group_by(journal) %>%
+    dplyr::filter(distance == min(distance)) %>%
+    dplyr::ungroup() %>%
     unique() %>%
-    group_by(journal) %>%
-    filter(rank == min(rank)) %>%
-    ungroup()
+    dplyr::group_by(journal) %>%
+    dplyr::filter(rank == min(rank)) %>%
+    dplyr::ungroup()
 
   # now return the ranking
   final_rank <- jr_rank %>%
