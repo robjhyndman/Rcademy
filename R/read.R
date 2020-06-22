@@ -101,25 +101,26 @@ read_orcid <- function(id) {
   dois <- remove_f1000_dois(dois)
   dois <- dois[dois != ""]
 
-  output_with_dois <- suppressWarnings(dois_to_papers(dois)) %>%
-    tibble::as_tibble()
+  output_with_dois <- dois_to_papers(dois)
 
   # Now find details for papers without dois
   output_no_dois <- d %>%
     tibble::as_tibble() %>%
     dplyr::transmute(
       journal = `journal-title.value`,
-      title = `title.title.value`,
+      title = rcademy:::clean_hyphens(`title.title.value`),
+      lowertitle = stringr::str_to_lower(title),
       year = as.numeric(`publication-date.year.value`),
-      type = type,
     ) %>%
-    dplyr::anti_join(output_with_dois, by = c("journal", "title", "year", "type"))
+    dplyr::anti_join(
+      output_with_dois %>% dplyr::mutate(lowertitle = stringr::str_to_lower(title)),
+      by = c("lowertitle", "year")
+    ) %>%
+    select(-lowertitle)
 
-  dplyr::bind_rows(output_with_dois, output_no_dois) %>%
-    dplyr::arrange(year) %>%
-    dplyr::mutate(
-      title = clean_hyphens(title)
-    )
+  output <- output_with_dois %>%
+    dplyr::bind_rows(output_no_dois) %>%
+    dplyr::arrange(year)
 }
 
 #' Find Altmetrics
