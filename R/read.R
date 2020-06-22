@@ -108,7 +108,7 @@ read_orcid <- function(id) {
     tibble::as_tibble() %>%
     dplyr::transmute(
       journal = `journal-title.value`,
-      title = rcademy:::clean_hyphens(`title.title.value`),
+      title = clean_hyphens(`title.title.value`),
       lowertitle = stringr::str_to_lower(title),
       year = as.numeric(`publication-date.year.value`),
     ) %>%
