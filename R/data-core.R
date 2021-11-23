@@ -20,7 +20,7 @@
 #'   technical program. A more detailed statement categorizing the ranks A*, A,
 #'   B, and C can be found [here](http://bit.ly/core-rankings).
 #'
-#' Format: A data frame with 1630 observations and two variables:
+#' Format: A data frame with 972 observations and two variables:
 #' \itemize{
 #'   \item{`conference:`}{ Character with all}
 #'   \item{`rank:`}{ Conferences are assigned to one of the following categories:
@@ -29,22 +29,15 @@
 #'      \item{A: excellent conference, and highly respected in a discipline area}
 #'      \item{B: good conference, and well regarded in a discipline area}
 #'      \item{C: other ranked conference venues that meet minimum standards}
-#'     \item{Australasian: A conference for which the audience is primarily
-#'         Australians and New Zealanders}
-#'     \item{Unranked: A conference for which no ranking decision has been made}
-#'     \item{National: A conference which is run primarily in a single country,
-#'       with Chairs from that country, and which is not sufficiently well
-#'       known to be ranked. (Papers and PC may be international}
-#'     \item{Regional: Similar to National but may cover a region crossing
-#'           national borders.}
 #'     }
 #'   }
 #'   }
 #' @name core
 #' @docType data
 #' @usage data(core)
-#' @source \url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018}
+#' @source \url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2021}
 #' @keywords datasets
 #' @examples
 #' core
 "core"
+
