@@ -1,4 +1,4 @@
-# file downloaded from http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018&sort=atitle&page=1
+# file downloaded from http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2021&sort=atitle&page=1
 library(tidyverse)
 library(here)
 library(stringr)
@@ -11,14 +11,14 @@ str_trim_linebreak_etc <- function(x) {
 }
 
 # read core
-core <- read_csv(here("data-raw", "CORE.csv"),
-  col_names = FALSE
-) %>%
-  select(
-    conference = X2,
-    rank = X5
+core <- here("data-raw", "CORE.csv") %>%
+  read_csv(col_names = FALSE) %>%
+  select(conference = X2, rank = X5) %>%
+  mutate(
+    conference = str_trim_linebreak_etc(conference),
+    rank = factor(rank, levels=c("A*","A","B","C"))
   ) %>%
-  mutate(conference = str_trim_linebreak_etc(conference))
+  arrange(rank, conference)
 
 # save into rcademy
 usethis::use_data(core, overwrite = TRUE)

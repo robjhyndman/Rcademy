@@ -5,10 +5,10 @@
 \alias{core}
 \title{CORE (Computing Research and Education) list of conference rankings}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1630 rows and 2 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 972 rows and 2 columns.
 }
 \source{
-\url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2018}
+\url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2021}
 }
 \usage{
 data(core)
@@ -35,7 +35,7 @@ track record of the key people hosting the conference and managing its
 technical program. A more detailed statement categorizing the ranks A*, A,
 B, and C can be found \href{http://bit.ly/core-rankings}{here}.
 
-Format: A data frame with 1630 observations and two variables:
+Format: A data frame with 972 observations and two variables:
 \itemize{
 \item{\verb{conference:}}{ Character with all}
 \item{\verb{rank:}}{ Conferences are assigned to one of the following categories:
@@ -44,14 +44,6 @@ Format: A data frame with 1630 observations and two variables:
 \item{A: excellent conference, and highly respected in a discipline area}
 \item{B: good conference, and well regarded in a discipline area}
 \item{C: other ranked conference venues that meet minimum standards}
-\item{Australasian: A conference for which the audience is primarily
-Australians and New Zealanders}
-\item{Unranked: A conference for which no ranking decision has been made}
-\item{National: A conference which is run primarily in a single country,
-with Chairs from that country, and which is not sufficiently well
-known to be ranked. (Papers and PC may be international}
-\item{Regional: Similar to National but may cover a region crossing
-national borders.}
 }
 }
 }
