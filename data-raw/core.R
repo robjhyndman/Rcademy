@@ -20,5 +20,13 @@ core <- here("data-raw", "CORE.csv") %>%
   ) %>%
   arrange(rank, conference)
 
+core_journals <- here("data-raw", "CORE_journals.csv") %>%
+  read_csv() %>%
+  rename(journal = title, field_of_research=for1, issn = ISSN1) %>%
+  mutate(rank = factor(rank, levels=c("A*","A","B","C"))) %>%
+  select(journal, field_of_research, issn, rank) %>%
+  arrange(rank, journal)
+
 # save into rcademy
 usethis::use_data(core, overwrite = TRUE)
+usethis::use_data(core_journals, overwrite = TRUE)

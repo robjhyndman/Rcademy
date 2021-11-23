@@ -43,7 +43,8 @@ rank_scimago <- function(journal, warning = FALSE) {
 #' @rdname rank_journal
 #' @export
 rank_core <- function(journal, warning = FALSE) {
-  ranking(journal, source = "core", warning)
+  c(ranking(journal, source = "core", warning),
+    ranking(journal, source = "core_journals", warning))
 }
 
 

@@ -3,20 +3,26 @@
 \docType{data}
 \name{core}
 \alias{core}
-\title{CORE (Computing Research and Education) list of conference rankings}
+\alias{core_journals}
+\title{CORE (Computing Research and Education) lists of conference and journal rankings}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 972 rows and 2 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 639 rows and 4 columns.
 }
 \source{
-\url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2021}
+\url{https://www.core.edu.au/conference-portal}
+\url{}
 }
 \usage{
-data(core)
+core
+
+core_journals
 }
 \description{
-A dataset, \code{core} is provided, which contains the list of conference rankings
-according to the CORE executive committee. It is mostly used in
-the function, \code{\link[=ranking]{ranking()}}. The details of the CORE organisation,
+Two datasets are provided: \code{core} and \code{core_journals}, which contains lists of
+conference and journal rankings respectively, according to the CORE executive committee.
+These are used in \code{\link[=rank_core]{rank_core()}}. The details of the CORE organisation,
 and its procedure for ranking is provided below.
 }
 \details{
@@ -35,10 +41,10 @@ track record of the key people hosting the conference and managing its
 technical program. A more detailed statement categorizing the ranks A*, A,
 B, and C can be found \href{http://bit.ly/core-rankings}{here}.
 
-Format: A data frame with 972 observations and two variables:
+Format of \code{core}: A data frame with 972 observations and two variables:
 \itemize{
-\item{\verb{conference:}}{ Character with all}
-\item{\verb{rank:}}{ Conferences are assigned to one of the following categories:
+\item{\verb{conference:}}{Name of the conference}
+\item{\verb{rank:}}{Conferences are assigned to one of the following categories:
 \itemize{
 \item{A*: flagship conference, a leading venue in a discipline area}
 \item{A: excellent conference, and highly respected in a discipline area}
@@ -47,8 +53,17 @@ Format: A data frame with 972 observations and two variables:
 }
 }
 }
+Format of \code{core_journals}: A data frame with 639 observations and five variables:
+\itemize{
+\item{\verb{journal:}}{Title of the journal}
+\item{\code{field_of_research}: }{Field of Research Code as provided by the
+Australian Bureau of Statistics}
+\item{\code{issn}: }{International Standard Serial Number}
+\item{\code{rank}: }{In order of best to lowest rank: A*, A, B, or C}
+}
 }
 \examples{
 core
+core_journals
 }
 \keyword{datasets}

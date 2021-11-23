@@ -1,8 +1,8 @@
-#' CORE (Computing Research and Education) list of conference rankings
+#' CORE (Computing Research and Education) lists of conference and journal rankings
 #'
-#' A dataset, `core` is provided, which contains the list of conference rankings
-#'   according to the CORE executive committee. It is mostly used in
-#'   the function, [ranking()]. The details of the CORE organisation,
+#' Two datasets are provided: `core` and `core_journals`, which contains lists of
+#' conference and journal rankings respectively, according to the CORE executive committee.
+#' These are used in [rank_core()]. The details of the CORE organisation,
 #'   and its procedure for ranking is provided below.
 #'
 #' CORE is an association of university departments of computer science in
@@ -20,10 +20,10 @@
 #'   technical program. A more detailed statement categorizing the ranks A*, A,
 #'   B, and C can be found [here](http://bit.ly/core-rankings).
 #'
-#' Format: A data frame with 972 observations and two variables:
+#' Format of `core`: A data frame with 972 observations and two variables:
 #' \itemize{
-#'   \item{`conference:`}{ Character with all}
-#'   \item{`rank:`}{ Conferences are assigned to one of the following categories:
+#'   \item{`conference:`}{Name of the conference}
+#'   \item{`rank:`}{Conferences are assigned to one of the following categories:
 #'     \itemize{
 #'      \item{A*: flagship conference, a leading venue in a discipline area}
 #'      \item{A: excellent conference, and highly respected in a discipline area}
@@ -31,13 +31,24 @@
 #'      \item{C: other ranked conference venues that meet minimum standards}
 #'     }
 #'   }
-#'   }
+#' }
+#' Format of `core_journals`: A data frame with 639 observations and five variables:
+#' \itemize{
+#'   \item{`journal:`}{Title of the journal}
+#'   \item{`field_of_research`: }{Field of Research Code as provided by the
+#'         Australian Bureau of Statistics}
+#'   \item{`issn`: }{International Standard Serial Number}
+#'   \item{`rank`: }{In order of best to lowest rank: A*, A, B, or C}
+#' }
 #' @name core
 #' @docType data
-#' @usage data(core)
-#' @source \url{http://portal.core.edu.au/conf-ranks/?search=&by=all&source=CORE2021}
+#' @source \url{https://www.core.edu.au/conference-portal}
+#' \url{}
 #' @keywords datasets
 #' @examples
 #' core
+#' core_journals
 "core"
 
+#' @rdname core
+"core_journals"
