@@ -1,10 +1,8 @@
-#' SCImago Journal Rank for all journals indexed by Scopus in 2019
+#' SCImago Journal Rank for all journals indexed by Scopus in 2020
 #'
-#' This data was taken from an updated version of the R package
-#' [`sjrdata`](https://github.com/ikashnitsky/sjrdata), and filtered to only
-#' use the latest year, which at the time of writing (2020-06-21) was 2019.
+#' This data was taken from https://www.scimagojr.com/journalrank.php?year=2020
 #'
-#' @author Ilya Kashnitsky <ilya.kashnitsky@gmail.com>
+#' @author Rob Hyndman
 #'
 #' @format
 #'   A tibble with 30,883 rows and 24 variables:
@@ -34,7 +32,7 @@
 #'   }
 #'
 #' @source
-#'   SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2020-06-21, from
+#'   SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2021-11-28, from
 #'   \url{https://www.scimagojr.com/journalrank.php}
 #' @name scimago
 #' @docType data
