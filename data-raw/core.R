@@ -14,20 +14,20 @@ str_trim_linebreak_etc <- function(x) {
 core <- here("data-raw", "CORE.csv") %>%
   read_csv(col_names = FALSE) %>%
   select(conference = X2, rank = X5) %>%
-  mutate(
-    conference = str_trim_linebreak_etc(conference),
-    rank = factor(rank, levels=c("A*","A","B","C"))
+  transmute(
+    title = str_trim_linebreak_etc(conference),
+    rank = factor(rank, levels=c("A*","A","B","C"), ordered=TRUE)
   ) %>%
-  arrange(rank, conference)
+  arrange(rank, title)
 
 # Read core journal rankings
 # file downloaded from http://portal.core.edu.au/jnl-ranks/?search=&by=all&source=CORE2020&sort=atitle&page=1
 core_journals <- here("data-raw", "CORE_journals.csv") %>%
   read_csv() %>%
-  rename(journal = title, field_of_research=for1, issn = ISSN1) %>%
-  mutate(rank = factor(rank, levels=c("A*","A","B","C"))) %>%
-  select(journal, field_of_research, issn, rank) %>%
-  arrange(rank, journal)
+  rename(field_of_research=for1, issn = ISSN1) %>%
+  mutate(rank = factor(rank, levels=c("A*","A","B","C"), ordered=TRUE)) %>%
+  select(title, field_of_research, issn, rank) %>%
+  arrange(rank, title)
 
 # save into rcademy
 usethis::use_data(core, overwrite = TRUE)

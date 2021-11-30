@@ -164,3 +164,15 @@ warn_if_journal_missing <- function(journal) {
     warning("There are missing journal entries.")
   }
 }
+
+clean_journal_names <- function(journals) {
+  # Change "&" and "and", and omit "the"
+  # Also omit anything in parentheses
+  journals <- stringr::str_replace_all(journals, "\\sthe\\s", " ")
+  journals <- stringr::str_replace_all(journals, "^The\\s", " ")
+  #journals <- stringr::str_replace_all(journals, "\\sof\\s", " ")
+  journals <- stringr::str_replace_all(journals, "&", "and")
+  journals <- stringr::str_remove_all(journals, "\\([A-Za-z\\s]*\\)")
+  journals <- stringr::str_trim(journals)
+  return(journals)
+}

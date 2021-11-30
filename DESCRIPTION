@@ -47,7 +47,6 @@ Depends: R (>= 2.10)
 Imports:
     dplyr,
     easyPubMed,
-    fuzzyjoin,
     magrittr,
     purrr,
     rcrossref,

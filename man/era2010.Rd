@@ -21,7 +21,7 @@ the ARC Excellence in Research for Australia 2010 round.
 Format: a data frame with 20712 rows and the following 4 variables:
 \itemize{
 \item{\code{eraid}: }{ERA ID of the journal}
-\item{\code{journal}: }{Title of the journal}
+\item{\code{title}: }{Title of the journal}
 \item{\code{issn}: }{International Standard Serial Number}
 \item{\code{field_of_research}: }{Field of Research Code as provided by the
 Australian Bureau of Statistics}

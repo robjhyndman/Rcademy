@@ -5,13 +5,12 @@ library(dplyr)
 era2010 <- readr::read_csv(here("data-raw", "era2010.csv")) %>%
   janitor::clean_names() %>%
   rename(
-    journal = title,
     issn = issn1,
     field_of_research = fo_r1
   ) %>%
-  select(eraid, journal, issn, field_of_research, rank) %>%
-  mutate(rank = factor(rank, levels=c("A*","A","B","C"))) %>%
-  arrange(rank, journal)
+  select(eraid, title, issn, field_of_research, rank) %>%
+  mutate(rank = factor(rank, levels=c("A*","A","B","C"), ordered=TRUE)) %>%
+  arrange(rank, title)
 
 # save into rcademy
 usethis::use_data(era2010, overwrite = TRUE)

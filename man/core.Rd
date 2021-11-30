@@ -43,7 +43,7 @@ B, and C can be found \href{http://bit.ly/core-rankings}{here}.
 
 Format of \code{core}: A data frame with 972 observations and two variables:
 \itemize{
-\item{\verb{conference:}}{Name of the conference}
+\item{\verb{title:}}{Title of the conference}
 \item{\verb{rank:}}{Conferences are assigned to one of the following categories:
 \itemize{
 \item{A*: flagship conference, a leading venue in a discipline area}
@@ -55,7 +55,7 @@ Format of \code{core}: A data frame with 972 observations and two variables:
 }
 Format of \code{core_journals}: A data frame with 639 observations and five variables:
 \itemize{
-\item{\verb{journal:}}{Title of the journal}
+\item{\verb{title:}}{Title of the journal}
 \item{\code{field_of_research}: }{Field of Research Code as provided by the
 Australian Bureau of Statistics}
 \item{\code{issn}: }{International Standard Serial Number}

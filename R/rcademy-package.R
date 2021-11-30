@@ -15,6 +15,8 @@ globalVariables(
   c(
     "abdc",
     "core",
+    "core_journals",
+    "era2010",
     "scimago",
     "conference",
     "distance",
@@ -23,6 +25,10 @@ globalVariables(
     "journal-title.value",
     "publication-date.year.value",
     "type",
-    "title.title.value"
+    "title.title.value",
+    "bind_rows",
+    "journal",
+    "title.x",
+    "lowertitle"
   )
 )

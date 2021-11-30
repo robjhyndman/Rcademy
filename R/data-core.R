@@ -22,7 +22,7 @@
 #'
 #' Format of `core`: A data frame with 972 observations and two variables:
 #' \itemize{
-#'   \item{`conference:`}{Name of the conference}
+#'   \item{`title:`}{Title of the conference}
 #'   \item{`rank:`}{Conferences are assigned to one of the following categories:
 #'     \itemize{
 #'      \item{A*: flagship conference, a leading venue in a discipline area}
@@ -34,7 +34,7 @@
 #' }
 #' Format of `core_journals`: A data frame with 639 observations and five variables:
 #' \itemize{
-#'   \item{`journal:`}{Title of the journal}
+#'   \item{`title:`}{Title of the journal}
 #'   \item{`field_of_research`: }{Field of Research Code as provided by the
 #'         Australian Bureau of Statistics}
 #'   \item{`issn`: }{International Standard Serial Number}

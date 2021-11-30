@@ -3,7 +3,7 @@
 \docType{data}
 \name{scimago}
 \alias{scimago}
-\title{SCImago Journal Rank for all journals indexed by Scopus in 2019}
+\title{SCImago Journal Rank for all journals indexed by Scopus in 2020}
 \format{
 A tibble with 30,883 rows and 24 variables:
 \describe{
@@ -32,18 +32,16 @@ A tibble with 30,883 rows and 24 variables:
 }
 }
 \source{
-SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2020-06-21, from
+SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2021-11-28, from
 \url{https://www.scimagojr.com/journalrank.php}
 }
 \usage{
 data(scimago)
 }
 \description{
-This data was taken from an updated version of the R package
-\href{https://github.com/ikashnitsky/sjrdata}{\code{sjrdata}}, and filtered to only
-use the latest year, which at the time of writing (2020-06-21) was 2019.
+This data was taken from https://www.scimagojr.com/journalrank.php?year=2020
 }
 \author{
-Ilya Kashnitsky \href{mailto:ilya.kashnitsky@gmail.com}{ilya.kashnitsky@gmail.com}
+Rob Hyndman
 }
 \keyword{datasets}

@@ -22,7 +22,7 @@ the list updated in 2019. You can read more about this list
 \details{
 Format: a data frame with 2685 observations on the following 7 variables:
 \itemize{
-\item{\code{journal}: }{Title of the journal}
+\item{\code{title}: }{Title of the journal}
 \item{\code{publisher}: }{Publishing house}
 \item{\code{issn}: }{International Standard Serial Number}
 \item{\code{issn_online}: }{ISSN Online - as ISSN, but for the online, rather

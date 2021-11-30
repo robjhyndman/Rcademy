@@ -6,7 +6,7 @@
 #' Format: a data frame with 20712 rows and the following 4 variables:
 #' \itemize{
 #'   \item{`eraid`: }{ERA ID of the journal}
-#'   \item{`journal`: }{Title of the journal}
+#'   \item{`title`: }{Title of the journal}
 #'   \item{`issn`: }{International Standard Serial Number}
 #'   \item{`field_of_research`: }{Field of Research Code as provided by the
 #'         Australian Bureau of Statistics}

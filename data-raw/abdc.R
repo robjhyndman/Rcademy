@@ -6,11 +6,11 @@ library(dplyr)
 abdc <- here("data-raw","abdc_jql_2019_0612-1.xlsx") %>%
   read_xlsx(skip = 7, .name_repair = janitor::make_clean_names) %>%
   rename(
-    journal = journal_title,
+    title = journal_title,
     rank = x2019_rating
   ) %>%
-  mutate(rank = factor(rank, levels=c("A*","A","B","C"))) %>%
-  arrange(rank, journal)
+  mutate(rank = factor(rank, levels=c("A*","A","B","C"), ordered=TRUE)) %>%
+  arrange(rank, title)
 
 # save into rcademy
 usethis::use_data(abdc, overwrite = TRUE)
