@@ -1,12 +1,13 @@
-#' Find rankings of journals from the ABDC, ERA2010, CORE, or SCImago lists.
+#' Find rankings of journals from the ABDC, ERA2010, CORE, SCImago or Monash lists.
 #'
 #' Fuzzy matching is used to find the requested journal from the ABDC, ERA2010, CORE,
-#'   or SCImago lists. For more information on each of these, see:
+#'   SCImago or Monash lists. For more information on each of these, see:
 #'   \itemize{
 #'   \item{\cite{\link{abdc}}: }{for more information on the ABDC list}
 #'   \item{\cite{\link{era2010}}: }{for more information on the ERA2010 list}
 #'   \item{\cite{\link{core}}: }{for more information on the CORE list}
 #'   \item{\cite{\link{scimago}}: }{for more information on the SCImago list}
+#'   \item{\cite{\link{monash}}: }{for more information on the Monash list}
 #'   }
 #'
 #' @param title A character vector containing (partial) journal names.
@@ -31,6 +32,7 @@
 #' rank_era2010("Biometrika")
 #' rank_core("International Conference on Machine Learning")
 #' rank_scimago("International Journal of Forecasting")
+#' rank_monash("Annals")
 #'
 #' # Add rankings to a data frame of publications
 #' library(dplyr)
@@ -62,6 +64,12 @@ rank_core <- function(title, fuzzy = TRUE, warning = FALSE) {
   fuzzy_ranking(title, source = "core", fuzzy=fuzzy, warning=warning)
 }
 
+#' @rdname rank_scimago
+#' @export
+rank_monash <- function(title, fuzzy = TRUE, warning = FALSE) {
+  fuzzy_ranking(title, source = "monash", fuzzy=fuzzy, warning=warning)
+}
+
 # Find and return ranking of closest journals using fuzzy matching
 fuzzy_ranking <- function(title, source, fuzzy = TRUE, warning = FALSE, ...) {
   miss <- is.na(title)
@@ -91,7 +99,7 @@ fuzzy_ranking <- function(title, source, fuzzy = TRUE, warning = FALSE, ...) {
 #' @export
 journal_ranking <- function(
   title,
-  source = c("all","abdc","era2010","core","scimago"),
+  source = c("all","abdc","era2010","core","scimago","monash"),
   fuzzy=TRUE,
   only_best = FALSE,
   return_dist = FALSE,
@@ -104,12 +112,15 @@ journal_ranking <- function(
       era2010 %>% mutate(source = "ERA2010", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
       core %>% mutate(source = "CORE", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
       core_journals %>% mutate(source = "CORE", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
-      scimago %>% mutate(source = "SCIMAGO", rank = as.character(sjr_best_quartile)) %>% dplyr::select(title, rank, source)
+      scimago %>% mutate(source = "SCIMAGO", rank = as.character(sjr_best_quartile)) %>% dplyr::select(title, rank, source),
+      monash %>% mutate(source = "MONASH", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
     )
   } else if(source == "abdc") {
     jrankings <- abdc %>% mutate(source = "ABDC")
   } else if(source == "era2010") {
     jrankings <- era2010 %>% mutate(source = "ERA2010")
+  } else if(source == "monash") {
+    jrankings <- monash %>% mutate(source = "MONASH")
   } else if(source == "core") {
     jrankings <- dplyr::bind_rows(
       core %>% mutate(source = "CORE"),

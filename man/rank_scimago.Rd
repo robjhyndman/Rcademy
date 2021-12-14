@@ -5,8 +5,9 @@
 \alias{rank_abdc}
 \alias{rank_era2010}
 \alias{rank_core}
+\alias{rank_monash}
 \alias{journal_ranking}
-\title{Find rankings of journals from the ABDC, ERA2010, CORE, or SCImago lists.}
+\title{Find rankings of journals from the ABDC, ERA2010, CORE, SCImago or Monash lists.}
 \usage{
 rank_abdc(title, fuzzy = TRUE, warning = FALSE)
 
@@ -16,9 +17,11 @@ rank_scimago(title, fuzzy = TRUE, warning = FALSE)
 
 rank_core(title, fuzzy = TRUE, warning = FALSE)
 
+rank_monash(title, fuzzy = TRUE, warning = FALSE)
+
 journal_ranking(
   title,
-  source = c("all", "abdc", "era2010", "core", "scimago"),
+  source = c("all", "abdc", "era2010", "core", "scimago", "monash"),
   fuzzy = TRUE,
   only_best = FALSE,
   return_dist = FALSE,
@@ -49,12 +52,13 @@ containing the matching journal titles and associated rankings from the specifie
 }
 \description{
 Fuzzy matching is used to find the requested journal from the ABDC, ERA2010, CORE,
-or SCImago lists. For more information on each of these, see:
+SCImago or Monash lists. For more information on each of these, see:
 \itemize{
 \item{\cite{\link{abdc}}: }{for more information on the ABDC list}
 \item{\cite{\link{era2010}}: }{for more information on the ERA2010 list}
 \item{\cite{\link{core}}: }{for more information on the CORE list}
 \item{\cite{\link{scimago}}: }{for more information on the SCImago list}
+\item{\cite{\link{monash}}: }{for more information on the Monash list}
 }
 }
 \examples{
@@ -63,6 +67,7 @@ rank_abdc("Annals of Statistics")
 rank_era2010("Biometrika")
 rank_core("International Conference on Machine Learning")
 rank_scimago("International Journal of Forecasting")
+rank_monash("Annals")
 
 # Add rankings to a data frame of publications
 library(dplyr)
