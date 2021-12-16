@@ -77,7 +77,7 @@ fuzzy_ranking <- function(title, source, fuzzy = TRUE, warning = FALSE, ...) {
     warning("There are missing journal entries.")
   }
   source <- tolower(source)
-  if(!(source %in% c("abdc","era2010","core","scimago"))) {
+  if(!(source %in% c("abdc","era2010","core","scimago","monash"))) {
     stop(glue::glue("You have provided {source}, however we do not \\
       have that ranking system, only abdc, era2010, core, and scimago."))
   }
