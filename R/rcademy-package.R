@@ -17,6 +17,7 @@ globalVariables(
     "core",
     "core_journals",
     "era2010",
+    "monash",
     "scimago",
     "conference",
     "distance",

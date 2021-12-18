@@ -19,6 +19,7 @@
 #' @keywords datasets
 #' @examples
 #' library(dplyr)
+#' library(stringr)
 #' monash %>%
 #'   filter(str_detect(title, "Statist")) %>%
 #'   arrange(rank)

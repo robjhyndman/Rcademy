@@ -30,6 +30,7 @@ Format: a data frame with 4658 observations on the following 2 variables:
 }
 \examples{
 library(dplyr)
+library(stringr)
 monash \%>\%
   filter(str_detect(title, "Statist")) \%>\%
   arrange(rank)
