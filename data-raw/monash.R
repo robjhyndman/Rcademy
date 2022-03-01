@@ -30,6 +30,9 @@ faculty <- faculty %>%
     group = factor(group, levels=c("Group 1+","Group 1","Group 2"))
   ) %>%
   select(title, group)
+# Remove JRSSB which appears twice
+faculty <- faculty %>%
+  filter(!(group == "Group 1" & str_detect(title, "Royal Statistical Society")))
 
 # Add in CORE journals that are not already included
 core_subset <- core_journals %>%
@@ -51,7 +54,8 @@ faculty <- faculty %>%
 era_subset <- era2010 %>%
   anti_join(faculty) %>%
   select(title, rank) %>%
-  filter(rank <= "A")
+  filter(rank <= "A") %>%
+  filter(!str_detect(title, "Royal Statistical Society"))
 faculty <- faculty %>%
   full_join(era_subset) %>%
   mutate(
