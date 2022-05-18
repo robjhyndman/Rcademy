@@ -10,10 +10,20 @@ text <- pdf_text(pdf_file)
 data <- unlist(strsplit(text, "\n") ) %>%
   str_remove_all("") %>%
   str_trim()
+# Remove all empty elements
+data <- data[data != ""]
+# Find where the group lists are
 gp_headings <- which(data %in% c("Group 1+","Group 1","Group 2")) + 1
 Group1p <- data[gp_headings[1]:(gp_headings[2]-2)]
 Group1 <- data[(gp_headings[2]+1):(gp_headings[3]-11)]
 Group2 <- data[(gp_headings[3]+1):(NROW(data)-9)]
+# Add the actuarial journals
+Group1 <- c(Group1,
+            "Insurance: Mathematics & Economics",
+            "ASTIN Bulletin",
+            "North American Actuarial Journal",
+            "Scandinavian Actuarial Journal"
+          )
 # Create faculty data frame
 faculty <- bind_rows(
    tibble(title = Group1p, group="Group 1+"),
@@ -22,18 +32,17 @@ faculty <- bind_rows(
   )
 # Add in ABDC journals
 faculty <- faculty %>%
-  full_join(abdc %>% filter(rank <= "A")) %>%
+  full_join(abdc) %>%
   mutate(
     rank = as.character(rank),
     group = if_else(is.na(group), rank, group),
-    group = recode(group, A = "Group 2", `A*` = "Group 1"),
-    group = factor(group, levels=c("Group 1+","Group 1","Group 2"))
+    group = recode(group, A = "Group 2", `A*` = "Group 1", B = "Group 3", C="Group 3"),
+    group = factor(group, levels=c("Group 1+","Group 1","Group 2","Group 3"))
   ) %>%
   select(title, group)
 # Remove JRSSB which appears twice
 faculty <- faculty %>%
   filter(!(group == "Group 1" & str_detect(title, "Royal Statistical Society")))
-
 # Add in CORE journals that are not already included
 core_subset <- core_journals %>%
   bind_rows(core) %>%
@@ -46,7 +55,7 @@ faculty <- faculty %>%
     group = as.character(group),
     group = if_else(is.na(group), rank, group),
     group = recode(group, A = "Group 2", `A*` = "Group 1"),
-    group = factor(group, levels=c("Group 1+","Group 1","Group 2"))
+    group = factor(group, levels=c("Group 1+","Group 1","Group 2","Group 3"))
   ) %>%
   select(title, group)
 
@@ -63,15 +72,19 @@ faculty <- faculty %>%
     group = as.character(group),
     group = if_else(is.na(group), rank, group),
     group = recode(group, A = "Group 2", `A*` = "Group 1"),
-    group = factor(group, levels=c("Group 1+","Group 1","Group 2"))
+    group = factor(group, levels=c("Group 1+","Group 1","Group 2","Group 3"))
   ) %>%
   select(title, group)
 
-# Filter out journals with missing groups
+# Filter out journals with missing groups or Group 3
 monash <- faculty %>%
   filter(!is.na(group)) %>%
+  filter(group != "Group 3") %>%
   rename(rank = group) %>%
   distinct()
+# Remove IME which appears twice
+monash <- monash %>%
+  filter(!(rank == "Group 2" & str_detect(title, "Insurance: Mathematics and Economics")))
 
 # save into rcademy
 usethis::use_data(monash, overwrite = TRUE)
