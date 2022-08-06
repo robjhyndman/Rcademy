@@ -15,6 +15,10 @@ data <- data[data != ""]
 # Find where the group lists are
 gp_headings <- which(data %in% c("Group 1+","Group 1","Group 2")) + 1
 Group1p <- data[gp_headings[1]:(gp_headings[2]-2)]
+# Fix AER line
+Group1p[6] <- "American Economic Review"
+# Combine PNAS lines
+Group1p <- c(Group1p[1:43],paste(Group1p[44:45],collapse=" "),Group1p[46:length(Group1p)])
 Group1 <- data[(gp_headings[2]+1):(gp_headings[3]-11)]
 Group2 <- data[(gp_headings[3]+1):(NROW(data)-9)]
 # Add the actuarial journals
@@ -85,6 +89,10 @@ monash <- faculty %>%
 # Remove IME which appears twice
 monash <- monash %>%
   filter(!(rank == "Group 2" & str_detect(title, "Insurance: Mathematics and Economics")))
+
+# Remove PNAS which appears twice
+monash <- monash %>%
+  filter(title != "Proceedings of the National Academy of Sciences of USA")
 
 # save into rcademy
 usethis::use_data(monash, overwrite = TRUE)
