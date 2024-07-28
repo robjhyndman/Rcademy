@@ -59,6 +59,7 @@ Imports:
     glue
 URL: https://github.com/ropenscilabs/Rcademy
 BugReports: https://github.com/ropenscilabs/Rcademy/issues
+Remotes: ropensci/rAltmetric
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
