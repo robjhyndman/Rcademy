@@ -21,9 +21,9 @@ knitr::opts_chunk$set(
 [![R build status](https://github.com/ropenscilabs/rcademy/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/rcademy/actions)
 <!-- badges: end -->
 
-This package was developed during _ozunconf19_ and _numbat hackathon 2020_, to provide tools and ideas that will help gather the information required to apply for _academic promotion_. 
+This package was developed during _ozunconf19_ and _numbat hackathon 2020_, to provide tools and ideas that will help gather the information required to apply for _academic promotion_.
 
-This document was produced by Chris Brown, Belinda Fabian, Rob Hyndman, Maria Prokofiave, Nick Tierney, Huong Ly Tong, and Melina Vidoni, 
+This document was produced by Chris Brown, Belinda Fabian, Rob Hyndman, Maria Prokofiave, Nick Tierney, Huong Ly Tong, and Melina Vidoni,
 
 ## Installation
 
@@ -79,31 +79,31 @@ In general, ORCID will provide higher quality data, along with DOIs, but has no 
 
 ```{r duplicates}
 library(tidystringdist)
-dups <- mypubs_orcid %>% 
-  select(title, year) %>% 
-  mutate_all(tolower) %>%
+dups <- mypubs_orcid |>
+  select(title, year) |>
+  mutate_all(tolower) |>
   duplicated()
-mypubs_orcid <- mypubs_orcid %>% filter(!dups)
+mypubs_orcid <- mypubs_orcid |> filter(!dups)
 ```
 
 We will try to combine the two tibbles using fuzzy joining on the title and year fields.
 
 ```{r join}
-mypubs <- mypubs_scholar %>% 
-  # First remove any publications without years 
-  filter(!is.na(year)) %>%
+mypubs <- mypubs_scholar |>
+  # First remove any publications without years
+  filter(!is.na(year)) |>
   # Now find matching entries
   fuzzyjoin::stringdist_left_join(mypubs_orcid,
     by = c(title = "title", year = "year"),
-    max_dist = 2, ignore_case = TRUE) %>%
+    max_dist = 2, ignore_case = TRUE) |>
   # Keep any columns where ORCID missing
   mutate(
     title.y = if_else(is.na(title.y), title.x, title.y),
     journal.y = if_else(is.na(journal.y), journal.x, journal.y),
     year.y = if_else(is.na(year.y), year.x, year.y),
-  ) %>%
+  ) |>
   # Keep the ORCID columns
-  select(!ends_with(".x")) %>%
+  select(!ends_with(".x")) |>
   rename_all(~str_remove_all(.x,".y"))
 mypubs
 ```
@@ -111,7 +111,7 @@ mypubs
 You can add journal rankings for each publication, choosing between ABDC, CORE and SCImago.
 
 ```{r rankings, warning=FALSE, eval=FALSE}
-mypubs <- mypubs %>%
+mypubs <- mypubs |>
   mutate(
     abdc_ranking = rank_abdc(journal),
     core_ranking = rank_core(journal),
@@ -122,26 +122,26 @@ mypubs <- mypubs %>%
 Then you can create a table of the number of papers by rank.
 
 ```{r rankingsummary, eval=FALSE}
-mypubs %>%
-  filter(!is.na(abdc_ranking)) %>%
-  count(abdc_ranking) 
+mypubs |>
+  filter(!is.na(abdc_ranking)) |>
+  count(abdc_ranking)
 ```
 
 The tibble contains Google scholar citations for all papers, you can use the data obtained with `read_scholar()` which contains a `cites` column. We can also obtain CrossRef citations via the `citations()` function which uses the DOI codes.
 
 ```{r scholarcites}
-mypubs %>%
-  mutate(cr_cites = citations(doi)) %>%
-  select(title, year, cites, cr_cites) %>%
+mypubs |>
+  mutate(cr_cites = citations(doi)) |>
+  select(title, year, cites, cr_cites) |>
   arrange(desc(cites))
 ```
 
-Altmetrics can also be useful. For this, you will need the list of your DOIs. 
+Altmetrics can also be useful. For this, you will need the list of your DOIs.
 
 ```{r altmetrics}
-mypubs %>% 
-  get_altmetrics(doi) %>%
-  select(title, cited_by_tweeters_count) %>%
+mypubs |>
+  get_altmetrics(doi) |>
+  select(title, cited_by_tweeters_count) |>
   arrange(desc(cited_by_tweeters_count))
 ```
 
@@ -160,18 +160,18 @@ The teaching section will usually involve collecting data on your teaching perfo
  - Student evaluations
  - Emails from grateful students
  - Peer review reports
- 
+
 #### Teaching innovations
 
   - Development of new subjects or degrees
   - New teaching methods or materials
-  
+
 #### Supervision
 
   - Honours students supervised
   - Masters students supervised
   - PhD students supervised
-  
+
 Note that a list of PhD students may go in the Research section rather than the Teaching section.
 
 ## Engagement
@@ -240,4 +240,3 @@ This section includes examples of leadership activities in academic promotion ap
 - Training events (e.g. university management course). List the course, completion date.
 - Leadership roles in external professional or industry associations
 - Mentoring. List how many mentees you have, length of relationship, where they are working now.
-

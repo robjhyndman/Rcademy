@@ -19,7 +19,7 @@ Get a tibble of all altmetrics given a list of DOIs
 }
 \examples{
 \dontrun{
-njtpubs \%>\%
+njtpubs |>
   get_altmetrics(doi)
 }
 

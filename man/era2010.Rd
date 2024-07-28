@@ -30,8 +30,8 @@ Australian Bureau of Statistics}
 }
 \examples{
 library(dplyr)
-era2010 \%>\%
-  filter(field_of_research == "0104") \%>\%
+era2010 |>
+  filter(field_of_research == "0104") |>
   arrange(rank)
 }
 \keyword{datasets}

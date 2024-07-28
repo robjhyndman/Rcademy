@@ -27,8 +27,8 @@ dois_to_papers <- function(dois) {
   papers$pages <- as.character(papers$pages)
   papers$doi <- as.character(papers$doi)
 
-  papers %>%
-    tibble::as_tibble() %>%
+  papers |>
+    tibble::as_tibble() |>
     dplyr::mutate(title = clean_hyphens(title))
   return(papers)
 }
@@ -44,9 +44,9 @@ remove_f1000_dois <- function(dois) {
     split.f1000 <- data.frame(split.f1000, stringsAsFactors = FALSE)
     split.f1000$X3 <- as.numeric(split.f1000$X3)
     split.f1000$X4 <- as.numeric(split.f1000$X4)
-    split.f1000 <- dplyr::group_by(split.f1000, X3) %>%
-      dplyr::arrange(X3, X4) %>%
-      utils::tail(1) %>%
+    split.f1000 <- dplyr::group_by(split.f1000, X3) |>
+      dplyr::arrange(X3, X4) |>
+      utils::tail(1) |>
       dplyr::mutate(doi = paste(X1, ".", X2, ".", X3, ".", X4, sep = ""))
     # concatenate back F1000 and not F1000
     dois <- c(not.f1000, split.f1000$doi)

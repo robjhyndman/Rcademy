@@ -5,7 +5,6 @@
 #' @importFrom rorcid works orcid_id identifiers
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr unnest
-#' @importFrom magrittr `%>%`
 #'
 NULL
 
@@ -47,9 +46,9 @@ read_bib <- function(filename) {
 #'
 
 read_pubmed <- function(query) {
-  df <- query %>%
-    easyPubMed::get_pubmed_ids() %>%
-    easyPubMed::fetch_pubmed_data(encoding = "ASCII") %>%
+  df <- query |>
+    easyPubMed::get_pubmed_ids() |>
+    easyPubMed::fetch_pubmed_data(encoding = "ASCII") |>
     easyPubMed::table_articles_byAuth(
       included_authors = "first",
       max_chars = 0,
@@ -64,10 +63,10 @@ read_pubmed <- function(query) {
 # read_scholar <- function(user) {
 #   df <- gcite::gcite_user_info(user = user, secure = FALSE)$paper_df
 #   colnames(df)[2] <- "date"
-#   df %>%
+#   df |>
 #     mutate(
 #       year = lubridate::year(anytime::anydate(date))
-#     ) %>%
+#     ) |>
 #     as_tibble()
 # }
 
@@ -78,7 +77,7 @@ read_pubmed <- function(query) {
 read_scholar <- function(id) {
   df <- scholar::get_publications(id)
   df$author <- stringr::str_trim(as.character(df$author))
-  tibble::as_tibble(df) %>%
+  tibble::as_tibble(df) |>
     dplyr::mutate_if(is.factor, as.character)
 }
 
@@ -88,7 +87,7 @@ read_scholar <- function(id) {
 read_orcid <- function(id) {
 
   # Read works from orcid and store as a tibble
-  d <- rorcid::orcid_id(orcid = id) %>%
+  d <- rorcid::orcid_id(orcid = id) |>
     rorcid::works()
   if (nrow(d) == 0) {
     return(as_tibble(d))
@@ -104,22 +103,22 @@ read_orcid <- function(id) {
   output_with_dois <- dois_to_papers(dois)
 
   # Now find details for papers without dois
-  output_no_dois <- d %>%
-    tibble::as_tibble() %>%
+  output_no_dois <- d |>
+    tibble::as_tibble() |>
     dplyr::transmute(
       journal = `journal-title.value`,
       title = clean_hyphens(`title.title.value`),
       lowertitle = stringr::str_to_lower(title),
       year = as.numeric(`publication-date.year.value`),
-    ) %>%
+    ) |>
     dplyr::anti_join(
-      output_with_dois %>% dplyr::mutate(lowertitle = stringr::str_to_lower(title)),
+      output_with_dois |> dplyr::mutate(lowertitle = stringr::str_to_lower(title)),
       by = c("lowertitle", "year")
-    ) %>%
+    ) |>
     select(-lowertitle)
 
-  output <- output_with_dois %>%
-    dplyr::bind_rows(output_no_dois) %>%
+  output <- output_with_dois |>
+    dplyr::bind_rows(output_no_dois) |>
     dplyr::arrange(year)
 }
 
@@ -134,7 +133,7 @@ read_orcid <- function(id) {
 #' @return A tibble of altmetrics
 #' @examples
 #' \dontrun{
-#' njtpubs %>%
+#' njtpubs |>
 #'   get_altmetrics(doi)
 #' }
 #'
@@ -149,8 +148,8 @@ get_altmetrics <- function(data, doi) {
       return(rAltmetric::altmetric_data(z))
     }
   }
-  results <- purrr::map_dfr(as.list(dois), alm) %>%
-    as_tibble() %>%
+  results <- purrr::map_dfr(as.list(dois), alm) |>
+    as_tibble() |>
     dplyr::mutate_at(dplyr::vars(tidyr::starts_with("cited")), as.numeric)
   return(results)
 }

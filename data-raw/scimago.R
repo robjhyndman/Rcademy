@@ -1,14 +1,13 @@
 # Save recent SCIMAGO journal rankings
 library(dplyr)
 library(tidyverse)
-library(magrittr)
 library(janitor)
 library(readxl)
 
 # Download data for all years for safe-keeping
 year <- seq(1999, as.numeric(format(Sys.Date(), "%Y"))-1)
 for(i in seq_along(year)) {
-  url <- "https://www.scimagojr.com/journalrank.php?year=" %>%
+  url <- "https://www.scimagojr.com/journalrank.php?year=" |>
     paste0(year[i], "&out=xls")
   # Files are actually csv even though we ask for xls
   filename <- here::here("data-raw", paste0("scimagojr-", year[i], ".csv"))
@@ -29,16 +28,16 @@ if(identical(scimago, df2)) {
 }
 
 # Use most recent data, clean up names and add year
-scimago <- scimago %>%
+scimago <- scimago |>
   clean_names()
-year <- scimago %>%
-  select(matches(".*[12][0-9]{3}$")) %>%
-  colnames %>%
-  str_extract("[12][0-9]{3}$") %>%
+year <- scimago |>
+  select(matches(".*[12][0-9]{3}$")) |>
+  colnames |>
+  str_extract("[12][0-9]{3}$") |>
   as.numeric()
-scimago <- scimago %>%
-  rename_all(~ str_replace(., "[12][0-9]{3}$", "year")) %>%
-  mutate(year = year) %>%
+scimago <- scimago |>
+  rename_all(~ str_replace(., "[12][0-9]{3}$", "year")) |>
+  mutate(year = year) |>
   # Split up category information
   separate(
     categories,
@@ -46,7 +45,7 @@ scimago <- scimago %>%
     sep = ";",
     remove = FALSE,
     fill = "right"
-  ) %>%
+  ) |>
   mutate(
     across(Cat_1:Cat_14, stringr::str_remove, pattern="\\(Q[0-4]\\)"),
     across(Cat_1:Cat_14, stringr::str_trim),
@@ -54,17 +53,17 @@ scimago <- scimago %>%
   )
 
 # Find unique categories
-categories <- scimago %>%
-  select(Cat_1:Cat_14) %>%
-  unlist() %>%
-  unique() %>%
-  na.omit() %>%
-  c() %>%
+categories <- scimago |>
+  select(Cat_1:Cat_14) |>
+  unlist() |>
+  unique() |>
+  na.omit() |>
+  c() |>
   sort()
 
 # Compute ranks and percentiles within categories
 find_cat_rank <- function(df, category) {
-  df %>%
+  df |>
     filter(
         Cat_1 == category |
         Cat_2 == category |
@@ -80,31 +79,31 @@ find_cat_rank <- function(df, category) {
         Cat_12 == category |
         Cat_13 == category |
         Cat_14 == category
-    ) %>%
-    arrange(rank) %>%
+    ) |>
+    arrange(rank) |>
     mutate(
       category = category,
       cat_rank = row_number(),
       cat_percentile = cat_rank / max(cat_rank) * 100
-    ) %>%
+    ) |>
     select(sourceid, title, category, cat_rank, cat_percentile)
 }
 cat_ranks <- tibble()
 for(i in seq_along(categories)) {
-  cat_ranks <- cat_ranks %>%
+  cat_ranks <- cat_ranks |>
     bind_rows(find_cat_rank(scimago, categories[i]))
 }
 # What category does each journal rank highest?
-highest_cat_ranks <- cat_ranks %>%
-  group_by(sourceid) %>%
-  filter(cat_percentile == min(cat_percentile)) %>%
-  slice_head(n=1) %>%
+highest_cat_ranks <- cat_ranks |>
+  group_by(sourceid) |>
+  filter(cat_percentile == min(cat_percentile)) |>
+  slice_head(n=1) |>
   ungroup()
 
 # Add category ranks to scimago
-scimago <- scimago %>%
-  left_join(highest_cat_ranks, by=c("sourceid","title")) %>%
-  select(year, rank:categories, category, cat_rank, cat_percentile) %>%
+scimago <- scimago |>
+  left_join(highest_cat_ranks, by=c("sourceid","title")) |>
+  select(year, rank:categories, category, cat_rank, cat_percentile) |>
   rename(
     highest_category = category,
     highest_rank = cat_rank,

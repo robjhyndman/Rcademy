@@ -19,7 +19,7 @@ data frame of publications using DOIs.
 \examples{
 
 \dontrun{
-njtpubs \%>\%
+njtpubs |>
   mutate(cr_cites = citations(doi))
 }
 

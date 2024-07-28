@@ -5,7 +5,7 @@
 \alias{monash}
 \title{Monash Business School Journal Quality List}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4658 rows and 2 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4580 rows and 2 columns.
 }
 \source{
 Monash Business School
@@ -31,8 +31,8 @@ Format: a data frame with 4658 observations on the following 2 variables:
 \examples{
 library(dplyr)
 library(stringr)
-monash \%>\%
-  filter(str_detect(title, "Statist")) \%>\%
+monash |>
+  filter(str_detect(title, "Statist")) |>
   arrange(rank)
 }
 \keyword{datasets}

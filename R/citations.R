@@ -14,7 +14,7 @@
 #' @examples
 #'
 #' \dontrun{
-#' njtpubs %>%
+#' njtpubs |>
 #'   mutate(cr_cites = citations(doi))
 #' }
 #'

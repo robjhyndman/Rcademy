@@ -36,7 +36,7 @@
 #'
 #' # Add rankings to a data frame of publications
 #' library(dplyr)
-#' njtpubs %>%
+#' njtpubs |>
 #'   mutate(scimago = rank_scimago(journal, warning = FALSE))
 #'
 #' # Return rankings from all sources for journals that match a search string
@@ -108,34 +108,34 @@ journal_ranking <- function(
   if(source == "all") {
     # Combine all data sources
     jrankings <- dplyr::bind_rows(
-      abdc %>% mutate(source = "ABDC", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
-      era2010 %>% mutate(source = "ERA2010", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
-      core %>% mutate(source = "CORE", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
-      core_journals %>% mutate(source = "CORE", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
-      scimago %>% mutate(source = "SCIMAGO", rank = as.character(sjr_best_quartile)) %>% dplyr::select(title, rank, source),
-      monash %>% mutate(source = "MONASH", rank = as.character(rank)) %>% dplyr::select(title, rank, source),
+      abdc |> mutate(source = "ABDC", rank = as.character(rank)) |> dplyr::select(title, rank, source),
+      era2010 |> mutate(source = "ERA2010", rank = as.character(rank)) |> dplyr::select(title, rank, source),
+      core |> mutate(source = "CORE", rank = as.character(rank)) |> dplyr::select(title, rank, source),
+      core_journals |> mutate(source = "CORE", rank = as.character(rank)) |> dplyr::select(title, rank, source),
+      scimago |> mutate(source = "SCIMAGO", rank = as.character(sjr_best_quartile)) |> dplyr::select(title, rank, source),
+      monash |> mutate(source = "MONASH", rank = as.character(rank)) |> dplyr::select(title, rank, source),
     )
   } else if(source == "abdc") {
-    jrankings <- abdc %>% mutate(source = "ABDC")
+    jrankings <- abdc |> mutate(source = "ABDC")
   } else if(source == "era2010") {
-    jrankings <- era2010 %>% mutate(source = "ERA2010")
+    jrankings <- era2010 |> mutate(source = "ERA2010")
   } else if(source == "monash") {
-    jrankings <- monash %>% mutate(source = "MONASH")
+    jrankings <- monash |> mutate(source = "MONASH")
   } else if(source == "core") {
     jrankings <- dplyr::bind_rows(
-      core %>% mutate(source = "CORE"),
-      core_journals %>% mutate(source = "CORE") %>% dplyr::select(title, rank, source)
+      core |> mutate(source = "CORE"),
+      core_journals |> mutate(source = "CORE") |> dplyr::select(title, rank, source)
     )
   } else if(source == "scimago") {
-    jrankings <- scimago %>%
-      dplyr::mutate(rank = sjr_best_quartile) %>%
+    jrankings <- scimago |>
+      dplyr::mutate(rank = sjr_best_quartile) |>
       mutate(source = "SCIMAGO")
   } else
     stop("Unknown source. This shouldn't happen.")
 
-  jrankings <- jrankings %>%
-    dplyr::select(title, rank, source) %>%
-    dplyr::mutate(title = clean_journal_names(title)) %>%
+  jrankings <- jrankings |>
+    dplyr::select(title, rank, source) |>
+    dplyr::mutate(title = clean_journal_names(title)) |>
     dplyr::arrange(title, source)
   if(fuzzy) {
     idx <- agrepl(title, jrankings$title, ignore.case = TRUE, ...)
@@ -148,11 +148,11 @@ journal_ranking <- function(
     warning("No journals found")
   } else if(return_dist | only_best) {
     dist <- c(utils::adist(title, jrankings$title, ignore.case = TRUE, ...))
-    jrankings <- jrankings %>% mutate(dist = dist)
+    jrankings <- jrankings |> mutate(dist = dist)
     if(only_best)
       jrankings <- jrankings[dist == min(dist),]
     if(!return_dist)
-      jrankings <- jrankings %>% dplyr::select(-dist)
+      jrankings <- jrankings |> dplyr::select(-dist)
   }
   return(jrankings)
 }

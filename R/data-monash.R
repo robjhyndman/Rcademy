@@ -20,7 +20,7 @@
 #' @examples
 #' library(dplyr)
 #' library(stringr)
-#' monash %>%
-#'   filter(str_detect(title, "Statist")) %>%
+#' monash |>
+#'   filter(str_detect(title, "Statist")) |>
 #'   arrange(rank)
 "monash"

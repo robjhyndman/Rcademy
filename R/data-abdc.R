@@ -24,7 +24,7 @@
 #' @keywords datasets
 #' @examples
 #' library(dplyr)
-#' abdc %>%
-#'   filter(field_of_research == "0104") %>%
+#' abdc |>
+#'   filter(field_of_research == "0104") |>
 #'   arrange(rank)
 "abdc"

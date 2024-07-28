@@ -75,9 +75,9 @@ following examples.
 ``` r
 mypubs_orcid
 #> # A tibble: 142 x 8
-#>    journal            title             year volume issue pages type   doi      
-#>    <chr>              <chr>            <dbl> <chr>  <chr> <chr> <chr>  <chr>    
-#>  1 International Jou… On continuous-t…  1992 <NA>   <NA>  <NA>  <NA>   <NA>     
+#>    journal            title             year volume issue pages type   doi
+#>    <chr>              <chr>            <dbl> <chr>  <chr> <chr> <chr>  <chr>
+#>  1 International Jou… On continuous-t…  1992 <NA>   <NA>  <NA>  <NA>   <NA>
 #>  2 Journal of Time S… YULE-WALKER EST…  1993 14     3     281-… journ… 10.1111/…
 #>  3 Journal of Applie… Approximations …  1994 31     4     1103… journ… 10.2307/…
 #>  4 Journal of Foreca… Highest-density…  1995 14     5     431-… journ… 10.1002/…
@@ -86,7 +86,7 @@ mypubs_orcid
 #>  7 The American Stat… Computing and G…  1996 50     2     120   journ… 10.2307/…
 #>  8 The American Stat… Computing and G…  1996 50     2     120-… journ… 10.1080/…
 #>  9 Journal of Comput… Estimating and …  1996 5      4     315-… journ… 10.1080/…
-#> 10 Journal of the Ro… Some properties…  1997 <NA>   <NA>  <NA>  <NA>   <NA>     
+#> 10 Journal of the Ro… Some properties…  1997 <NA>   <NA>  <NA>  <NA>   <NA>
 #> # … with 132 more rows
 mypubs_scholar
 #> # A tibble: 289 x 8
@@ -112,47 +112,47 @@ on both JStor and a journal website. We will remove these.
 
 ``` r
 library(tidystringdist)
-dups <- mypubs_orcid %>% 
-  select(title, year) %>% 
-  mutate_all(tolower) %>%
+dups <- mypubs_orcid |>
+  select(title, year) |>
+  mutate_all(tolower) |>
   duplicated()
-mypubs_orcid <- mypubs_orcid %>% filter(!dups)
+mypubs_orcid <- mypubs_orcid |> filter(!dups)
 ```
 
 We will try to combine the two tibbles using fuzzy joining on the title
 and year fields.
 
 ``` r
-mypubs <- mypubs_scholar %>% 
-  # First remove any publications without years 
-  filter(!is.na(year)) %>%
+mypubs <- mypubs_scholar |>
+  # First remove any publications without years
+  filter(!is.na(year)) |>
   # Now find matching entries
   fuzzyjoin::stringdist_left_join(mypubs_orcid,
     by = c(title = "title", year = "year"),
-    max_dist = 2, ignore_case = TRUE) %>%
+    max_dist = 2, ignore_case = TRUE) |>
   # Keep any columns where ORCID missing
   mutate(
     title.y = if_else(is.na(title.y), title.x, title.y),
     journal.y = if_else(is.na(journal.y), journal.x, journal.y),
     year.y = if_else(is.na(year.y), year.x, year.y),
-  ) %>%
+  ) |>
   # Keep the ORCID columns
-  select(!ends_with(".x")) %>%
+  select(!ends_with(".x")) |>
   rename_all(~str_remove_all(.x,".y"))
 mypubs
 #> # A tibble: 301 x 13
-#>    author number cites cid   pubid journal title  year volume issue pages pe   
+#>    author number cites cid   pubid journal title  year volume issue pages pe
 #>    <chr>  <chr>  <dbl> <chr> <chr> <chr>   <chr> <dbl> <chr>  <chr> <chr> <chr>
-#>  1 S Mak… ""      5826 7309… u5HH… "John … Fore…  1998 <NA>   <NA>  <NA>  <NA> 
+#>  1 S Mak… ""      5826 7309… u5HH… "John … Fore…  1998 <NA>   <NA>  <NA>  <NA>
 #>  2 RJ Hy… "22 (…  3160 1354… 9yKS… "Inter… Anot…  2006 22     4     679-… jour…
-#>  3 RJ Hy… ""      2162 1667… YsMS… "Journ… Auto…  2008 <NA>   <NA>  <NA>  <NA> 
-#>  4 RJ Hy… ""      2109 7175… CrVL… "OText… Fore…  2018 <NA>   <NA>  <NA>  <NA> 
-#>  5 RJ Hy… ""      1063 8841… UeHW… "Sprin… Fore…  2008 <NA>   <NA>  <NA>  <NA> 
+#>  3 RJ Hy… ""      2162 1667… YsMS… "Journ… Auto…  2008 <NA>   <NA>  <NA>  <NA>
+#>  4 RJ Hy… ""      2109 7175… CrVL… "OText… Fore…  2018 <NA>   <NA>  <NA>  <NA>
+#>  5 RJ Hy… ""      1063 8841… UeHW… "Sprin… Fore…  2008 <NA>   <NA>  <NA>  <NA>
 #>  6 J Ver… "114 …  1003 4712… 5nxA… "Remot… Dete…  2010 114    1     106-… jour…
 #>  7 JG De… "22 (…   935 3314… Tyk-… "Inter… 25 y…  2006 22     3     443-… jour…
 #>  8 RJ Hy… "50 (…   880 2524… u-x6… "The A… Samp…  1996 50     4     361   jour…
 #>  9 RJ Hy… "18 (…   782 4445… 2osO… "Inter… A st…  2002 18     3     439-… jour…
-#> 10 RJ Hy… ""       739 1684… UbXT… ""      fore…  2018 <NA>   <NA>  <NA>  <NA> 
+#> 10 RJ Hy… ""       739 1684… UbXT… ""      fore…  2018 <NA>   <NA>  <NA>  <NA>
 #> # … with 291 more rows, and 1 more variable: doi <chr>
 ```
 
@@ -160,7 +160,7 @@ You can add journal rankings for each publication, choosing between
 ABDC, CORE and SCImago.
 
 ``` r
-mypubs <- mypubs %>%
+mypubs <- mypubs |>
   mutate(
     abdc_ranking = rank_abdc(journal),
     core_ranking = rank_core(journal),
@@ -171,9 +171,9 @@ mypubs <- mypubs %>%
 Then you can create a table of the number of papers by rank.
 
 ``` r
-mypubs %>%
-  filter(!is.na(abdc_ranking)) %>%
-  count(abdc_ranking) 
+mypubs |>
+  filter(!is.na(abdc_ranking)) |>
+  count(abdc_ranking)
 ```
 
 The tibble contains Google scholar citations for all papers, you can use
@@ -182,9 +182,9 @@ We can also obtain CrossRef citations via the `citations()` function
 which uses the DOI codes.
 
 ``` r
-mypubs %>%
-  mutate(cr_cites = citations(doi)) %>%
-  select(title, year, cites, cr_cites) %>%
+mypubs |>
+  mutate(cr_cites = citations(doi)) |>
+  select(title, year, cites, cr_cites) |>
   arrange(desc(cites))
 #> # A tibble: 301 x 4
 #>    title                                                     year cites cr_cites
@@ -206,9 +206,9 @@ Altmetrics can also be useful. For this, you will need the list of your
 DOIs.
 
 ``` r
-mypubs %>% 
-  get_altmetrics(doi) %>%
-  select(title, cited_by_tweeters_count) %>%
+mypubs |>
+  get_altmetrics(doi) |>
+  select(title, cited_by_tweeters_count) |>
   arrange(desc(cited_by_tweeters_count))
 #> # A tibble: 39 x 2
 #>    title                                                    cited_by_tweeters_c…
@@ -233,37 +233,37 @@ information.
 scholar::get_profile("vamErfkAAAAJ")
 #> $id
 #> [1] "vamErfkAAAAJ"
-#> 
+#>
 #> $name
 #> [1] "Rob J Hyndman"
-#> 
+#>
 #> $affiliation
 #> [1] "Professor of Statistics, Monash University"
-#> 
+#>
 #> $total_cites
 #> [1] 31532
-#> 
+#>
 #> $h_index
 #> [1] 63
-#> 
+#>
 #> $i10_index
 #> [1] 150
-#> 
+#>
 #> $fields
 #> [1] "verified email at monash.edu - homepage"
-#> 
+#>
 #> $homepage
 #> [1] "http://robjhyndman.com/"
-#> 
+#>
 #> $coauthors
-#>  [1] "George Athanasopoulos"        "Ralph Snyder"                
-#>  [3] "Han Lin Shang"                "Kate Smith-Miles"            
-#>  [5] "Keith Ord"                    "Spyros Makridakis"           
-#>  [7] "Bircan Erbas"                 "Fotios Petropoulos"          
-#>  [9] "Christoph Bergmeir"           "Heather Booth"               
-#> [11] "Jan Verbesselt"               "Souhaib Ben Taieb"           
-#> [13] "Darius Culvenor"              "Mitchell O'Hara-Wild"        
-#> [15] "Muhammad Akram"               "Michael Abramson"            
+#>  [1] "George Athanasopoulos"        "Ralph Snyder"
+#>  [3] "Han Lin Shang"                "Kate Smith-Miles"
+#>  [5] "Keith Ord"                    "Spyros Makridakis"
+#>  [7] "Bircan Erbas"                 "Fotios Petropoulos"
+#>  [9] "Christoph Bergmeir"           "Heather Booth"
+#> [11] "Jan Verbesselt"               "Souhaib Ben Taieb"
+#> [13] "Darius Culvenor"              "Mitchell O'Hara-Wild"
+#> [15] "Muhammad Akram"               "Michael Abramson"
 #> [17] "Leonie Tickle"                "Shyamali  Chandrika Dharmage"
 #> [19] "Roman Ahmed"                  "Glenn Newnham"
 ```

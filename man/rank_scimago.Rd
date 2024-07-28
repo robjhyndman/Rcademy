@@ -71,7 +71,7 @@ rank_monash("Annals")
 
 # Add rankings to a data frame of publications
 library(dplyr)
-njtpubs \%>\%
+njtpubs |>
   mutate(scimago = rank_scimago(journal, warning = FALSE))
 
 # Return rankings from all sources for journals that match a search string

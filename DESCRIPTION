@@ -47,7 +47,6 @@ Depends: R (>= 2.10)
 Imports:
     dplyr,
     easyPubMed,
-    magrittr,
     purrr,
     rcrossref,
     RefManageR,
@@ -63,4 +62,4 @@ BugReports: https://github.com/ropenscilabs/Rcademy/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
