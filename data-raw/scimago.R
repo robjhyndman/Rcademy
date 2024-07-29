@@ -32,7 +32,7 @@ scimago <- scimago |>
   clean_names()
 year <- scimago |>
   select(matches(".*[12][0-9]{3}$")) |>
-  colnames |>
+  colnames() |>
   str_extract("[12][0-9]{3}$") |>
   as.numeric()
 scimago <- scimago |>
@@ -47,9 +47,9 @@ scimago <- scimago |>
     fill = "right"
   ) |>
   mutate(
-    across(Cat_1:Cat_14, stringr::str_remove, pattern="\\(Q[0-4]\\)"),
-    across(Cat_1:Cat_14, stringr::str_trim),
-    across(Cat_1:Cat_14, na_if, y="")
+    across(Cat_1:Cat_14, \(x) stringr::str_remove(x, pattern="\\(Q[0-4]\\)")),
+    across(Cat_1:Cat_14, \(x) stringr::str_trim(x)),
+    across(Cat_1:Cat_14, \(x) na_if(x, y=""))
   )
 
 # Find unique categories
