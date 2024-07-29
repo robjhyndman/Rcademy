@@ -3,9 +3,9 @@
 \docType{data}
 \name{scimago}
 \alias{scimago}
-\title{SCImago Journal Rank for all journals indexed by Scopus in 2020}
+\title{SCImago Journal Rank for all journals indexed by Scopus}
 \format{
-A tibble with 30,883 rows and 24 variables:
+A tibble with \code{NROW(scimagojr)} rows and \code{NCOL(scimagojr)} variables:
 \describe{
 \item{year}{Year of SCImago Journal Ranking calculation.}
 \item{rank}{Rank of the journal among all journals.}
@@ -39,7 +39,7 @@ SCImago, (n.d.). SJR — SCImago Journal & Country Rank. Retrieved 2021-11-28, f
 data(scimago)
 }
 \description{
-This data was taken from https://www.scimagojr.com/journalrank.php?year=2020
+This data was taken from https://www.scimagojr.com/journalrank.php
 }
 \author{
 Rob Hyndman

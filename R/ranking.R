@@ -2,7 +2,7 @@
 #'
 #' Fuzzy matching is used to find the requested journal from the ABDC, ERA2010, CORE,
 #'   SCImago or Monash lists. For more information on each of these, see:
-#'   \itemize{
+#'   \describe{
 #'   \item{\cite{\link{abdc}}: }{for more information on the ABDC list}
 #'   \item{\cite{\link{era2010}}: }{for more information on the ERA2010 list}
 #'   \item{\cite{\link{core}}: }{for more information on the CORE list}

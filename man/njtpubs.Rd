@@ -19,7 +19,7 @@ on ORCID at 20 February 2020.
 }
 \details{
 A data frame with the following variables
-\itemize{
+\describe{
 \item{\code{journal}: }{Title of the journal}
 \item{\code{title}: }{Title of the paper}
 \item{\code{year}: }{Year of publication}

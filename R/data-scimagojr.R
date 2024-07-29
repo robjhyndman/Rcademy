@@ -1,11 +1,11 @@
-#' SCImago Journal Rank for all journals indexed by Scopus in 2020
+#' SCImago Journal Rank for all journals indexed by Scopus
 #'
-#' This data was taken from https://www.scimagojr.com/journalrank.php?year=2020
+#' This data was taken from https://www.scimagojr.com/journalrank.php
 #'
 #' @author Rob Hyndman
 #'
 #' @format
-#'   A tibble with 30,883 rows and 24 variables:
+#'   A tibble with `NROW(scimagojr)` rows and `NCOL(scimagojr)` variables:
 #'   \describe{
 #'     \item{year}{Year of SCImago Journal Ranking calculation.}
 #'     \item{rank}{Rank of the journal among all journals.}

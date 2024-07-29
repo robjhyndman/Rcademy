@@ -5,23 +5,22 @@
 \alias{abdc}
 \title{ABDC Journal Quality List}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2685 rows and 7 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2680 rows and 7 columns.
 }
 \source{
-\url{https://abdc.edu.au/research/abdc-journal-list/}
+\url{https://abdc.edu.au/abdc-journal-quality-list/}
 }
 \usage{
 data(abdc)
 }
 \description{
 This is a dataset that contains the quality list of rankings of the
-Australian Business Deans Council (ABDC). As of 2020-02-19, it contains
-the list updated in 2019. You can read more about this list
-\href{https://abdc.edu.au/research/abdc-journal-list/}{here}.
+Australian Business Deans Council (ABDC). You can read more about this list
+\href{https://abdc.edu.au/abdc-journal-quality-list/}{here}.
 }
 \details{
-Format: a data frame with 2685 observations on the following 7 variables:
-\itemize{
+Format: a data frame with 2680 observations on the following 7 variables:
+\describe{
 \item{\code{title}: }{Title of the journal}
 \item{\code{publisher}: }{Publishing house}
 \item{\code{issn}: }{International Standard Serial Number}

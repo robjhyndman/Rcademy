@@ -4,7 +4,7 @@
 #' on ORCID at 20 February 2020.
 #'
 #' A data frame with the following variables
-#' \itemize{
+#' \describe{
 #'   \item{`journal`: }{Title of the journal}
 #'   \item{`title`: }{Title of the paper}
 #'   \item{`year`: }{Year of publication}

@@ -1,12 +1,11 @@
 #' ABDC Journal Quality List
 #'
 #' This is a dataset that contains the quality list of rankings of the
-#'   Australian Business Deans Council (ABDC). As of 2020-02-19, it contains
-#'   the list updated in 2019. You can read more about this list
-#'   [here](https://abdc.edu.au/research/abdc-journal-list/).
+#'   Australian Business Deans Council (ABDC). You can read more about this list
+#'   [here](https://abdc.edu.au/abdc-journal-quality-list/).
 #'
-#' Format: a data frame with 2685 observations on the following 7 variables:
-#' \itemize{
+#' Format: a data frame with `r NROW(abdc)` observations on the following 7 variables:
+#' \describe{
 #'   \item{`title`: }{Title of the journal}
 #'   \item{`publisher`: }{Publishing house}
 #'   \item{`issn`: }{International Standard Serial Number}
@@ -20,7 +19,7 @@
 #' @name abdc
 #' @docType data
 #' @usage data(abdc)
-#' @source \url{https://abdc.edu.au/research/abdc-journal-list/}
+#' @source \url{https://abdc.edu.au/abdc-journal-quality-list/}
 #' @keywords datasets
 #' @examples
 #' library(dplyr)

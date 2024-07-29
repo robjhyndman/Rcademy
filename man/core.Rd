@@ -6,7 +6,7 @@
 \alias{core_journals}
 \title{CORE (Computing Research and Education) lists of conference and journal rankings}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 972 rows and 2 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 982 rows and 2 columns.
 
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 639 rows and 4 columns.
 }
@@ -41,8 +41,8 @@ track record of the key people hosting the conference and managing its
 technical program. A more detailed statement categorizing the ranks A*, A,
 B, and C can be found \href{http://bit.ly/core-rankings}{here}.
 
-Format of \code{core}: A data frame with 972 observations and two variables:
-\itemize{
+Format of \code{core}: A data frame with \code{NROW(core)} observations and two variables:
+\describe{
 \item{\verb{title:}}{Title of the conference}
 \item{\verb{rank:}}{Conferences are assigned to one of the following categories:
 \itemize{
@@ -53,8 +53,8 @@ Format of \code{core}: A data frame with 972 observations and two variables:
 }
 }
 }
-Format of \code{core_journals}: A data frame with 639 observations and five variables:
-\itemize{
+Format of \code{core_journals}: A data frame with \code{NROW(core_journals)} observations and five variables:
+\describe{
 \item{\verb{title:}}{Title of the journal}
 \item{\code{field_of_research}: }{Field of Research Code as provided by the
 Australian Bureau of Statistics}

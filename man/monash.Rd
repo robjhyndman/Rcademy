@@ -21,7 +21,7 @@ The "Group 1+" category contains a small set of the highest rank journals.
 }
 \details{
 Format: a data frame with \code{NROW(monash)} observations on the following 2 variables:
-\itemize{
+\describe{
 \item{\code{title}: }{Title of the journal}
 \item{\code{rank}: }{In order of best to lowest rank: Group 1+, Group 1, Group 2}
 }

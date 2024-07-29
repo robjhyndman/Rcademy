@@ -22,7 +22,7 @@ Useful links:
 Authors:
 \itemize{
   \item Chris Brown \email{Chris.Brown@sydney.edu.au} (\href{https://orcid.org/0000-0003-2506-4871}{ORCID})
-  \item Belinda Fabian \email{belinda.fabian} (\href{https://orcid.org/0000-0002-5707-4356}{ORCID})
+  \item Belinda Fabian (\href{https://orcid.org/0000-0002-5707-4356}{ORCID})
   \item Maria Prokofieva \email{Maria.Prokofieva@vu.edu.au} (\href{https://orcid.org/0000-0003-1974-3827}{ORCID})
   \item Nicholas Tierney \email{Nicholas.Tierney@gmail.com} (\href{https://orcid.org/0000-0003-1460-8722}{ORCID})
   \item Huong Ly Tong \email{huong-ly.tong@students.mq.edu.au} (\href{https://orcid.org/0000-0002-8462-0105}{ORCID})

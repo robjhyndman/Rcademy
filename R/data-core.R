@@ -20,8 +20,8 @@
 #'   technical program. A more detailed statement categorizing the ranks A*, A,
 #'   B, and C can be found [here](http://bit.ly/core-rankings).
 #'
-#' Format of `core`: A data frame with 972 observations and two variables:
-#' \itemize{
+#' Format of `core`: A data frame with `NROW(core)` observations and two variables:
+#' \describe{
 #'   \item{`title:`}{Title of the conference}
 #'   \item{`rank:`}{Conferences are assigned to one of the following categories:
 #'     \itemize{
@@ -32,8 +32,8 @@
 #'     }
 #'   }
 #' }
-#' Format of `core_journals`: A data frame with 639 observations and five variables:
-#' \itemize{
+#' Format of `core_journals`: A data frame with `NROW(core_journals)` observations and five variables:
+#' \describe{
 #'   \item{`title:`}{Title of the journal}
 #'   \item{`field_of_research`: }{Field of Research Code as provided by the
 #'         Australian Bureau of Statistics}

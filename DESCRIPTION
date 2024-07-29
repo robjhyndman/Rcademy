@@ -16,7 +16,6 @@ Authors@R: c(
     person(given = "Belinda",
            family = "Fabian",
            role = 'aut',
-           email = "belinda.fabian",
            comment = c(ORCID = "0000-0002-5707-4356")),
     person(given = "Maria",
           family = "Prokofieva",
