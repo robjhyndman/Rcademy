@@ -1,13 +1,11 @@
 #' Monash Business School Journal Quality List
 #'
 #' This is a dataset that contains the list of quality journal rankings from the
-#'   Monash Business School, updated in 2019. In most cases, it follows
+#'   Monash Business School. In most cases, it follows
 #'   ABDC with A* equal to Group 1 and A equal to Group 2.
-#'   For journals not on the ABDC list, it follows ERA2010
-#'   with A* equal to Group 1 and A equal to Group 2.
 #'   The "Group 1+" category contains a small set of the highest rank journals.
 #'
-#' Format: a data frame with 4658 observations on the following 2 variables:
+#' Format: a data frame with `NROW(monash)` observations on the following 2 variables:
 #' \itemize{
 #'   \item{`title`: }{Title of the journal}
 #'   \item{`rank`: }{In order of best to lowest rank: Group 1+, Group 1, Group 2}

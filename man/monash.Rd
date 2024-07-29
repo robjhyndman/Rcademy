@@ -5,7 +5,7 @@
 \alias{monash}
 \title{Monash Business School Journal Quality List}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4580 rows and 2 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4616 rows and 2 columns.
 }
 \source{
 Monash Business School
@@ -15,14 +15,12 @@ data(monash)
 }
 \description{
 This is a dataset that contains the list of quality journal rankings from the
-Monash Business School, updated in 2019. In most cases, it follows
+Monash Business School. In most cases, it follows
 ABDC with A* equal to Group 1 and A equal to Group 2.
-For journals not on the ABDC list, it follows ERA2010
-with A* equal to Group 1 and A equal to Group 2.
 The "Group 1+" category contains a small set of the highest rank journals.
 }
 \details{
-Format: a data frame with 4658 observations on the following 2 variables:
+Format: a data frame with \code{NROW(monash)} observations on the following 2 variables:
 \itemize{
 \item{\code{title}: }{Title of the journal}
 \item{\code{rank}: }{In order of best to lowest rank: Group 1+, Group 1, Group 2}
