@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rcademy)](https://CRAN.R-project.org/package=rcademy)
 [![R build status](https://github.com/ropenscilabs/rcademy/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/rcademy/actions)
+[![R-CMD-check](https://github.com/robjhyndman/rcademy/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/robjhyndman/rcademy/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 This package was developed during _ozunconf19_ and _numbat hackathon 2020_, to provide tools and ideas that will help gather the information required to apply for _academic promotion_.
