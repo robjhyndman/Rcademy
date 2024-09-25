@@ -24,6 +24,7 @@ Group1p[grepl("American Economic Review", Group1p)] <- "American Economic Review
 
 # Group 1
 Group1 <- data[(gp_headings[2]+2):(gp_headings[3]-16)]
+Group1[grepl("Scandinavian Actuarial", Group1)] <- "Scandinavian Actuarial Journal"
 
 # Group 2
 Group2 <- data[(gp_headings[3]+2):(NROW(data)-14)]
@@ -123,6 +124,9 @@ monash <- faculty |>
 # Remove IME which appears twice
 monash <- monash |>
   filter(!(rank == "Group 2" & str_detect(title, "Insurance: Mathematics and Economics")))
+# Remove Scandinavian Journal of Statistics which appears twice
+monash <- monash |>
+  filter(title != "Scandinavian Journal of Statistics: theory and applications")
 
 # Remove PNAS which appears twice
 monash <- monash |>
